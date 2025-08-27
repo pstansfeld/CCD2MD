@@ -1,0 +1,2 @@
+# CHARMM CCD
+O3 O1

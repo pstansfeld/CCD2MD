@@ -1,0 +1,79 @@
+; CHARMM36m -> Martini 3 mapping for cysteine farnesyl
+; Original manuscript:
+; 
+
+[ molecule ]
+CYSF
+
+[ from ]
+charmm
+
+[ to ]
+martini3001
+
+[ martini ]
+BB SC1 C1 C2 C3 C4 C5 C6 
+
+[ mapping ]
+charmm36m
+
+[ atoms ]
+1	N	BB
+2	HN	BB
+3	CA	BB
+4	HA	BB
+5	C	BB
+6	O	BB
+7	CB	SC1
+8	HB1	SC1
+9	HB2	SC1
+10	SG	SC1
+11	C1	C1
+12	H1A	C1
+13	H1B	C1
+14	C2	C1
+15	H2A	C1
+16	C3	C4
+17	C4	C4
+18	H41	C4
+19	H42	C4
+20	H43	C4
+21	C5	C1
+22	H5A	C1
+23	H5B	C1
+24	C6	C2
+25	H6A	C2
+26	H6B	C2
+27	C7	C2
+28	H7A	C2
+29	C8	C5
+30	C9	C5
+31	H91	C5
+32	H92	C5
+33	H93	C5
+34	C10	C2
+35	H10A	C2
+36	H10B	C2
+37	C11	C3
+38	H11A	C3
+39	H11B	C3
+40	C12	C3
+41	H12A	C3
+42	C13	C6
+43	C14	C3
+44	H141	C3
+45	H142	C3
+46	H143	C3
+47	C15	C6
+48	H151	C6
+49	H152	C6
+50	H153	C6
+
+[ chiral ]
+  CB     CA    N    C
+  HB1    CA    N    C
+  HB2    CA    N    C
+
+[ chiral ]
+  HA     CA    N    CB    C ; L-Cys
+; HA     CA    N    C    CB ; D-Cys

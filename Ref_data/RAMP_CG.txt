@@ -1,0 +1,213 @@
+{'PO1' : {'CHARMM' : ['PB',  'OPB4', 'OPB3', 'OPB2', 'OB4'],
+          'CCD'    : ['PB',  'OPB4', 'OPB3', 'OPB2', 'OB4']},
+
+ 'GM1' : {'CHARMM' : ['CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'OB5'],
+ 	      'CCD'    : ['CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'OB5']},
+
+ 'GM2' : {'CHARMM' : ['NB2', 'C51', 'O51'],
+ 	      'CCD'    : ['NB2', 'C51', 'O51']},
+
+ 'GM3' : {'CHARMM' : ['OB6', 'CB6'],
+ 	      'CCD'    : ['OB6', 'CB6']},
+
+ 'GM4' : {'CHARMM' : ['CA1', 'CA2', 'CA3', 'CA4', 'OA4', 'CA5', 'OA5'],
+ 	      'CCD'    : ['CA1', 'CA2', 'CA3', 'CA4', 'OA4', 'CA5', 'OA5']},
+
+ 'GM5' : {'CHARMM' : ['OA6', 'CA6'],
+ 	      'CCD'    : ['OA6', 'CA6']},
+
+ 'GM6' : {'CHARMM' : ['NA2', 'C11', 'O11'],
+ 	      'CCD'    : ['NA2', 'C11', 'O11']},
+
+ 'PO2' : {'CHARMM' : ['OA1', 'OPA2', 'OPA3', 'OPA4', 'PA'],
+ 	      'CCD'    : ['OA1', 'OPA2', 'OPA3', 'OPA4', 'PA']},
+		  
+ 'GL1' : {'CHARMM' : ['C52', 'C53', 'C54', 'C55'],
+ 	      'CCD'    : ['C52', 'C53', 'C54', 'C55']},
+
+ 'GL2' : {'CHARMM' : ['O53', 'C61', 'O61', 'C62',  'C63'],
+ 	      'CCD'    : ['O53', 'C61', 'O61', 'C62',  'C63']},
+
+ 'C1A' : {'CHARMM' : ['C64',  'C65',  'C66'],
+ 	      'CCD'    : ['C64',  'C65',  'C66']},
+
+ 'C2A' : {'CHARMM' : ['C67',  'C68',  'C69'],
+ 	      'CCD'    : ['C67',  'C68',  'C69']},
+
+ 'C3A' : {'CHARMM' : ['C610', 'C611', 'C612'],
+ 	      'CCD'    : ['C610', 'C611', 'C612']},
+
+ 'C1B' : {'CHARMM' : ['C56', 'C57', 'C58'],
+ 	      'CCD'    : ['C56', 'C57', 'C58']},
+		  
+ 'C2B' : {'CHARMM' : ['C59', 'C510', 'C511'],
+ 	      'CCD'    : ['C59', 'C510', 'C511']},
+
+ 'C3B' : {'CHARMM' : ['C512', 'C513', 'C514'],
+ 	      'CCD'    : ['C512', 'C513', 'C514']},
+		  
+ 'GL3' : {'CHARMM' : ['OB3', 'C71', 'O71', 'C72', 'C73', 'C74', 'C75'],
+ 	      'CCD'    : ['OB3', 'C71', 'O71', 'C72', 'C73', 'C74', 'C75']},
+
+ 'GL4' : {'CHARMM' : ['O73', 'C81', 'O81', 'C82', 'C83', 'C84', 'C85'],
+ 	      'CCD'    : ['O73', 'C81', 'O81', 'C82', 'C83', 'C84', 'C85']},
+
+ 'C1C' : {'CHARMM' : ['C86', 'C87', 'C88'],
+ 	      'CCD'    : ['C86', 'C87', 'C88']},
+		  
+ 'C2C' : {'CHARMM' : ['C89', 'C810', 'C811'],
+ 	      'CCD'    : ['C89', 'C810', 'C811']},
+
+ 'C3C' : {'CHARMM' : ['C812', 'C813', 'C814'],
+ 	      'CCD'    : ['C812', 'C813', 'C814']},
+
+ 'C1D' : {'CHARMM' : ['C76', 'C77', 'C78'],
+ 	      'CCD'    : ['CFP', 'CFQ', 'CFR']},
+
+ 'C2D' : {'CHARMM' : ['C79', 'C710', 'C711'],
+ 	      'CCD'    : ['C79', 'C710', 'C711']},
+
+ 'C3D' : {'CHARMM' : ['C712', 'C713', 'C714'],
+ 	      'CCD'    : ['C712', 'C713', 'C714']},
+
+ 'GL5' : {'CHARMM' : ['C12', 'C13', 'O13', 'C14'],
+ 	      'CCD'    : ['C12', 'C13', 'O13', 'C14']},
+ 
+ 'GL6' : {'CHARMM' : ['C15', 'C16', 'C17', 'C18'],
+ 	      'CCD'    : ['C15', 'C16', 'C17', 'C18']},
+ 		  
+ 'C1E' : {'CHARMM' : ['C19', 'C110', 'C111'],
+ 	      'CCD'    : ['C19', 'C110', 'C111']},
+ 
+ 'C2E' : {'CHARMM' : ['C112', 'C113', 'C114'],
+ 	      'CCD'    : ['C112', 'C113', 'C114']},
+ 
+ 'GL7' : {'CHARMM' : ['OA3', 'C31', 'O31', 'C32', 'C33', 'O33'],
+ 	      'CCD'    : ['OA3', 'C31', 'O31', 'C32', 'C33', 'O33']},
+ 		  
+ 'GL8' : {'CHARMM' : ['C34', 'C35', 'C36', 'C37', 'C38'],
+ 	      'CCD'    : ['C34', 'C35', 'C36', 'C37', 'C38']},
+ 
+ 'C1F' : {'CHARMM' : ['C39', 'C310', 'C311'],
+ 	      'CCD'    : ['C39', 'C310', 'C311']},
+ 
+ 'C2F' : {'CHARMM' : ['C312', 'C313', 'C314'],
+ 	      'CCD'    : ['C312', 'C313', 'C314']},
+ 
+ 'S01' : {'CHARMM' : ['CQ1', 'OQ11', 'OQ12'],
+ 	      'CCD'    : ['CQ1', 'OQ11', 'OQ12']},
+ 
+ 'S02' : {'CHARMM' : ['CQ2', 'OQ6'],
+ 	      'CCD'    : ['CQ2', 'OQ6']},
+ 		  
+ 'S03' : {'CHARMM' : ['CQ6', 'CQ5', 'OQ5'],
+ 	      'CCD'    : ['CQ6', 'CQ5', 'OQ5']},
+ 
+ 'S04' : {'CHARMM' : ['CQ3', 'CQ4', 'OQ4'],
+ 	      'CCD'    : ['CQ3', 'CQ4', 'OQ4']},
+ 
+ 'S05' : {'CHARMM' : ['CQ7', 'OQ7', 'CQ8', 'OQ8'],
+ 	      'CCD'    : ['CQ7', 'OQ7', 'CQ8', 'OQ8']},
+ 
+ 'S06' : {'CHARMM' : ['CR2', 'OR6'],
+ 	      'CCD'    : ['CR2', 'OR6']},
+ 
+ 'S07' : {'CHARMM' : ['CR3', 'CR4', 'OR4'],
+ 	      'CCD'    : ['CR3', 'CR4', 'OR4']},
+ 
+ 'S08' : {'CHARMM' : ['CR6', 'CR5', 'OR5'],
+ 	      'CCD'    : ['CR6', 'CR5', 'OR5']},
+ 
+ 'S09' : {'CHARMM' : ['CR7', 'OR7', 'CR8', 'OR8'],
+ 	      'CCD'    : ['CR7', 'OR7', 'CR8', 'OR8']},
+ 		  
+ 'S10' : {'CHARMM' : ['CR1', 'OR11', 'OR12'],
+ 	      'CCD'    : ['CR1', 'OR11', 'OR12']},
+
+ 'S11' : {'CHARMM' : ['CS5', 'OS5'],
+ 	      'CCD'    : ['CS5', 'OS5']},
+		  
+ 'S12' : {'CHARMM' : ['CS1', 'CS2', 'OS2'],
+ 	      'CCD'    : ['CS1', 'CS2', 'OS2']},
+
+ 'S13' : {'CHARMM' : ['CS3', 'OS3', 'CS4'],
+ 	      'CCD'    : ['CS3', 'OS3', 'CS4']},
+		  
+ 'S14' : {'CHARMM' : ['CS6', 'OS6', 'CS7', 'OS7'],
+ 	      'CCD'    : ['CS6', 'OS6', 'CS7', 'OS7']},
+		  
+ 'S15' : {'CHARMM' : ['OS4', 'PS4', 'OS42', 'OS43', 'OS44'],
+ 	      'CCD'    : ['OS4', 'PS4', 'OS42', 'OS43', 'OS44']},
+		  
+ 'S16' : {'CHARMM' : ['CT1', 'OT5'],
+ 	      'CCD'    : ['CT1', 'OT5']},
+
+ 'S17' : {'CHARMM' : ['CT5', 'CT4'],
+ 	      'CCD'    : ['CT5', 'CT4']},
+
+ 'S18' : {'CHARMM' : ['CT2', 'OT2', 'CT3', 'OT3'],
+ 	      'CCD'    : ['CT2', 'OT2', 'CT3', 'OT3']},
+
+ 'S19' : {'CHARMM' : ['OT4', 'PT4', 'OT42', 'OT43', 'OT44'],
+ 	      'CCD'    : ['OT4', 'PT4', 'OT42', 'OT43', 'OT44']},
+
+ 'S20' : {'CHARMM' : ['CT6', 'OT6', 'CT7', 'OT7'],
+ 	      'CCD'    : ['CT6', 'OT6', 'CT7', 'OT7']},
+
+ 'S21' : {'CHARMM' : ['CU1', 'OU5'],
+ 	      'CCD'    : ['CU1', 'OU5']},
+
+ 'S22' : {'CHARMM' : ['CU5', 'CU4', 'OU4'],
+ 	      'CCD'    : ['CU5', 'CU4', 'OU4']},
+
+ 'S23' : {'CHARMM' : ['CU2', 'OU2', 'CU3', 'OU3'],
+ 	      'CCD'    : ['CU2', 'OU2', 'CU3', 'OU3']},
+
+ 'S24' : {'CHARMM' : ['CU6', 'OU6', 'CU7', 'OU7'],
+ 	      'CCD'    : ['CU6', 'OU6', 'CU7', 'OU7']},
+
+ 'S25' : {'CHARMM' : ['CV1', 'OV5'],
+ 	      'CCD'    : ['CV1', 'OV5']},
+
+ 'S26' : {'CHARMM' : ['CV5', 'CV4', 'OV4', 'CV6', 'OV6'],
+ 	      'CCD'    : ['CV5', 'CV4', 'OV4', 'CV6', 'OV6']},
+
+ 'S27' : {'CHARMM' : ['CV2', 'OV2', 'CV3', 'OV3'],
+ 	      'CCD'    : ['CV2', 'OV2', 'CV3', 'OV3']},
+
+ 'S28' : {'CHARMM' : ['CW1', 'OW5'],
+ 	      'CCD'    : ['CW1', 'OW5']},
+
+ 'S29' : {'CHARMM' : ['CW2', 'OW2', 'CW3', 'OW3'],
+ 	      'CCD'    : ['CW2', 'OW2', 'CW3', 'OW3']},
+
+ 'S30' : {'CHARMM' : ['CW5', 'CW4', 'OW4', 'CW6', 'OW6'],
+ 	      'CCD'    : ['CW5', 'CW4', 'OW4', 'CW6', 'OW6']},
+
+ 'S31' : {'CHARMM' : ['CX1', 'OX5'],
+ 	      'CCD'    : ['CX1', 'OX5']},
+
+ 'S32' : {'CHARMM' : ['CX5', 'CX4', 'OX4', 'CX6', 'OX6'],
+ 	      'CCD'    : ['CX5', 'CX4', 'OX4', 'CX6', 'OX6']},
+
+ 'S33' : {'CHARMM' : ['CX2', 'NX', 'CX', 'OX', 'CXT', 'CX3', 'OX3'],
+ 	      'CCD'    : ['CX2', 'NX', 'CX', 'OX', 'CXT', 'CX3', 'OX3']},
+
+ 'S34' : {'CHARMM' : ['CY1', 'OY5'],
+ 	      'CCD'    : ['CY1', 'OY5']},
+
+ 'S35' : {'CHARMM' : ['CY5', 'CY4', 'OY4', 'CY6', 'OY6'],
+ 	      'CCD'    : ['CY5', 'CY4', 'OY4', 'CY6', 'OY6']},
+
+ 'S36' : {'CHARMM' : ['CY2', 'OY2', 'CY3', 'OY3'],
+ 	      'CCD'    : ['CY2', 'OY2', 'CY3', 'OY3']},
+
+ 'S37' : {'CHARMM' : ['CZ1', 'OZ5'],
+ 	      'CCD'    : ['CZ1', 'OZ5']},
+
+ 'S38' : {'CHARMM' : ['CZ5', 'CZ4', 'OZ4', 'CZ6', 'OZ6'],
+ 	      'CCD'    : ['CZ5', 'CZ4', 'OZ4', 'CZ6', 'OZ6']},
+
+ 'S39' : {'CHARMM' : ['CZ2', 'OZ2', 'CZ3', 'OZ3'],
+ 	      'CCD'    : ['CZ2', 'OZ2', 'CZ3', 'OZ3']}
+}

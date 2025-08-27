@@ -1,0 +1,145 @@
+[ molecule ]
+CYSD
+
+[ from ]
+charmm
+
+[ to ]
+martini3001
+
+[ martini ]
+BB SC1 GL1 GL2 C1A D2A C3A C4A C1B C2B C3B C4B  
+
+[ mapping ]
+charmm36m
+
+[ atoms ]
+1      N    BB
+2     HN    BB
+3     CA    BB
+4     HA    BB
+5      C    BB
+6      O    BB
+7     CB    SC1
+8    HB1    SC1
+9    HB2    SC1
+10    SG    SC1
+11    C1    SC1
+12   H1A    SC1
+13   H1B    SC1
+14   C11    GL1
+15   H11    GL1
+16   O11    GL1
+17   CX1    GL1
+18   OX1    GL1
+19   CX2    GL1
+20   H2X    GL1
+21   H2Y    GL1
+22   C12    GL2
+23   H12R   GL2
+24   H12S   GL2
+25   O12    GL2
+26   CD1    GL2
+27   OD1    GL2
+28   CD2    C1B
+29   H2D    C1B
+30   H2E    C1B
+31   CD3    C1B
+32   H3D    C1B
+33   H3E    C1B
+34   CD4    C1B
+35   H4D    C1B
+36   H4E    C1B
+37   CD5    C2B
+38   H5D    C2B
+39   H5E    C2B
+40   CD6    C2B
+41   H6D    C2B
+42   H6E    C2B
+43   CD7    C2B
+44   H7D    C2B
+45   H7E    C2B
+46   CD8    C2B
+47   H8D    C2B
+48   H8E    C2B
+49   CD9    C3B
+50   H9D    C3B
+51   H9E    C3B
+52   CD10   C3B
+53   H10D   C3B
+54   H10E   C3B
+55   CD11   C3B
+56   H11D   C3B
+57   H11E   C3B
+58   CD12   C3B
+59   H12D   C3B
+60   H12E   C3B
+61   CD13   C4B
+62   H13D   C4B
+63   H13E   C4B
+64   CD14   C4B
+65   H14D   C4B
+66   H14E   C4B
+67   CD15   C4B
+68   H15D   C4B
+69   H15E   C4B
+70   CD16   C4B
+71   H16D   C4B
+72   H16E   C4B
+73   H16F   C4B
+74   CX3    C1A
+75   H3X    C1A
+76   H3Y    C1A
+77   CX4    C1A
+78   H4X    C1A
+79   H4Y    C1A
+80   CX5    C1A
+81   H5X    C1A
+82   H5Y    C1A
+83   CX6    C1A
+84   H6X    C1A
+85   H6Y    C1A
+86   CX7    D2A
+87   H7X    D2A
+88   H7Y    D2A
+89   CX8    D2A
+90   H8X    D2A
+91   H8Y    D2A
+92   CX9    D2A
+93   H9X    D2A
+94   CX10   D2A
+95   H10X   D2A
+96   CX11   C3A
+97   H11X   C3A
+98   H11Y   C3A
+99   CX12   C3A
+100  H12X   C3A
+101  H12Y   C3A
+102  CX13   C3A
+103  H13X   C3A
+104  H13Y   C3A
+105  CX14   C3A
+106  H14X   C3A
+107  H14Y   C3A
+108  CX15   C4A
+109  H15X   C4A
+110  H15Y   C4A
+111  CX16   C4A
+112  H16X   C4A
+113  H16Y   C4A
+114  CX17   C4A
+115  H17X   C4A
+116  H17Y   C4A
+117  CX18   C4A
+118  H18X   C4A
+119  H18Y   C4A
+120  H18Z   C4A
+
+[ chiral ]
+  CB     CA    N    C
+  HB1    CA    N    C
+  HB2    CA    N    C
+
+[ chiral ]
+  HA     CA    N    CB    C
+

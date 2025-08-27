@@ -1,0 +1,46 @@
+{'AGL' : {'CHARMM' : ['CX1', 'OX1', 'CX2', 'OX2']},
+
+ 'CGL' : {'CHARMM' : ['CX5', 'OX5', 'CX6', 'OX6']},
+
+ 'BGL' : {'CHARMM' : ['CX3', 'OX3']},
+
+ 'VGL' : {'CHARMM' : ['CX4', 'OX4']},
+
+ 'AGA' : {'CHARMM' : ['CY1', 'CY2', 'OY2']},
+
+ 'CGA' : {'CHARMM' : ['CY5', 'OY5', 'CY6', 'OY6']},
+
+ 'BGA' : {'CHARMM' : ['CY3', 'OY3']},
+
+ 'VGA' : {'CHARMM' : ['CY4', 'OY4']},
+
+ 'ANM' : {'CHARMM' : ['CZ1', 'OZ11', 'OZ12', 'CZ2']},
+
+ 'BNM' : {'CHARMM' : ['CZ3', 'CZ4', 'OZ4']},
+
+ 'VNM' : {'CHARMM' : ['CZ6', 'OZ6']},
+
+ 'CNM' : {'CHARMM' : ['CZ7', 'OZ7']},
+
+ 'DNM' : {'CHARMM' : ['CZ5', 'N', 'C', 'O', 'CT']},
+
+ 'ENM' : {'CHARMM' : ['CZ8', 'OZ8', 'CZ9', 'OZ9']},
+
+ 'AM1' : {'CHARMM' : ['C1S', 'C2S', 'C3S', 'O3']},
+
+ 'AM2' : {'CHARMM' : ['NF', 'C1F', 'OF', 'C2F']},
+
+ 'T1A' : {'CHARMM' : ['C4S', 'C5S', 'C6S', 'C7S', 'C8S']},
+
+ 'C2A' : {'CHARMM' : ['C9S', 'C10S', 'C11S', 'C12S', 'C13S', 'C14S']},
+
+ 'C3A' : {'CHARMM' : ['C15S', 'C16S', 'C17S', 'C18S']},
+
+ 'C1B' : {'CHARMM' : ['C3F', 'C4F', 'C5F', 'C6F']},
+
+ 'C2B' : {'CHARMM' : ['C7F', 'C8F', 'C9F', 'C10F']},
+
+ 'C3B' : {'CHARMM' : ['C11F', 'C12F', 'C13F', 'C14F']},
+
+ 'C4B' : {'CHARMM' : ['C15F', 'C16F', 'C17F', 'C18F']}
+ }

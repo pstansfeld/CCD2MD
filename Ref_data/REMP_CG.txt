@@ -1,0 +1,126 @@
+{'PO1' : {'CHARMM' : ['PB',  'OPB4', 'OPB3', 'OPB2', 'OB4'],
+          'CCD'    : ['PHC', 'OHE',  'OHD',  'OHF',  'O4']},
+
+ 'GM1' : {'CHARMM' : ['CB1', 'CB2', 'CB3', 'CB4', 'CB5', 'OB5'],
+ 	      'CCD'    : ['C1',  'C2',  'C3',   'C4', 'C5',  'O5']},
+
+ 'GM2' : {'CHARMM' : ['NB2', 'C51', 'O51'],
+ 	      'CCD'    : ['N2',  'C7',  'O7']},
+
+ 'GM3' : {'CHARMM' : ['OB6', 'CB6'],
+ 	      'CCD'    : ['O6',  'C6']},
+
+ 'GM4' : {'CHARMM' : ['CA1', 'CA2', 'CA3', 'CA4', 'OA4', 'CA5', 'OA5'],
+ 	      'CCD'    : ['CAL', 'CAN', 'CAP', 'CAR', 'OAS', 'CAT', 'OAU']},
+
+ 'GM5' : {'CHARMM' : ['OA6', 'CA6'],
+ 	      'CCD'    : ['O1',  'C1']},
+
+ 'GM6' : {'CHARMM' : ['NA2', 'C11', 'O11'],
+ 	      'CCD'    : ['NAO', 'CDO', 'OEC']},
+
+ 'PO2' : {'CHARMM' : ['OA1', 'OPA2', 'OPA3', 'OPA4', 'PA'],
+ 	      'CCD'    : ['OAM', 'OHI',  'OHJ',  'OHH',  'PHG']},
+		  
+ 'GL1' : {'CHARMM' : ['C52', 'C53', 'C54', 'C55'],
+ 	      'CCD'    : ['C8',  'CEW', 'CEX', 'CEY']},
+
+ 'GL2' : {'CHARMM' : ['O53', 'C61', 'O61', 'C62', 'C63'],
+ 	      'CCD'    : ['OFJ', 'CGB', 'OGA', 'CGC', 'CGD']},
+
+ 'C1A' : {'CHARMM' : ['C64',  'C65',  'C66'],
+ 	      'CCD'    : ['CGE',  'CGF',  'CGG']},
+
+ 'C2A' : {'CHARMM' : ['C67',  'C68',  'C69'],
+ 	      'CCD'    : ['CGH',  'CGI',  'CGJ']},
+
+ 'C3A' : {'CHARMM' : ['C610', 'C611', 'C612'],
+ 	      'CCD'    : ['CGK',  'CGL',  'CGM']},
+
+ 'C1B' : {'CHARMM' : ['C56', 'C57', 'C58'],
+ 	      'CCD'    : ['CEZ', 'CFA', 'CFB']},
+		  
+ 'C2B' : {'CHARMM' : ['C59', 'C510', 'C511'],
+ 	      'CCD'    : ['CFC', 'CFD',  'CFE']},
+
+ 'C3B' : {'CHARMM' : ['C512', 'C513', 'C514'],
+ 	      'CCD'    : ['CFF',  'CFG',  'CFH']},
+		  
+ 'GL3' : {'CHARMM' : ['OB3', 'C71', 'O71', 'C72', 'C73', 'C74', 'C75'],
+ 	      'CCD'    : ['O3',  'CFK', 'OFY', 'CFL', 'CFM', 'CFN', 'CFO']},
+
+ 'GL4' : {'CHARMM' : ['O73', 'C81', 'O81', 'C82', 'C83', 'C84', 'C85'],
+ 	      'CCD'    : ['OFZ', 'CGN', 'OGO', 'CGP', 'CGQ', 'CGR', 'CGS']},
+
+ 'C1C' : {'CHARMM' : ['C86', 'C87', 'C88'],
+ 	      'CCD'    : ['CGT', 'CGU', 'CGV']},
+		  
+ 'C2C' : {'CHARMM' : ['C89', 'C810', 'C811'],
+ 	      'CCD'    : ['CGW', 'CGX',  'CGY']},
+
+ 'C3C' : {'CHARMM' : ['C812', 'C813', 'C814'],
+ 	      'CCD'    : ['CGZ',  'CHA',  'CHB']},
+
+ 'C1D' : {'CHARMM' : ['C76', 'C77', 'C78'],
+ 	      'CCD'    : ['CFP', 'CFQ', 'CFR']},
+
+ 'C2D' : {'CHARMM' : ['C79', 'C710', 'C711'],
+ 	      'CCD'    : ['CFS', 'CFT',  'CFU']},
+
+ 'C3D' : {'CHARMM' : ['C712', 'C713', 'C714'],
+ 	      'CCD'    : ['CFV',  'CFW',  'CFX']},
+
+ 'GL5' : {'CHARMM' : ['C12', 'C13', 'O13', 'C14'],
+ 	      'CCD'    : ['CDP', 'CDQ', 'OED', 'CDR']},
+ 
+ 'GL6' : {'CHARMM' : ['C15', 'C16', 'C17', 'C18'],
+ 	      'CCD'    : ['CDS', 'CDT', 'CDU', 'CDV']},
+ 		  
+ 'C1E' : {'CHARMM' : ['C19', 'C110', 'C111'],
+ 	      'CCD'    : ['CDW', 'CDX',  'CDY']},
+ 
+ 'C2E' : {'CHARMM' : ['C112', 'C113', 'C114'],
+ 	      'CCD'    : ['CDZ',  'CEA',  'CEB']},
+ 
+ 'GL7' : {'CHARMM' : ['OA3', 'C31', 'O31', 'C32', 'C33', 'O33'],
+ 	      'CCD'    : ['OAQ', 'CEE', 'OES', 'CEF', 'CEG', 'OET']},
+ 		  
+ 'GL8' : {'CHARMM' : ['C34', 'C35', 'C36', 'C37', 'C38'],
+ 	      'CCD'    : ['CEH', 'CEI', 'CEJ', 'CEK', 'CEL']},
+ 
+ 'C1F' : {'CHARMM' : ['C39', 'C310', 'C311'],
+ 	      'CCD'    : ['CEM', 'CEN',  'CEO']},
+ 
+ 'C2F' : {'CHARMM' : ['C312', 'C313', 'C314'],
+ 	      'CCD'    : ['CEP',  'CEQ',  'CER']},
+ 
+ 'S01' : {'CHARMM' : ['CQ1', 'OQ11', 'OQ12'],
+ 	      'CCD'    : ['CAX', 'OAY',  'OAZ']},
+ 
+ 'S02' : {'CHARMM' : ['CQ2', 'OQ6'],
+ 	      'CCD'    : ['CBA', 'OBF']},
+ 		  
+ 'S03' : {'CHARMM' : ['CQ6', 'CQ5', 'OQ5'],
+ 	      'CCD'    : ['CBG', 'CBE', 'OBH']},
+ 
+ 'S04' : {'CHARMM' : ['CQ3', 'CQ4', 'OQ4'],
+ 	      'CCD'    : ['CBB', 'CBC', 'OBD']},
+ 
+ 'S05' : {'CHARMM' : ['CQ7', 'OQ7', 'CQ8', 'OQ8'],
+ 	      'CCD'    : ['CBI', 'OBJ', 'CBK', 'OBL']},
+ 
+ 'S06' : {'CHARMM' : ['CR2', 'OR6'],
+ 	      'CCD'    : ['CBP', 'OBW']},
+ 
+ 'S07' : {'CHARMM' : ['CR3', 'CR4', 'OR4'],
+ 	      'CCD'    : ['CBQ', 'CBR', 'OBS']},
+ 
+ 'S08' : {'CHARMM' : ['CR6', 'CR5', 'OR5'],
+ 	      'CCD'    : ['CBV', 'CBT', 'OBU']},
+ 
+ 'S09' : {'CHARMM' : ['CR7', 'OR7', 'CR8', 'OR8'],
+ 	      'CCD'    : ['CBX', 'OBY', 'CBZ', 'OCA']},
+ 		  
+ 'S10' : {'CHARMM' : ['CR1', 'OR11', 'OR12'],
+ 	      'CCD'    : ['CBM', 'OBN',  'OBO']}
+}

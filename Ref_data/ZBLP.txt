@@ -1,0 +1,10 @@
+# CHARMM CCD
+    O1	 O01
+    C2	 C02
+    C3	 C03
+    N4	 N04
+    C5	 C05
+    C6	 C06
+    N7	 N07
+    C8	 C08
+    C9	 C09

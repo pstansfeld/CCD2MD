@@ -1,0 +1,75 @@
+Name,                            CCDName, CHARMMName, CGName
+CARD_user,                        CARD,      CARD,     CARD
+CHL1,                              CLR,      CHL1,     CHL1
+CHL1_user,                        CHL1,      CHL1,     CHL1
+CYSD_user,                        CYSD,      CYSD,     CYSD
+CYSF_user,                        CYSF,      CYSF,     CYSF
+CYSG_user,                        CYSG,      CYSG,     CYSG
+CYSP_user,                        CYSP,      CYSP,     CYSP
+CYST_user,                        CYST,      CYST,     CYST
+DGPC_user,                        DGPC,      DGPC,     DGPC
+DGPE_user,                        DGPE,      DGPE,     DGPE
+DLPC_user,                        DLPC,      DLPC,     DLPC
+DLPE,                              WNZ,      DLPE,     DLPE
+DLPE_user,                        DLPE,      DLPE,     DLPE
+DMPC,                              MC3,      DMPC,     DMPC
+DMPC_user,                        DMPC,      DMPC,     DMPC
+DMPE,                              46E,      DMPE,     DMPE
+DMPE_user,                        DMPE,      DMPE,     DMPE
+DMPI_user,                        DMPI,      DMPI,     DMPI
+DMPS_user,                        DMPS,      DMPS,     DMPS
+DNPC_user,                        DNPC,      DNPC,     DNPC
+DNPE_user,                        DNPE,      DNPE,     DNPE
+BDDM,                              LMT,      BDDM
+BDDM_user,                        BDDM,      BDDM
+DOPC_user,                        DOPC,      DOPC,     DOPC
+DOPE_user,                        DOPE,      DOPE,     DOPE
+DOPS,                              17F,      DOPS,     DOPS
+DOPS_user,                        DOPS,      DOPS,     DOPS
+DPG3_user,                        DPG3,      DPG3,     DPG3
+DPPC,                              PCF,      DPPC,     DPPC
+DPPC_user,                        DPPC,      DPPC,     DPPC
+DPPE_user,                        DPPE,      DPPE,     DPPE
+DYPC_user,                        DYPC,      DYPC,     DYPC
+DYPE_user,                        DYPE,      DYPE,     DYPE
+HPPA_user,                        HPPA,      HPPA,     HPPA
+GLYM_user,                        GLYM,      GLYM,     GLYM
+REMP,                              KDL,      REMP,     REMP
+REMP_user,                        REMP,      REMP,     REMP
+BLMN,                              LMN,      BLMN
+BLMN_user,                        BLMN,      BLMN
+LIP1_user,                        LIP1,      LIP1,     LIP1
+LIP2_user,                        LIP2,      LIP2,     LIP2
+LIP3_user,                        LIP3,      LIP3,     LIP3
+LIPA_user,                        LIPA,      LIPA,     LIPA
+BOG1,                              BOG,      BOG1
+BOG1_user,                        BOG1,      BOG1
+POP1_user,                        POP1,      POP1,     POP1
+POP2_user,                        POP2,      POP2,     POP2
+POP3_user,                        POP3,      POP3,     POP3
+POP4_user,                        POP4,      POP4,     POP4
+POP5_user,                        POP5,      POP5,     POP5
+POP6_user,                        POP6,      POP6,     POP6
+POP7_user,                        POP7,      POP7,     POP7
+POPA,                              D21,      POPA,     POPA
+POPA_user,                        POPA,      POPA,     POPA
+POPC,                              POV,      POPC,     POPC
+POPC_user,                        POPC,      POPC,     POPC
+POPE,                              6OU,      POPE,     POPE
+POPE_user,                        POPE,      POPE,     POPE
+POPE_SMILES,                      POES,      POPE,     POPE
+POPG,                              PGW,      POPG,     POPG
+POPG_user,                        POPG,      POPG,     POPG
+POPI_user,                        POPI,      POPI,     POPI
+POPS,                              D39,      POPS,     POPS
+POPS_user,                        POPS,      POPS,     POPS
+RAMP_user,                        RAMP,      RAMP,     RAMP
+SSM1_user,                        SSM1,      SSM1,     SSM1
+TMM1_user,                        TMM1,      TMM1,     TMM1
+TMMA_user,                        TMMA,      TMMA,     TMMA
+UDP1,                              5TR,      UDP1,     UDP1
+UDP1_user,                        UDP1,      UDP1,     UDP1
+UDP2_user,                        UDP2,      UDP2,     UDP2
+JSGF,                             JSGF,      JSGF
+JSGH,                             JSGH,      JSGH
+ZBLP,                              VB6,      ZBLP

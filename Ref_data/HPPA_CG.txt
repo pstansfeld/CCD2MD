@@ -1,0 +1,10 @@
+{'BB'  : {'CHARMM' : ['OA', 'CA', 'C', 'OT1', 'OA2']},
+
+ 'SC1' : {'CHARMM' : ['CB', 'CG']},
+
+ 'SC2' : {'CHARMM' : ['CD1', 'CE1']},
+		  
+ 'SC4' : {'CHARMM' : ['CZ', 'OH']},
+
+ 'SC3' : {'CHARMM' : ['CD2', 'CE2']}
+}

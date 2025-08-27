@@ -1,0 +1,32 @@
+{'BB'  : {'CHARMM' : ['N', 'CA', 'C', 'O']},
+
+ 'SC1' : {'CHARMM' : ['CB', 'SG']},
+
+ 'GL1' : {'CHARMM' : ['C1', 'C11', 'O11', 'CX1', 'OX1', 'CX2']},
+
+ 'GL2' : {'CHARMM' : ['C12', 'O12', 'CD1', 'OD1', 'CD2']},
+
+ 'C1C' : {'CHARMM' : ['CA1', 'OA1', 'CA2', 'CA3', 'CA4', 'CA5', 'CA6']},
+	
+ 'C2C' : {'CHARMM' : ['CA7', 'CA8', 'CA9', 'CA10']},
+	
+ 'C3C' : {'CHARMM' : ['CA11', 'CA12', 'CA13']},
+ 	
+ 'C4C' : {'CHARMM' : ['CA14', 'CA15', 'CA16']},
+
+ 'C1B' : {'CHARMM' : ['CD3', 'CD4', 'CD5', 'CD6']},
+
+ 'C2B' : {'CHARMM' : ['CD7', 'CD8', 'CD9', 'CD10']},
+
+ 'C3B' : {'CHARMM' : ['CD11', 'CD12', 'CD13']},
+ 
+ 'C4B' : {'CHARMM' : ['CD14', 'CD15', 'CD16']},
+
+ 'C1A' : {'CHARMM' : ['CX3', 'CX4', 'CX5', 'CX6', 'CX7']},
+	
+ 'D2A' : {'CHARMM' : ['CX8', 'CX9', 'CX10', 'CX11']},
+	
+ 'C3A' : {'CHARMM' : ['CX12', 'CX13', 'CX14']},
+ 	
+ 'C4A' : {'CHARMM' : ['CX15', 'CX16', 'CX17', 'CX18']}
+}
