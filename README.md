@@ -216,7 +216,7 @@ pdb2cif allows for the creation of userCCD codes which can be input into AF3. Wh
 | POPI 4 phosphate           |         |    POP4	|  POP4  | POPI14 in CHARMM36				    |
 | POPI 5 phosphate           |         |    POP5	|  POP5  | POPI15 in CHARMM36				    |
 | POPI 4,5 bisphosphate      |         |    POP6	|  POP6  | POPI24 in CHARMM36				    |
-| POPI 3,5 bisphosphate      |         |    POP7	|  POP7  | POPI2A in CHARMM36				    |					       
+| POPI 3,5 bisphosphate      |         |    POP7	|  POP7  | POPI2A in CHARMM36				    |	
 | POPA                       |   D21   |    POPA    |  POPA  |                                      |
 | POPC                       |   POV   |    POPC    |  POPC  |                                      |
 | POPE                       |   PEV   |    POPE    |  POPE  |                                      |
@@ -229,7 +229,7 @@ pdb2cif allows for the creation of userCCD codes which can be input into AF3. Wh
 | sphingomyelin              |         |    SSM1    |  SSM1  | SSM in CHARMM36                      |
 | TMM                        |         |    TMM1    |  TMM1  | Non-native in CHARMM36               |
 | TMMA                       |         |    TMMA    |  TMMA  | Non-native in CHARMM36               |
-| undecaprenyl phosphate     |   5TR   |    UNP1    |  UDP1  |                                      |
+| undecaprenyl phosphate     |   5TR   |    UDP1    |  UDP1  |                                      |
 | undecaprenyl pyrophosphate |         |    UDP2    |  UDP2  | UNDPP in CHARMM36                    |
 
 
