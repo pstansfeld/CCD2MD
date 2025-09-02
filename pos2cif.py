@@ -41,7 +41,7 @@ jsn = parser.add_argument_group('json file parameters')
 jsn.add_argument('-j', '--json',     help='Name of JSON file to write userCCD to. Default = "output.json"', default='output.json')
 jsn.add_argument('-t', '--title',    help='AF3 system title. Default = "pos2cif_system"', default='pos2cif_system')
 jsn.add_argument('-A', '--afvers',   help='AF3 version. Default = 2', default='2')
-jsn.add_argument('-s', '--seeds',    help='Model seeds - need not be comma separated. Default 1', default = [1], nargs='+')
+jsn.add_argument('-s', '--seeds',    help='Model seeds - need not be comma separated. Default 1', default = ['1'], nargs='+')
 jsn.add_argument('-d', '--dialect',  help='Dialect. Default "alphafold3"', default="alphafold3")
 jsn.add_argument('-p', '--protein',  help='FASTA protein sequence(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2".', default = [], nargs='+')
 
