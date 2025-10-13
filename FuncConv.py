@@ -1,13 +1,20 @@
-##############################################################
+#############################################################
 #                                                            #
 #    Functions to convert between CCD and CHARMM ordering    #
 #                                                            #
 ##############################################################
 
+# User-dependent variables
+# --------------------------
+
+#CCD2MD_dir = '/home/user/Packages/CCD2MD/'  # Location of CCD2MD - to be set by the user
+CCD2MD_dir = '/home/physics/phrkqs/Codes/Stansfeld_PDRA/CCD_conversion/'
+num_CPUs   = 1 # Number of CPUs to use for membrane insertion. Integer only.
+
 '''
 General file for functions to convert between CCD/CHARMM/Martini files
 
-Last Update: K Blow 21/08/25
+Last Update: K Blow 06/10/25
 
 Contains:
 read_CIF(INNAME)   # Read CIF file INNAME, return system data (note, only data relevant to PDBs is retained)
@@ -34,8 +41,8 @@ get_command_line_parameters(command_line, flags) # Determine additional command 
 build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_additional, membrane_comp, ion_conc, database=df, newlipidome=False)                                          # Builds a CG membrane around the system using MemPrO
 convert_membrane_at(system_data, basename, command_line, CG2AT_additional) # Converts membrane using CG2AT
 
-get_topology_CG(outputfile, membrane, ligands, prot, inputfile, newlipidome=False) # Write topology for CG system
-get_topology_atomistic(outputfile, membrane, at_command=None, output_data=None)    # Write topology for atomistic system
+get_topology_CG(outputfile, membrane, ligands, prot, inputfile, newlipidome=False, database=df) # Write topology for CG system
+get_topology_atomistic(outputfile, membrane, at_command=None, output_data=None)                 # Write topology for atomistic system
 
 check_residue_number(ordered_dict) # Renumber residues where this exceeds max PDB can handle
 convert_vectors(box_vecs)          # Convert box information from GRO format to PDB format
@@ -48,27 +55,19 @@ import subprocess, os, shutil, sys
 import re, glob
 import ast
 
-# Currently hard-coded variables for membrane insertion - adding here to remember to remove!
-# ------------------------------------------------------------------------------------------
+# Locations of packages
+# ---------------------
 
-os.environ['PATH_TO_INSANE']  = '/storage/chem/lfsmgr/SRG/Packages/CCD2MD/MemPrO/Insane4MemPrO.py'
-#os.environ['PATH_TO_MARTINI'] = '/storage/chem/lfsmgr/SRG/Packages/CCD2MD/martini_v3.itp'
-MProPath = '/storage/chem/lfsmgr/SRG/Packages/CCD2MD/MemPrO/MemPrO_Script.py'
-#Ref_data = '/storage/chem/lfsmgr/SRG/Packages/CCD2MD/Ref_data/'
-#CHARMMPath = '/storage/chem/lfsmgr/SRG/Packages/CCD2MD/charmm36-ccd2md.ff/'
-
-CCD2MD_dir = './'
-#CCD2MD_dir = '/storage/chem/lfsmgr/SRG/Packages/CCD2MD/'
 Ref_data   = CCD2MD_dir + 'Ref_data/'
-#os.environ['PATH_TO_INSANE']  = CCD2MD_dir + 'MemPrO/Insane4MemPrO.py'
-#MProPath   = CCD2MD_dir + 'MemPrO/MemPrO_Script.py'
+MProPath   = CCD2MD_dir + 'MemPrO/MemPrO_Script.py'
 CHARMMPath = CCD2MD_dir + 'charmm36-ccd2md.ff/'
 CG2ATPath  = CCD2MD_dir + 'cg2at-ccd2md/cg2at'
 oldmartini = CCD2MD_dir + 'martini_v3.itp'
 newmartini = CCD2MD_dir + 'martini_new_lipidome.itp'
+oldinsane  = CCD2MD_dir + 'MemPrO/Insane4MemPrO.py'
+newinsane  = CCD2MD_dir + 'MemPrO/Insane4MemPrO_new_lipidome.py'
 
-
-os.environ['NUM_CPU'] = '1' # note unclear if this is best set by the user
+os.environ['NUM_CPU'] = str(num_CPUs) # This may be best set by the user
 
 # Create an empty dictionary linking CIF labels to PDB output - note worls with CHAI and CCD/PDB output but due to
 # nomenclature reduncancies not guaranteed to work in all cases
@@ -113,11 +112,11 @@ GRO_keywords = {'name'  : [10, 15],
                 'y'     : [28, 36],
                 'z'     : [36, 44]}
 
-masses = {'C' : 12.01100,
-          'O' : 15.99940,
-          'N' : 14.00700,
-          'P' : 30.97400,
-          'S' : 32.06000}
+masses = {'C'  : 12.01100,
+          'O'  : 15.99940,
+          'N'  : 14.00700,
+          'P'  : 30.97400,
+          'S'  : 32.06000}
 
 float_keys = ['x', 'y', 'z', 'occ', 'B']
 chars      = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -126,9 +125,9 @@ chars      = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 # All flags read by parts of CCD2MD
 all_flags = ['-S',   '--SMILES',   '-M',  '--martinize', '-G', '--go',  '-E',  '--elastic', '-lc', '--ligchain',
              '-mem', '--membrane', '-mp', '--mempro',    '-C', '--conc', '-gh', '--pdb2gmx', '-V', '--Version',
-             '-at', '--cg2at']
+             '-at', '--cg2at', '-nl', '--newlipidome']
 
-df = pd.read_csv(Ref_data+"/database.csv", index_col='Name', skipinitialspace=True)
+df = pd.read_csv(Ref_data+"database.csv", index_col='Name', skipinitialspace=True)
 
 lig_names = []
 
@@ -136,7 +135,7 @@ base_ptms = ['CYST', 'CYSD', 'CYSP', 'CYSG', 'CYSF', 'GLYM']
 PTMs = set(base_ptms + [ptm + '_user' for ptm in base_ptms])
 terminal_PTMs = ['CYST', 'GLYM']
 
-__version__ = "0.0.0"
+__version__ = "0.0.1"
 
 def read_CIF(name):
     ''' Read CIF file into molecule dictionary. '''
@@ -225,7 +224,8 @@ def read_PDB(name):
     print('# INFO: Reading PDB file {}.'.format(name))
     
     PDBfile = open(name)
-    PDB     = PDBfile.read().split('END')[0]
+    PDB     = PDBfile.read().split('\nEND')[0]
+    PDB    += '\n'
 
     PDB     = PDB.split('\n')[:-1]
 
@@ -255,10 +255,7 @@ def read_PDB(name):
                     out_info[-1][key] = float(sect.strip(' '))
                 else:
                     out_info[-1][key] = sect.strip(' ')
-                    
-    title = None if len(title) == 0 else title
-    cryst = None if len(cryst) == 0 else cryst
-                    
+                                        
     return out_info, title, cryst
 
 def read_GRO(name):
@@ -329,7 +326,7 @@ def determine_element(name):
 def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database=df):
     ''' Get the names of the residues for which there is an associated database entry, and the atoms 
         corresponding to these residues. Where the input is SMILES, change the residue name from LIG. '''
-    
+
     # Get list of residue names
     # --------------------------
    
@@ -400,11 +397,11 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
                 N_smiles += 1; convres.append(residues[res])
                 global lig_names
                 lig_names.append(residues[res])
-
+                
                 new_res       = SMILES.pop(0)
                 res_data      = chain_data.loc[chain_data['resnm']==residues[res]]
                 residues[res] = new_res
-                
+
                 for index, atom_data in res_data.iterrows():
                     curr          = system_data.iloc[index].to_dict()
                     curr['resnm'] = new_res
@@ -423,7 +420,7 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
 
         cres  = [res for res in residues if len(database[database[data_type+'Name']==res])!=0]
         cert  = [database[database[data_type+'Name']==res].index[0] for res in cres]
-
+        
         for residue in cert:
             # Rename the user CCD codes to function as CHARMM if running through e.g. ccd2at
             if residue[-5:]=='_user':
@@ -652,6 +649,9 @@ def get_CG_params(command_line, martinize, elastic, go):
 
     SetFlags = {'-f' : [1, 'input file'], '-x' : [1, 'output file'], '-o' : [1, 'output file'],
                 '-ignore' : [1, 'additional ligands']}
+    
+    martini = np.array(martini)
+
     # Remove any pre-set flags
     for flag in SetFlags.keys():
         if len(np.where(martini==flag)[0])!=0:
@@ -890,19 +890,20 @@ def write_PDB_atom_line(f, counter, data):
     return None
 
 
-def write_PDB(name, ordered_dict, title=None, cryst=None, ligand_chains=False):
+def write_PDB(name, ordered_dict, title=[], cryst=[], ligand_chains=False):
     ''' Write full PDB file. '''
 
     f = open(name, 'w')
 
     ordered_dict = check_residue_number(ordered_dict)
-   
+    
+    header = title
+    header.extend(cryst)
+    
     # Write title and UC information, if applicable
-    if title != None:
-        for line in title:
+    if header != None:
+        for line in header:
             f.write(line+'\n')
-    if cryst != None:
-        f.write(cryst+'\n')
 
     j = 1
     for i, line in enumerate(ordered_dict):
@@ -954,7 +955,7 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
     CG_ligands = [database.at[name, 'CGName'] for name in ligands]
     
     MemPrO = ['python', MProPath, '-f', CG_output, '-res', ','.join(set(CG_ligands)), '-o', '.'.join(outputfile.split('.')[:-1])+'_MemPrO']
-
+    
     try:
         membrane_comp = list(get_command_line_parameters(command_line, ['-mem', '--membrane']))
     except IndexError:
@@ -962,7 +963,11 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
         membrane_comp = []
 
     os.environ['PATH_TO_MARTINI'] = newmartini if newlipidome else oldmartini
-        
+    os.environ['PATH_TO_INSANE']  = newinsane  if newlipidome else oldinsane
+
+    print(os.environ['PATH_TO_INSANE'])
+
+    
     extra_bd_args = ''  # bd_args all need to be passed together
         
     if mempro_additional:
@@ -996,7 +1001,8 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
     for flag in extra_flags.keys():
         if MemPrO.count(flag)==0:
             MemPrO.extend([flag, extra_flags[flag]])    
-            
+
+
     result = subprocess.run(MemPrO)
 
     # Test output
@@ -1040,7 +1046,7 @@ def convert_membrane_at(system_data, basename, command_line, CG2AT_additional):
     return None
     
 
-def get_topology_CG(outputfile, membrane, ligands, prot, inputfile, newlipidome=False):
+def get_topology_CG(outputfile, membrane, ligands, prot, inputfile, newlipidome=False, database=df):
     ''' Write topology files for CG systems. '''
 
     if prot:
@@ -1089,6 +1095,15 @@ def get_topology_CG(outputfile, membrane, ligands, prot, inputfile, newlipidome=
         mols = [mol for mol in mols if len(mol)!=0]
 
         subprocess.run(['sed', '-i', 's/Protein\s*1/'+'\\n'.join(mols)+'/g', loc])
+
+        # MemPrO as default does not include additional ligands - add here
+        last_entry = mols[-1]
+        for lig in set([l for l in ligands if l not in PTMs]):
+            num = len([l for l in ligands if l==lig])
+            CG_name = database.at[lig.strip(), 'CGName']
+            subprocess.run(['sed', '-i', '/{}/a {} \t{}\n'.format(last_entry, CG_name, num), loc])
+            last_entry = lig
+        
         print('# INFO: Topology file has been created based on martinize2 and MemPrO outputs.')
 
     else:
@@ -1124,7 +1139,8 @@ def get_topology_CG(outputfile, membrane, ligands, prot, inputfile, newlipidome=
         
         for lig in set([l for l in ligands if l not in PTMs]):
             num = len([l for l in ligands if l==lig])
-            topol.write('{} \t{}\n'.format(lig, num))
+            CG_name = database.at[lig.strip(), 'CGName']
+            topol.write('{} \t{}\n'.format(CG_name, num))
 
         topol.close()
         print('# INFO: Topology file has been created{}.'.format(topol_gen))
@@ -1283,5 +1299,5 @@ def convert_vectors(box_vecs):
     # nm -> A 
     cryst = 'CRYST1{:>9.3f}{:>9.3f}{:>9.3f}{:>7.2f}{:>7.2f}{:>7.2f} P 1           1'.format(a*10, b*10, c*10, alpha, beta, gamma)
     
-    return cryst
+    return [cryst]
     

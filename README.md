@@ -1,8 +1,8 @@
 # CCD2MD codes for conversion between cofolding outputs and simulations
 
-For more information please contact Kat Blow (katarina.blow@warwick.ac.uk)
-
 Ref_data/ contains reference data
+
+
 FuncConv.py contains functions to enable conversion
 
 Functions are converted using:
@@ -17,7 +17,13 @@ Note that there are limitations for the ligands available for conversion to Mart
 
 ### Usage
 
-pdb2cif is self contained, otherwise (currently) need to ensure that `Ref_data/` and `FuncConv.py` are in the directory of use. Dependencies are numpy and pandas with vermouth-martinize (martinize2) required for protein conversion, MemPrO required for protein membrane embedding and gromacs (specifically pdb2gmx) required for atomistic topology generation. Topology files are generated except for at2ccd.py and pos2cif.py
+pdb2cif is self contained, otherwise (currently) need to ensure that `Ref_data/` and `FuncConv.py` are in the directory of use. Additionally, the location of the CCD2MD suite should be indicatied in line 10 of FuncConv.py
+
+Dependencies are numpy and pandas with vermouth-martinize (martinize2) required for protein conversion, MemPrO required for protein membrane embedding and gromacs (specifically pdb2gmx) required for atomistic topology generation. There may be additional requirements for vermouth-martinize, MemPrO and pdb2gmx.
+
+Topology files are generated except for at2ccd.py and pos2cif.py
+
+For membrane embedding, MemPrO supports parallelisim, the default number of CPUs to be used is 1. This may be set by the user in line 11 of FuncConv.py -- this will not affect any other part of the conversion. Please note that some of the lipids available in Insane4MemPrO (new lipidome version) may correspond to Martini 2 mappings, although this should not apply to those lipids convertible with CCD2MD.
 
 #### ccd2at
 
@@ -216,7 +222,7 @@ pdb2cif allows for the creation of userCCD codes which can be input into AF3. Wh
 | POPI 4 phosphate           |         |    POP4	|  POP4  | POPI14 in CHARMM36				    |
 | POPI 5 phosphate           |         |    POP5	|  POP5  | POPI15 in CHARMM36				    |
 | POPI 4,5 bisphosphate      |         |    POP6	|  POP6  | POPI24 in CHARMM36				    |
-| POPI 3,5 bisphosphate      |         |    POP7	|  POP7  | POPI2A in CHARMM36				    |	
+| POPI 3,5 bisphosphate      |         |    POP7	|  POP7  | POPI2A in CHARMM36				    |					       
 | POPA                       |   D21   |    POPA    |  POPA  |                                      |
 | POPC                       |   POV   |    POPC    |  POPC  |                                      |
 | POPE                       |   PEV   |    POPE    |  POPE  |                                      |
@@ -229,7 +235,7 @@ pdb2cif allows for the creation of userCCD codes which can be input into AF3. Wh
 | sphingomyelin              |         |    SSM1    |  SSM1  | SSM in CHARMM36                      |
 | TMM                        |         |    TMM1    |  TMM1  | Non-native in CHARMM36               |
 | TMMA                       |         |    TMMA    |  TMMA  | Non-native in CHARMM36               |
-| undecaprenyl phosphate     |   5TR   |    UDP1    |  UDP1  |                                      |
+| undecaprenyl phosphate     |   5TR   |    UNP1    |  UDP1  |                                      |
 | undecaprenyl pyrophosphate |         |    UDP2    |  UDP2  | UNDPP in CHARMM36                    |
 
 
