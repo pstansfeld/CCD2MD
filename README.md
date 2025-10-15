@@ -190,56 +190,56 @@ pdb2cif allows for the creation of userCCD codes which can be input into AF3. Wh
 
 ### Current ligands
  
-| Name                       | CCDName | CHARMMName | CGName               | Note                                 |  
-| -------------------------- | ------- | ---------- | -------------------- | ------------------------------------ |
-| Cardiolipin                |         |    CARD    |  CARD$\dag$  | Palmitoyl-oleoyl cardiolipin (POCL2) |
-| Cholesterol                |   CLR   |    CHL1    |  CHL1$\dag$  |                                      |
-| DGPC                       |         |    DGPC    |  DGPC$\dag$  |                                      |
-| DGPE                       |         |    DGPE    |  DGPE$\dag$  |                                      |
-| DLPC                       |         |    DLPC    |  DLPC$\dag$  |                                      |
-| DLPE                       |   WNZ   |    DLPE    |  DLPE$\dag$  |                                      |
-| DMPC                       |   MC3   |    DMPC    |  DMPC$\dag$  |                                      |
-| DMPE                       |   46E   |    DMPE    |  DMPE$\dag$  |                                      |
-| DMPI                       |         |    DMPI    |  DMPI$\dag$  |                                      |
-| DMPS                       |         |    DMPS    |  DMPS$\dag$  |                                      |
-| DNPC                       |         |    DNPC    |  DNPC$\dag$  |                                      |
-| DNPE                       |         |    DNPE    |  DNPE$\dag$  |                                      |
-| dodecylBDmaltoside         |   LMT   |    BDDM    |                      |                                      |
-| DOPC                       |         |    DOPC    |  DOPC$\dag$  |                                      |
-| DOPE                       |         |    DOPE    |  DOPE$\dag$  |                                      |
-| DOPS                       |   17F   |    DOPS    |  DOPS$\dag$  |                                      |
-| DPG3                       |         |    DPG3    |  DPG3$\dag$  | Non-native in CHARMM36               |
-| DPPC				         |   PCF   |    DPPC    |  DPPC$\dag$  |                                      |
-| DPPE				         |         |    DPPE    |  DPPE$\dag$  |                                      |
-| DYPC				         |         |    DYPC    |  DYPC$\dag$  |                                      |
-| DYPE				         |         |    DYPE    |  DYPE$\dag$  |                                      |
-| laurylBMNglycol            |   LMN   |    BLMN    |                      | BLMNG in CHARMM                      |
-| LIP1                       |         |    LIP1    |  LIP1                | Non-native in CHARMM36               |
-| LIP2                       |         |    LIP2    |  LIP2                | Non-native in CHARMM36               |
-| LIP3                       |         |    LIP3    |  LIP3                | Non-native in CHARMM36               |
-| LIPA                       |         |    LIPA    |  LIPA                | Non-native in CHARMM36               |
-| OBDglucopyranoside         |   BOG   |    BOG1    |                      | BOG in CHARMM36                      |
-| POPI 3 phosphate           |         |    POP1	|  POP1$\dag$  | POPI13 in CHARMM36				      |
-| POPI 3,4 bisphosphate      |         |    POP2	|  POP2$\dag$  | POPI2D in CHARMM36				      |
-| POPI 3,4,5 trisphosphate   |         |    POP3	|  POP3$\dag$  | POPI34 in CHARMM36				      |
-| POPI 4 phosphate           |         |    POP4	|  POP4$\dag$  | POPI14 in CHARMM36				      |
-| POPI 5 phosphate           |         |    POP5	|  POP5$\dag$  | POPI15 in CHARMM36				      |
-| POPI 4,5 bisphosphate      |         |    POP6	|  POP6$\dag$  | POPI24 in CHARMM36				      |
-| POPI 3,5 bisphosphate      |         |    POP7	|  POP7$\dag$  | POPI2A in CHARMM36				      |
-| POPA                       |   D21   |    POPA    |  POPA$\dag$  |                                      |
-| POPC                       |   POV   |    POPC    |  POPC$\dag$  |                                      |
-| POPE                       |   PEV   |    POPE    |  POPE$\dag$  |                                      |
-| POPE_SMILES                |   POES  |    POPE    |  POPE$\dag$  | From SMILES string                   |
-| POPG                       |   PGW   |    POPG    |  POPG$\dag$  |                                      |
-| POPI   				     |         |    POPI    |  POPI$\dag$  |                                      |
-| POPS                       |   D39   |    POPS    |  POPS$\dag$  |                                      |
-| RAMP                       |         |    RAMP    |  RAMP                | Non-native in CHARMM36               |
-| REMP                       |   KDL   |    REMP    |  REMP                |                                      |
-| SSM1		                 |         |    SSM1    |  SSM1$\dag$  | SSM in CHARMM36                      |
-| TMM                        |         |    TMM1    |  TMM1                | Non-native in CHARMM36               |
-| TMMA                       |         |    TMMA    |  TMMA                | Non-native in CHARMM36               |
-| undecaprenyl phosphate     |   5TR   |    UNP1    |  UDP1                |                                      |
-| undecaprenyl pyrophosphate |         |    UDP2    |  UDP2                | UNDPP in CHARMM36                    |
+| Name                       | CCDName | CHARMMName | CGName | Note                                                                 |  
+| -------------------------- | ------- | ---------- | ------ | -------------------------------------------------------------------- |
+| Cardiolipin                |         |    CARD    |  CARD  | Palmitoyl-oleoyl cardiolipin (POCL2), new lipidome mapping available |
+| Cholesterol                |   CLR   |    CHL1    |  CHL1  | New lipidome mapping available                                       |
+| DGPC                       |         |    DGPC    |  DGPC  | New lipidome mapping available                                       |
+| DGPE                       |         |    DGPE    |  DGPE  | New lipidome mapping available                                       |
+| DLPC                       |         |    DLPC    |  DLPC  | New lipidome mapping available                                       |
+| DLPE                       |   WNZ   |    DLPE    |  DLPE  | New lipidome mapping available                                       |
+| DMPC                       |   MC3   |    DMPC    |  DMPC  | New lipidome mapping available                                       |
+| DMPE                       |   46E   |    DMPE    |  DMPE  | New lipidome mapping available                                       |
+| DMPI                       |         |    DMPI    |  DMPI  | New lipidome mapping available                                       |
+| DMPS                       |         |    DMPS    |  DMPS  | New lipidome mapping available                                       |
+| DNPC                       |         |    DNPC    |  DNPC  | New lipidome mapping available                                       |
+| DNPE                       |         |    DNPE    |  DNPE  | New lipidome mapping available                                       |
+| dodecylBDmaltoside         |   LMT   |    BDDM    |        |                                                                      |
+| DOPC                       |         |    DOPC    |  DOPC  | New lipidome mapping available                                       |
+| DOPE                       |         |    DOPE    |  DOPE  | New lipidome mapping available                                       |
+| DOPS                       |   17F   |    DOPS    |  DOPS  | New lipidome mapping available                                       |
+| DPG3                       |         |    DPG3    |  DPG3  | Non-native in CHARMM36                                               |
+| DPPC				         |   PCF   |    DPPC    |  DPPC  | New lipidome mapping available                                       |
+| DPPE				         |         |    DPPE    |  DPPE  | New lipidome mapping available                                       |
+| DYPC				         |         |    DYPC    |  DYPC  | New lipidome mapping available                                       |
+| DYPE				         |         |    DYPE    |  DYPE  | New lipidome mapping available                                       |
+| laurylBMNglycol            |   LMN   |    BLMN    |        | BLMNG in CHARMM                                                      |
+| LIP1                       |         |    LIP1    |  LIP1  | Non-native in CHARMM36                                               |
+| LIP2                       |         |    LIP2    |  LIP2  | Non-native in CHARMM36                                               |
+| LIP3                       |         |    LIP3    |  LIP3  | Non-native in CHARMM36                                               |
+| LIPA                       |         |    LIPA    |  LIPA  | Non-native in CHARMM36                                               |
+| OBDglucopyranoside         |   BOG   |    BOG1    |        | BOG in CHARMM36                                                      |
+| POPI 3 phosphate           |         |    POP1	|  POP1  | POPI13 in CHARMM36, new lipidome mapping available        	        |
+| POPI 3,4 bisphosphate      |         |    POP2	|  POP2  | POPI2D in CHARMM36, new lipidome mapping available				    |
+| POPI 3,4,5 trisphosphate   |         |    POP3	|  POP3  | POPI34 in CHARMM36, new lipidome mapping available				    |
+| POPI 4 phosphate           |         |    POP4	|  POP4  | POPI14 in CHARMM36, new lipidome mapping available				    |
+| POPI 5 phosphate           |         |    POP5	|  POP5  | POPI15 in CHARMM36, new lipidome mapping available				    |
+| POPI 4,5 bisphosphate      |         |    POP6	|  POP6  | POPI24 in CHARMM36, new lipidome mapping available				    |
+| POPI 3,5 bisphosphate      |         |    POP7	|  POP7  | POPI2A in CHARMM36, new lipidome mapping available				    |
+| POPA                       |   D21   |    POPA    |  POPA  | New lipidome mappi, new lipidome mapping available                   |
+| POPC                       |   POV   |    POPC    |  POPC  | New lipidome mappi, new lipidome mapping available                   |
+| POPE                       |   PEV   |    POPE    |  POPE  | New lipidome mappi, new lipidome mapping available                   |
+| POPE_SMILES                |   POES  |    POPE    |  POPE  | From SMILES string, new lipidome mapping available                   |
+| POPG                       |   PGW   |    POPG    |  POPG  | New lipidome mapping available                                       |
+| POPI   				     |         |    POPI    |  POPI  | New lipidome mapping available                                       |
+| POPS                       |   D39   |    POPS    |  POPS  | New lipidome mapping available                                       |
+| RAMP                       |         |    RAMP    |  RAMP  | Non-native in CHARMM36                                               |
+| REMP                       |   KDL   |    REMP    |  REMP  |                                                                      |
+| SSM1		                 |         |    SSM1    |  SSM1  | SSM in CHARMM36, new lipidome mapping available                      |
+| TMM                        |         |    TMM1    |  TMM1  | Non-native in CHARMM36                                               |
+| TMMA                       |         |    TMMA    |  TMMA  | Non-native in CHARMM36                                               |
+| undecaprenyl phosphate     |   5TR   |    UNP1    |  UDP1  |                                                                      |
+| undecaprenyl pyrophosphate |         |    UDP2    |  UDP2  | UNDPP in CHARMM36                                                    |
 
 $\dag$ new lipidome mapping available
 
