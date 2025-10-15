@@ -192,56 +192,56 @@ pdb2cif allows for the creation of userCCD codes which can be input into AF3. Wh
  
 | Name                       | CCDName | CHARMMName | CGName               | Note                                 |  
 | -------------------------- | ------- | ---------- | -------------------- | ------------------------------------ |
-| Cardiolipin                |         |    CARD    |  CARD$\mathsection$  | Palmitoyl-oleoyl cardiolipin (POCL2) |
-| Cholesterol                |   CLR   |    CHL1    |  CHL1$\mathsection$  |                                      |
-| DGPC                       |         |    DGPC    |  DGPC$\mathsection$  |                                      |
-| DGPE                       |         |    DGPE    |  DGPE$\mathsection$  |                                      |
-| DLPC                       |         |    DLPC    |  DLPC$\mathsection$  |                                      |
-| DLPE                       |   WNZ   |    DLPE    |  DLPE$\mathsection$  |                                      |
-| DMPC                       |   MC3   |    DMPC    |  DMPC$\mathsection$  |                                      |
-| DMPE                       |   46E   |    DMPE    |  DMPE$\mathsection$  |                                      |
-| DMPI                       |         |    DMPI    |  DMPI$\mathsection$  |                                      |
-| DMPS                       |         |    DMPS    |  DMPS$\mathsection$  |                                      |
-| DNPC                       |         |    DNPC    |  DNPC$\mathsection$  |                                      |
-| DNPE                       |         |    DNPE    |  DNPE$\mathsection$  |                                      |
+| Cardiolipin                |         |    CARD    |  CARD$\dag$  | Palmitoyl-oleoyl cardiolipin (POCL2) |
+| Cholesterol                |   CLR   |    CHL1    |  CHL1$\dag$  |                                      |
+| DGPC                       |         |    DGPC    |  DGPC$\dag$  |                                      |
+| DGPE                       |         |    DGPE    |  DGPE$\dag$  |                                      |
+| DLPC                       |         |    DLPC    |  DLPC$\dag$  |                                      |
+| DLPE                       |   WNZ   |    DLPE    |  DLPE$\dag$  |                                      |
+| DMPC                       |   MC3   |    DMPC    |  DMPC$\dag$  |                                      |
+| DMPE                       |   46E   |    DMPE    |  DMPE$\dag$  |                                      |
+| DMPI                       |         |    DMPI    |  DMPI$\dag$  |                                      |
+| DMPS                       |         |    DMPS    |  DMPS$\dag$  |                                      |
+| DNPC                       |         |    DNPC    |  DNPC$\dag$  |                                      |
+| DNPE                       |         |    DNPE    |  DNPE$\dag$  |                                      |
 | dodecylBDmaltoside         |   LMT   |    BDDM    |                      |                                      |
-| DOPC                       |         |    DOPC    |  DOPC$\mathsection$  |                                      |
-| DOPE                       |         |    DOPE    |  DOPE$\mathsection$  |                                      |
-| DOPS                       |   17F   |    DOPS    |  DOPS$\mathsection$  |                                      |
-| DPG3                       |         |    DPG3    |  DPG3$\mathsection$  | Non-native in CHARMM36               |
-| DPPC				         |   PCF   |    DPPC    |  DPPC$\mathsection$  |                                      |
-| DPPE				         |         |    DPPE    |  DPPE$\mathsection$  |                                      |
-| DYPC				         |         |    DYPC    |  DYPC$\mathsection$  |                                      |
-| DYPE				         |         |    DYPE    |  DYPE$\mathsection$  |                                      |
+| DOPC                       |         |    DOPC    |  DOPC$\dag$  |                                      |
+| DOPE                       |         |    DOPE    |  DOPE$\dag$  |                                      |
+| DOPS                       |   17F   |    DOPS    |  DOPS$\dag$  |                                      |
+| DPG3                       |         |    DPG3    |  DPG3$\dag$  | Non-native in CHARMM36               |
+| DPPC				         |   PCF   |    DPPC    |  DPPC$\dag$  |                                      |
+| DPPE				         |         |    DPPE    |  DPPE$\dag$  |                                      |
+| DYPC				         |         |    DYPC    |  DYPC$\dag$  |                                      |
+| DYPE				         |         |    DYPE    |  DYPE$\dag$  |                                      |
 | laurylBMNglycol            |   LMN   |    BLMN    |                      | BLMNG in CHARMM                      |
 | LIP1                       |         |    LIP1    |  LIP1                | Non-native in CHARMM36               |
 | LIP2                       |         |    LIP2    |  LIP2                | Non-native in CHARMM36               |
 | LIP3                       |         |    LIP3    |  LIP3                | Non-native in CHARMM36               |
 | LIPA                       |         |    LIPA    |  LIPA                | Non-native in CHARMM36               |
 | OBDglucopyranoside         |   BOG   |    BOG1    |                      | BOG in CHARMM36                      |
-| POPI 3 phosphate           |         |    POP1	|  POP1$\mathsection$  | POPI13 in CHARMM36				      |
-| POPI 3,4 bisphosphate      |         |    POP2	|  POP2$\mathsection$  | POPI2D in CHARMM36				      |
-| POPI 3,4,5 trisphosphate   |         |    POP3	|  POP3$\mathsection$  | POPI34 in CHARMM36				      |
-| POPI 4 phosphate           |         |    POP4	|  POP4$\mathsection$  | POPI14 in CHARMM36				      |
-| POPI 5 phosphate           |         |    POP5	|  POP5$\mathsection$  | POPI15 in CHARMM36				      |
-| POPI 4,5 bisphosphate      |         |    POP6	|  POP6$\mathsection$  | POPI24 in CHARMM36				      |
-| POPI 3,5 bisphosphate      |         |    POP7	|  POP7$\mathsection$  | POPI2A in CHARMM36				      |
-| POPA                       |   D21   |    POPA    |  POPA$\mathsection$  |                                      |
-| POPC                       |   POV   |    POPC    |  POPC$\mathsection$  |                                      |
-| POPE                       |   PEV   |    POPE    |  POPE$\mathsection$  |                                      |
-| POPE_SMILES                |   POES  |    POPE    |  POPE$\mathsection$  | From SMILES string                   |
-| POPG                       |   PGW   |    POPG    |  POPG$\mathsection$  |                                      |
-| POPI   				     |         |    POPI    |  POPI$\mathsection$  |                                      |
-| POPS                       |   D39   |    POPS    |  POPS$\mathsection$  |                                      |
+| POPI 3 phosphate           |         |    POP1	|  POP1$\dag$  | POPI13 in CHARMM36				      |
+| POPI 3,4 bisphosphate      |         |    POP2	|  POP2$\dag$  | POPI2D in CHARMM36				      |
+| POPI 3,4,5 trisphosphate   |         |    POP3	|  POP3$\dag$  | POPI34 in CHARMM36				      |
+| POPI 4 phosphate           |         |    POP4	|  POP4$\dag$  | POPI14 in CHARMM36				      |
+| POPI 5 phosphate           |         |    POP5	|  POP5$\dag$  | POPI15 in CHARMM36				      |
+| POPI 4,5 bisphosphate      |         |    POP6	|  POP6$\dag$  | POPI24 in CHARMM36				      |
+| POPI 3,5 bisphosphate      |         |    POP7	|  POP7$\dag$  | POPI2A in CHARMM36				      |
+| POPA                       |   D21   |    POPA    |  POPA$\dag$  |                                      |
+| POPC                       |   POV   |    POPC    |  POPC$\dag$  |                                      |
+| POPE                       |   PEV   |    POPE    |  POPE$\dag$  |                                      |
+| POPE_SMILES                |   POES  |    POPE    |  POPE$\dag$  | From SMILES string                   |
+| POPG                       |   PGW   |    POPG    |  POPG$\dag$  |                                      |
+| POPI   				     |         |    POPI    |  POPI$\dag$  |                                      |
+| POPS                       |   D39   |    POPS    |  POPS$\dag$  |                                      |
 | RAMP                       |         |    RAMP    |  RAMP                | Non-native in CHARMM36               |
 | REMP                       |   KDL   |    REMP    |  REMP                |                                      |
-| SSM1		                 |         |    SSM1    |  SSM1$\mathsection$  | SSM in CHARMM36                      |
+| SSM1		                 |         |    SSM1    |  SSM1$\dag$  | SSM in CHARMM36                      |
 | TMM                        |         |    TMM1    |  TMM1                | Non-native in CHARMM36               |
 | TMMA                       |         |    TMMA    |  TMMA                | Non-native in CHARMM36               |
 | undecaprenyl phosphate     |   5TR   |    UNP1    |  UDP1                |                                      |
 | undecaprenyl pyrophosphate |         |    UDP2    |  UDP2                | UNDPP in CHARMM36                    |
 
-$\mathsection$ new lipidome mapping available
+$\dag$ new lipidome mapping available
 
 ### Post-translational Modifications
 
