@@ -5,6 +5,7 @@ Ref_data/ contains reference data
 
 FuncConv.py contains functions to enable conversion
 
+
 Functions are converted using:
 - ccd2at.py  (cofolding to CHARMM)
 - at2ccd.py  (CHARMM to CCD/SMILES)
@@ -47,6 +48,7 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 `-mp/--mempro <mempro>` passes optional arguments to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). Default is 5 grid points and 15 minimisation operations 
 
+`-at/--cg2at <cg2at>` passes optional arguments to [cg2at-lite](https://github.com/pstansfeld/cg2at-lite)
 
 #### at2ccd
 
@@ -145,6 +147,7 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 `-mp/--mempro <mempro>` passes optional arguments to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). Default is 5 grid points and 15 minimisation operations 
 
+`-at/--cg2at <cg2at>` passes optional arguments to [cg2at-lite](https://github.com/pstansfeld/cg2at-lite)
 
 #### pos2cif
 
@@ -187,56 +190,70 @@ pdb2cif allows for the creation of userCCD codes which can be input into AF3. Wh
 
 ### Current ligands
  
-| Name                       | CCDName | CHARMMName | CGName | Note                                 |   
-| -------------------------- | ------- | ---------- | ------ | ------------------------------------ |
-| Cardiolipin                |         |    CARD    |  CARD  | Palmitoyl-oleoyl cardiolipin (POCL2) |
-| Cholesterol                |   CLR   |    CHL1    |  CHL1  |                                      |
-| DGPC                       |         |    DGPC    |  DGPC  |                                      |
-| DGPE                       |         |    DGPE    |  DGPE  |                                      |
-| DLPC                       |         |    DLPC    |  DLPC  |                                      |
-| DLPE                       |   WNZ   |    DLPE    |  DLPE  |                                      |
-| DMPC                       |   MC3   |    DMPC    |  DMPC  |                                      |
-| DMPE                       |   46E   |    DMPE    |  DMPE  |                                      |
-| DMPI                       |         |    DMPI    |  DMPI  |                                      |
-| DMPS                       |         |    DMPS    |  DMPS  |                                      |
-| DNPC                       |         |    DNPC    |  DNPC  |                                      |
-| DNPE                       |         |    DNPE    |  DNPE  |                                      |
-| dodecylBDmaltoside         |   LMT   |    BDDM    |        |                                      |
-| DOPC                       |         |    DOPC    |  DOPC  |                                      |
-| DOPE                       |         |    DOPE    |  DOPE  |                                      |
-| DOPS                       |   17F   |    DOPS    |  DOPS  |                                      |
-| DPG3                       |         |    DPG3    |  DPG3  | Non-native in CHARMM36               |
-| DPPC				         |   PCF   |    DPPC    |  DPPC  |                                      |
-| DPPE				         |         |    DPPE    |  DPPE  |                                      |
-| DYPC				         |         |    DYPC    |  DYPC  |                                      |
-| DYPE				         |         |    DYPE    |  DYPE  |                                      |
-| laurylBMNglycol            |   LMN   |    BLMN    |        | BLMNG in CHARMM                      |
-| LIP1                       |         |    LIP1    |  LIP1  | Non-native in CHARMM36               |
-| LIP2                       |         |    LIP2    |  LIP2  | Non-native in CHARMM36               |
-| LIP3                       |         |    LIP3    |  LIP3  | Non-native in CHARMM36               |
-| LIPA                       |         |    LIPA    |  LIPA  | Non-native in CHARMM36               |
-| OBDglucopyranoside         |   BOG   |    BOG1    |        | BOG in CHARMM36                      |
-| POPI 3 phosphate           |         |    POP1	|  POP1  | POPI13 in CHARMM36				    |
-| POPI 3,4 bisphosphate      |         |    POP2	|  POP2  | POPI2D in CHARMM36				    |
-| POPI 3,4,5 trisphosphate   |         |    POP3	|  POP3  | POPI34 in CHARMM36				    |
-| POPI 4 phosphate           |         |    POP4	|  POP4  | POPI14 in CHARMM36				    |
-| POPI 5 phosphate           |         |    POP5	|  POP5  | POPI15 in CHARMM36				    |
-| POPI 4,5 bisphosphate      |         |    POP6	|  POP6  | POPI24 in CHARMM36				    |
-| POPI 3,5 bisphosphate      |         |    POP7	|  POP7  | POPI2A in CHARMM36				    |					       
-| POPA                       |   D21   |    POPA    |  POPA  |                                      |
-| POPC                       |   POV   |    POPC    |  POPC  |                                      |
-| POPE                       |   PEV   |    POPE    |  POPE  |                                      |
-| POPE_SMILES                |   POES  |    POPE    |  POPE  | From SMILES string                   |
-| POPG                       |   PGW   |    POPG    |  POPG  |                                      |
-| POPI   				     |         |    POPI    |  POPI  |                                      |
-| POPS                       |   D39   |    POPS    |  POPS  |                                      |
-| RAMP                       |         |    RAMP    |  RAMP  | Non-native in CHARMM36               |
-| Kdo2-lipidA                |   KDL   |    REMP    |  REMP  |                                      |
-| sphingomyelin              |         |    SSM1    |  SSM1  | SSM in CHARMM36                      |
-| TMM                        |         |    TMM1    |  TMM1  | Non-native in CHARMM36               |
-| TMMA                       |         |    TMMA    |  TMMA  | Non-native in CHARMM36               |
-| undecaprenyl phosphate     |   5TR   |    UNP1    |  UDP1  |                                      |
-| undecaprenyl pyrophosphate |         |    UDP2    |  UDP2  | UNDPP in CHARMM36                    |
+| Name                       | CCDName | CHARMMName | CGName               | Note                                 |  
+| -------------------------- | ------- | ---------- | -------------------- | ------------------------------------ |
+| Cardiolipin                |         |    CARD    |  CARD$\mathsection$  | Palmitoyl-oleoyl cardiolipin (POCL2) |
+| Cholesterol                |   CLR   |    CHL1    |  CHL1$\mathsection$  |                                      |
+| DGPC                       |         |    DGPC    |  DGPC$\mathsection$  |                                      |
+| DGPE                       |         |    DGPE    |  DGPE$\mathsection$  |                                      |
+| DLPC                       |         |    DLPC    |  DLPC$\mathsection$  |                                      |
+| DLPE                       |   WNZ   |    DLPE    |  DLPE$\mathsection$  |                                      |
+| DMPC                       |   MC3   |    DMPC    |  DMPC$\mathsection$  |                                      |
+| DMPE                       |   46E   |    DMPE    |  DMPE$\mathsection$  |                                      |
+| DMPI                       |         |    DMPI    |  DMPI$\mathsection$  |                                      |
+| DMPS                       |         |    DMPS    |  DMPS$\mathsection$  |                                      |
+| DNPC                       |         |    DNPC    |  DNPC$\mathsection$  |                                      |
+| DNPE                       |         |    DNPE    |  DNPE$\mathsection$  |                                      |
+| dodecylBDmaltoside         |   LMT   |    BDDM    |                      |                                      |
+| DOPC                       |         |    DOPC    |  DOPC$\mathsection$  |                                      |
+| DOPE                       |         |    DOPE    |  DOPE$\mathsection$  |                                      |
+| DOPS                       |   17F   |    DOPS    |  DOPS$\mathsection$  |                                      |
+| DPG3                       |         |    DPG3    |  DPG3$\mathsection$  | Non-native in CHARMM36               |
+| DPPC				         |   PCF   |    DPPC    |  DPPC$\mathsection$  |                                      |
+| DPPE				         |         |    DPPE    |  DPPE$\mathsection$  |                                      |
+| DYPC				         |         |    DYPC    |  DYPC$\mathsection$  |                                      |
+| DYPE				         |         |    DYPE    |  DYPE$\mathsection$  |                                      |
+| laurylBMNglycol            |   LMN   |    BLMN    |                      | BLMNG in CHARMM                      |
+| LIP1                       |         |    LIP1    |  LIP1                | Non-native in CHARMM36               |
+| LIP2                       |         |    LIP2    |  LIP2                | Non-native in CHARMM36               |
+| LIP3                       |         |    LIP3    |  LIP3                | Non-native in CHARMM36               |
+| LIPA                       |         |    LIPA    |  LIPA                | Non-native in CHARMM36               |
+| OBDglucopyranoside         |   BOG   |    BOG1    |                      | BOG in CHARMM36                      |
+| POPI 3 phosphate           |         |    POP1	|  POP1$\mathsection$  | POPI13 in CHARMM36				      |
+| POPI 3,4 bisphosphate      |         |    POP2	|  POP2$\mathsection$  | POPI2D in CHARMM36				      |
+| POPI 3,4,5 trisphosphate   |         |    POP3	|  POP3$\mathsection$  | POPI34 in CHARMM36				      |
+| POPI 4 phosphate           |         |    POP4	|  POP4$\mathsection$  | POPI14 in CHARMM36				      |
+| POPI 5 phosphate           |         |    POP5	|  POP5$\mathsection$  | POPI15 in CHARMM36				      |
+| POPI 4,5 bisphosphate      |         |    POP6	|  POP6$\mathsection$  | POPI24 in CHARMM36				      |
+| POPI 3,5 bisphosphate      |         |    POP7	|  POP7$\mathsection$  | POPI2A in CHARMM36				      |
+| POPA                       |   D21   |    POPA    |  POPA$\mathsection$  |                                      |
+| POPC                       |   POV   |    POPC    |  POPC$\mathsection$  |                                      |
+| POPE                       |   PEV   |    POPE    |  POPE$\mathsection$  |                                      |
+| POPE_SMILES                |   POES  |    POPE    |  POPE$\mathsection$  | From SMILES string                   |
+| POPG                       |   PGW   |    POPG    |  POPG$\mathsection$  |                                      |
+| POPI   				     |         |    POPI    |  POPI$\mathsection$  |                                      |
+| POPS                       |   D39   |    POPS    |  POPS$\mathsection$  |                                      |
+| RAMP                       |         |    RAMP    |  RAMP                | Non-native in CHARMM36               |
+| REMP                       |   KDL   |    REMP    |  REMP                |                                      |
+| SSM1		                 |         |    SSM1    |  SSM1$\mathsection$  | SSM in CHARMM36                      |
+| TMM                        |         |    TMM1    |  TMM1                | Non-native in CHARMM36               |
+| TMMA                       |         |    TMMA    |  TMMA                | Non-native in CHARMM36               |
+| undecaprenyl phosphate     |   5TR   |    UNP1    |  UDP1                |                                      |
+| undecaprenyl pyrophosphate |         |    UDP2    |  UDP2                | UNDPP in CHARMM36                    |
+
+$\mathsection$ new lipidome mapping available
+
+### Post-translational Modifications
+
+| Name  | CCDName | CHARMMName | CGName  |  
+| ----- | ------- | ---------- | ------- |
+| CYSD	|         | CYSD       | CYSD    |
+| CYSF	|         | CYSF       | CYSF    |
+| CYSG	|         | CYSG       | CYSG    |
+| CYSP	|         | CYSP       | CYSP    |
+| CYST	|         | CYST       | CYST    |
+| GLYM	|         | GLYM       | GLYM    |
+
 
 
 ### SMILES strings
