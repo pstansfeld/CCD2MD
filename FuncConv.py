@@ -7,8 +7,7 @@
 # User-dependent variables
 # --------------------------
 
-#CCD2MD_dir = '/home/user/Packages/CCD2MD/'  # Location of CCD2MD - to be set by the user
-CCD2MD_dir = '/home/physics/phrkqs/Codes/Stansfeld_PDRA/CCD_conversion/'
+CCD2MD_dir = '/home/user/Packages/CCD2MD/'  # Location of CCD2MD - to be set by the user
 num_CPUs   = 1 # Number of CPUs to use for membrane insertion. Integer only.
 
 '''
