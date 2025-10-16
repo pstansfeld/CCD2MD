@@ -33,7 +33,7 @@ to_CG(inputfile, outputfile, input_data, martinizeparams, ligands, system_data, 
 prot_to_CG(inputfile, basename, input_data, martinizeparams, ligands, types, database=df) # Convert protein to CG using martinize2 on the command line. 
 
 write_PDB_atom_line(OUTFILE, counter, data)                                # For a given OUTFILE, write data corresponding to a given atom
-write_PDB(OUTFILE, ordered_dict, title=None, cryst=None, ligchain = False) # For a given OUTFILE, write all of the data for the system (ordered_dict)
+write_PDB(OUTFILE, ordered_dict, title=[], cryst=[], ligchain = False) # For a given OUTFILE, write all of the data for the system (ordered_dict)
 
 get_command_line_parameters(command_line, flags) # Determine additional command line parameters to pass to various commands.
 
@@ -134,7 +134,7 @@ base_ptms = ['CYST', 'CYSD', 'CYSP', 'CYSG', 'CYSF', 'GLYM']
 PTMs = set(base_ptms + [ptm + '_user' for ptm in base_ptms])
 terminal_PTMs = ['CYST', 'GLYM']
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 def read_CIF(name):
     ''' Read CIF file into molecule dictionary. '''

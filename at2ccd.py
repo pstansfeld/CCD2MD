@@ -33,7 +33,7 @@ args, unknownargs = parser.parse_known_args()
 
 if args.inputfile[-3:] == 'cif':
     tmp, title = FuncConv.read_CIF(args.inputfile)
-    cryst = None
+    cryst = []
 elif args.inputfile[-3:] == 'gro':
     tmp, title, cryst = FuncConv.read_GRO(args.inputfile)
 else:

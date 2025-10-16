@@ -46,7 +46,7 @@ command_line      = np.array(sys.argv)
 
 if args.inputfile[-3:] == 'cif':
     tmp, title = FuncConv.read_CIF(args.inputfile)
-    cryst = None
+    cryst = []
 elif args.inputfile[-3:] == 'gro':
     tmp, title, cryst = FuncConv.read_GRO(args.inputfile)
 else:
@@ -127,7 +127,7 @@ if args.outputfile.count('/') != 0:
 basename = '.'.join(args.outputfile.split('.')[:-1])
         
 PDBfile = basename+'_nomem.pdb' if args.membrane else args.outputfile
-FuncConv.write_PDB(PDBfile, output_data, title=title, ligand_chains=args.ligchain)
+FuncConv.write_PDB(PDBfile, output_data, title=title, cryst=cryst, ligand_chains=args.ligchain)
 
 # =================== #
 # Embed into membrane #
