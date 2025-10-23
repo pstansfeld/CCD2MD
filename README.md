@@ -1,5 +1,6 @@
 # CCD2MD codes for conversion between cofolding outputs and simulations
 
+
 Ref_data/ contains reference data
 
 
@@ -28,7 +29,7 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 #### ccd2at
 
-> python ccd2at.py INPUT_FILE OUTPUT_FILE [-lc] [-S &lt;smiles&gt; ...] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;]
+> python ccd2at.py INPUT_FILE OUTPUT_FILE [-L] [-S &lt;smiles&gt; ...]  [-gh &lt;pdb2gmx&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;] [-at &lt;cg2at&gt;]
 
 `INPUT_FILE`  name of the file to convert - the extension must be either .cif, .pdb or .gro
 
@@ -36,9 +37,12 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 *Optional arguments*
 
-`-lc/--ligchain` include ligands as their own chains - default off (binary switch)
+`-L/--ligchain` include ligands as their own chains - default off (binary switch). Note that this is currently incompatible with membrane insertion.
 
 `-S/--SMILES <smiles> ...`  indicates that some ligands have been input as SMILES strings - note that other than for POPE (see below) this requires user-defined ligand mapping. To use, list the **CCDName** of the ligands represented by SMILES strings in order of use (e.g. POES for a POPE smiles string, ideally should not overlap with CCD or CHARMM names). Note that when multiple of the same ligand are used this can be written either e.g. `-S POES POES` or `-S POES 2`. 
+
+`-gh/--pdb2gmx`  overrides ALL defaults of pdb2gmx and optionally can be used pass extra arguments. This may require interactivity, and may be necessary for a starting MET. Default is topology in topol.top, OUTPUTNAME_H.pdb, TIP3P water, charmm36-ccd2md forcefield, and charged termini (excepting starting CYST or GLYM which are set to None). Only applicable if NOT embedding the system in a membrane.
+
 
 *Optional arguments -- membrane embedding*
 
@@ -52,7 +56,7 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 #### at2ccd
 
-> python at2ccd.py INPUT_FILE OUTPUT_FILE [-lc] 
+> python at2ccd.py INPUT_FILE OUTPUT_FILE [-L] 
 
 
 `INPUT_FILE`  name of the file to convert - the extension must be either .cif, .pdb or .gro
@@ -61,7 +65,7 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 *Optional arguments*
 
-`-lc/--ligchain` include ligands as their own chains - default off (binary switch)
+`-L/--ligchain` include ligands as their own chains - default off (binary switch)
 
 
 #### ccd2cg
@@ -127,17 +131,11 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 #### at2mem
 
-> python at2mem.py INPUT_FILE OUTPUT_FILE [-lc]  [-M &lt;martinize&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;]
+> python at2mem.py INPUT_FILE OUTPUT_FILE [-M &lt;martinize&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;] [-at &lt;cg2at&gt;]
 
 `INPUT_FILE`  name of the file to convert - the extension must be either .cif, .pdb or .gro
 
 `OUTPUT_FILE` name of the converted file. This will be written as a pdb file
-
-
-*Optional arguments*
-
-`-lc/--ligchain` include ligands as their own chains - default off (binary switch)
-
 
 *Optional arguments -- membrane embedding*
 
@@ -263,4 +261,4 @@ Note any modification which does not affect the order of atoms can be made (e.g.
 | POPE_SMILES                |   POES  |  POPE  |```CCCCCCCC\C=C/CCCCCCCC(=O)O[C@H](COC(=O)CCCCCCCCCCCCCCC)COP(O)(=O)OCCN``` |
 
 
-For issues and suggestions, please feel free to add to the GitHub or contact Kat Blow at katarina.blow[at]warwick.ac.uk
+For issues and suggestions, please feel free to add these via GitHub or contact Kat Blow at katarina.blow[at]warwick.ac.uk

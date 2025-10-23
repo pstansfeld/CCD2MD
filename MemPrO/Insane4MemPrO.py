@@ -4051,14 +4051,14 @@ if solv:
 		maxz = np.max(pc[:,2])
 		minz = np.min(pc[:,2])
 
-		print(pc, maxz,minz)
+		# print(pc, maxz,minz)
 
 		max_iz = int((maxz/pbcz)*nz)
 		min_iz = int((minz/pbcz)*nz)
-		print(max_iz,min_iz)
+		# print(max_iz,min_iz)
 
 		for zl in range(min_iz,max_iz):
-			print(zl)
+			# print(zl)
 			acc_z = (zl/nz)*pbcz
 			lzrange = acc_z-dz
 			uzrange = acc_z+dz

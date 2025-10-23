@@ -400,7 +400,7 @@ class PDB_helper:
 
 			# Use quick hack: match bead types with atom positions by order
 			if len(bead_list) != len(atom_pos_list):
-				print(atom_pos_list)
+				# print(atom_pos_list)
 				print(f"Mismatch in bead count vs atom count for {resname} {resid}. Using mean positions. Expecting {len(bead_list)}, found {len(atom_pos_list)}")
 				for bead_type in bead_list:
 					bead_index = Beadtype.get(bead_type, -1)

@@ -7,13 +7,13 @@
 # User-dependent variables
 # --------------------------
 
-CCD2MD_dir = '/home/user/Packages/CCD2MD/'  # Location of CCD2MD - to be set by the user
+CCD2MD_dir = '/home/physics/phrkqs/Codes/Stansfeld_PDRA/CCD_conversion/'  # Location of CCD2MD - to be set by the user
 num_CPUs   = 1 # Number of CPUs to use for membrane insertion. Integer only.
 
 '''
 General file for functions to convert between CCD/CHARMM/Martini files
 
-Last Update: K Blow 06/10/25
+Last Update: K Blow 17/10/25
 
 Contains:
 read_CIF(INNAME)   # Read CIF file INNAME, return system data (note, only data relevant to PDBs is retained)
@@ -122,7 +122,7 @@ chars      = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
               'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 # All flags read by parts of CCD2MD
-all_flags = ['-S',   '--SMILES',   '-M',  '--martinize', '-G', '--go',  '-E',  '--elastic', '-lc', '--ligchain',
+all_flags = ['-S',   '--SMILES',   '-M',  '--martinize', '-G', '--go',  '-E',  '--elastic', '-L', '--ligchain',
              '-mem', '--membrane', '-mp', '--mempro',    '-C', '--conc', '-gh', '--pdb2gmx', '-V', '--Version',
              '-at', '--cg2at', '-nl', '--newlipidome']
 
@@ -134,7 +134,7 @@ base_ptms = ['CYST', 'CYSD', 'CYSP', 'CYSG', 'CYSF', 'GLYM']
 PTMs = set(base_ptms + [ptm + '_user' for ptm in base_ptms])
 terminal_PTMs = ['CYST', 'GLYM']
 
-__version__ = "0.0.2"
+__version__ = "0.0.1"
 
 def read_CIF(name):
     ''' Read CIF file into molecule dictionary. '''
@@ -337,6 +337,7 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
     convert         = []
     convresi        = []
     types           = []
+    lig_IDs         = []
     
     prev_max   = 0
     prev_chain = ''
@@ -450,17 +451,26 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
             # Chain of just ligands
             # No PTMs possible            
             # Ligands should not have their own chain, here add to previous protein
+
+            # For multi-protein multi-ligand need to ensure that there is no overlap of ligand ID for empy chain
             
             for i in range(num_residues):
                 res_data = chain_data.loc[chain_data['resi']==i+first_residue]
+                curr_resi = prev_max + i
+                for offset in range(100):
+                    curr_resi += 1
+                    if len(np.where(np.array(lig_IDs) == curr_resi)[0])==0:
+                        break
+                    
                 for index, atom_data in res_data.iterrows():
                     curr          = system_data.iloc[index].to_dict()
                     curr['chain'] = ''
-                    curr['resi']  = prev_max + i + 1
+                    curr['resi']  = curr_resi
 
                     system_data.iloc[index] = curr
                     
-            convresi.extend([['', int(i)+1+prev_max] for i in range(len(residues))])
+                convresi.extend([['', curr_resi]])
+                lig_IDs.append(curr_resi)
             prev_max = prev_max + num_residues
 
         elif (len(cres) != num_residues):
@@ -481,6 +491,12 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
                     # Assume that all in correct order => keep resi if not ligand chain
                     curr_resi  = 1                if ligand_chain else resi
                     res_data = chain_data.loc[chain_data['resi']==resi]
+
+                    for offset in range(100):
+                        if len(np.where(np.array(lig_IDs) == curr_resi)[0])==0:
+                            break
+                        curr_resi += 1
+
                     for index, atom_data in res_data.iterrows():
                         curr          = system_data.iloc[index].to_dict()
                         curr['chain'] = curr_chain
@@ -490,6 +506,7 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
                     convresi.extend([[curr_chain, curr_resi]])
                     if ligand_chain:
                         max_chnID += 1
+                        lig_IDs.append(curr_resi)
             prev_max   = 1                  if ligand_chain else curr_resi
             prev_chain = chars[max_chnID-1] if ligand_chain else chain
             
@@ -500,6 +517,13 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
                 res_data  = chain_data.loc[chain_data['resi']==i+first_residue]
                 new_chain = chars[max_chnID] if ligand_chain else ''
                 new_resi  = 1                if ligand_chain else prev_max + i + first_residue + 1
+
+                for offset in range(100):
+                    if len(np.where(np.array(lig_IDs) == new_resi)[0])==0:
+                        break
+                    new_resi += 1
+
+                    
                 for index, atom_data in res_data.iterrows():
                     curr          = system_data.iloc[index].to_dict()
                     curr['chain'] = new_chain
@@ -509,7 +533,8 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
                 convresi.extend([[new_chain, int(i)+1+prev_max] for i in range(len(residues)) if (residues[i] in cres)])
                 if ligand_chain:
                     max_chnID += 1
-
+                    lig_IDs.append(new_resi)
+                    
             prev_max   = 1                if ligand_chain else new_resi
             prev_chain = chars[max_chnID] if ligand_chain else ''
             
@@ -683,6 +708,7 @@ def to_CG(inputfile, outputfile, input_data, martinizeparams, ligands, system_da
                     print('# WARNING: Martinize2 will renumber residues from 1. This may cause PTMs to be written with a 3 letter code instead of the correct 4 letter code.')
                     PTM_check = True # Double check properties before converting PTM
             else:
+                martinizeparams = list(martinizeparams)
                 martinizeparams.extend(['-resid', 'input'])
                 
         print('# INFO: Running martinize2 on protein.')       
@@ -963,9 +989,6 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
 
     os.environ['PATH_TO_MARTINI'] = newmartini if newlipidome else oldmartini
     os.environ['PATH_TO_INSANE']  = newinsane  if newlipidome else oldinsane
-
-    print(os.environ['PATH_TO_INSANE'])
-
     
     extra_bd_args = ''  # bd_args all need to be passed together
         
@@ -1037,7 +1060,7 @@ def convert_membrane_at(system_data, basename, command_line, CG2AT_additional):
     else:
         cg2at_extra = ['-w', 'tip3p', '-fg', 'martini_3-0_charmm36']
 
-    cg2at_args.extend(cg2at_extra)
+    cg2at_args.extend(list(cg2at_extra))
         
     result = subprocess.run(cg2at_args)
     assert result.returncode==0, "ERROR: Failed to run CG2AT, please check for errors in your input"
@@ -1092,7 +1115,7 @@ def get_topology_CG(outputfile, membrane, ligands, prot, inputfile, newlipidome=
         # Get correct number of molcules
         mols = martinize.split('[ molecules ]')[-1].split('\n')
         mols = [mol for mol in mols if len(mol)!=0]
-
+        
         subprocess.run(['sed', '-i', 's/Protein\s*1/'+'\\n'.join(mols)+'/g', loc])
 
         # MemPrO as default does not include additional ligands - add here
@@ -1101,7 +1124,7 @@ def get_topology_CG(outputfile, membrane, ligands, prot, inputfile, newlipidome=
             num = len([l for l in ligands if l==lig])
             CG_name = database.at[lig.strip(), 'CGName']
             subprocess.run(['sed', '-i', '/{}/a {} \t{}\n'.format(last_entry, CG_name, num), loc])
-            last_entry = lig
+            last_entry = '{} \t{}'.format(CG_name, num)
         
         print('# INFO: Topology file has been created based on martinize2 and MemPrO outputs.')
 

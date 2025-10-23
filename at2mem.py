@@ -22,8 +22,6 @@ parser = argparse.ArgumentParser(description='Embed a CHARMM system in a membran
 parser.add_argument('inputfile', help='Input file name - .cif, .pdb or .gro.')
 parser.add_argument('outputfile', help='Output file name - will be written in .pdb format.')
 
-parser.add_argument('-lc', '--ligchain', help='Output ligands in their own chains - default is off.', action='store_true')
-
 sys_opts = parser.add_argument_group('membrane-embedded system options')
 
 sys_opts.add_argument('-mem', '--membrane', help='After this flag, it is possible to add the arguments for the upper and lower leaflet in the form "-u POPE:7 -u POPG:2 -u CARD:1 -l POPE:7 -l POPG:2 -l CARD:1" where the codes represent lipids and the numbers represent the ratio between them. The default is two leaflets of pure POPC. Note that membrane embedding may result in minor rearrangements of ligands.', action='store_true')
@@ -74,7 +72,7 @@ input_data = pd.DataFrame.from_dict(input_data, orient='columns')
 # Find ligands to omit
 # ---------------------
     
-ligands, atoms, IDs, types, locs = FuncConv.get_residues(input_data, 'CHARMM', [], args.ligchain)
+ligands, atoms, IDs, types, locs = FuncConv.get_residues(input_data, 'CHARMM', [], False)
 
 output_data = input_data.to_dict('records')
 
@@ -91,7 +89,7 @@ if args.outputfile.count('/') != 0:
 basename = '.'.join(args.outputfile.split('.')[:-1])
 
 PDBfile = basename+'_nomem.pdb'
-FuncConv.write_PDB(PDBfile, output_data, title=title, cryst=cryst, ligand_chains=args.ligchain)
+FuncConv.write_PDB(PDBfile, output_data, title=title, cryst=cryst, ligand_chains=False)
 
 # =================== #
 # Embed into membrane #

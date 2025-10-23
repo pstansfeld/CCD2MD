@@ -22,10 +22,10 @@ parser = argparse.ArgumentParser(description='Convert from output from co-foldin
 parser.add_argument('inputfile',  help='Input file name - .cif, .pdb or .gro.')
 parser.add_argument('outputfile', help='Output file name - will be written in .pdb format.')
 
-parser.add_argument('-lc', '--ligchain', help='Output ligands in their own chains - default is off.', action='store_true')
+parser.add_argument('-L', '--ligchain', help='Output ligands in their own chains - default is off. Only applicable if NOT embedding the system in a membrane.', action='store_true')
 parser.add_argument('-S',  '--SMILES',   help='Used SMILES strings, list the order of the name of the ligand used. Note that when multiple of the same ligand are used this can be written either e.g. "POPE POPE" or "POPE 2".', nargs='+', default=[])
 
-parser.add_argument('-gh', '--pdb2gmx', help='Override ALL defaults of pdb2gmx and optionally pass extra arguments - note that this may require interactivity, and may be necessary for a starting MET. Default is topology in topol.top, OUTPUTNAME_H.pdb, TIP3P water, charmm36-ccd2md forcefield, and charged termini (excepting starting CYST or GLYM which are set to None). Only applicable if NOT embedding the system in a membrane.', action='store_true')
+parser.add_argument('-gh', '--pdb2gmx', help='Override ALL defaults of pdb2gmx and optionally pass extra arguments - note that this may require interactivity, and may be necessary for a starting MET. Default is topology in topol.top, OUTPUTNAME_H.pdb, TIP3P water, charmm36-ccd2md forcefield, and charged termini (excepting starting CYST or GLYM which are set to None). Only applicable if NOT embedding the system in a membrane; --cg2at may provide some functionality in this case.', action='store_true')
 
 sys_opts = parser.add_argument_group('membrane-embedded system options')
 
@@ -94,6 +94,11 @@ else:
         
 print('# INFO: Assuming that chains are labelled sequentially.')
 
+if args.membrane and args.ligchain:
+    print('# WARNING: Ligand chains are currently incompatible with membrane insertion. Ligands will be appended to protein.')
+    args.ligchain = False
+
+
 # Find residues to reorder
 # ------------------------
 
@@ -125,7 +130,7 @@ if args.outputfile.count('/') != 0:
         os.makedirs(output_dir)
 
 basename = '.'.join(args.outputfile.split('.')[:-1])
-        
+
 PDBfile = basename+'_nomem.pdb' if args.membrane else args.outputfile
 FuncConv.write_PDB(PDBfile, output_data, title=title, cryst=cryst, ligand_chains=args.ligchain)
 
@@ -143,7 +148,7 @@ if args.membrane:
 
     CG_output = basename+'_CG_system.pdb'
 
-    FuncConv.write_PDB(CG_output, output_data, title=title, cryst=cryst, ligand_chains=args.ligchain)
+    FuncConv.write_PDB(CG_output, output_data, title=title, cryst=cryst, ligand_chains=False)
 
     # Embed in membrane
     # -----------------

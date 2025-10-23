@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser(description='Convert from CHARMM to CCD orderin
 parser.add_argument('inputfile', help='Input file name - .cif, .pdb or .gro.')
 parser.add_argument('outputfile', help='Output file name - will be written in .pdb format.')
 
-parser.add_argument('-lc', '--ligchain', help='Output ligands in their own chains - default is off.', action='store_true')
+parser.add_argument('-L', '--ligchain', help='Output ligands in their own chains - default is off.', action='store_true')
 
 info = parser.add_argument_group()
 info.add_argument('-V', '--Version', action='version', version='Version '+FuncConv.__version__)
