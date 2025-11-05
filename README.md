@@ -1,27 +1,36 @@
 # CCD2MD codes for conversion between cofolding outputs and simulations
 
+CCD2MD contains several codes for the purpose of increasing the ease of cofolding outputs and simulations.
+CCD2MD can be installed via pip (for versions 1.0.0 and above) via
+>pip install CCD2MD
 
-Ref_data/ contains reference data
+The paper associated with this code can be found on JCIM [here](https://doi.org/10.1021/acs.jcim.5c02066). Please note that there have been updates to the code (documented below) since the release of the paper.
 
+For full functionality, including membrane embedding please run ``pip install "CCD2MD[all]"``.
 
-FuncConv.py contains functions to enable conversion
+This utilises the following packages:
+**MemPrO/MemPrOD**
+M. Parrag and P. J. Stansfeld, ADD DETAILS. Additional details can be found in the [paper](PAPER LINK), the [MemPrO GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrO), and the [MemPrOD GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrOD). PyPi version 0.0.6 of MemPrOD (which includes MemPrO) is required. 
 
+**Vermouth-Martinize**
+P. C. Kroon et al., "Martinize2 and Vermouth: Unified Framework for Topology Generation", arxiv: 2212.01191. Additional details can be found in the [paper](https://arxiv.org/abs/2212.01191) and the [GitHub](https://github.com/marrink-lab/vermouth-martinize). CCD2MD has been tested with vermouth versions 0.13.0 and above, although use of 0.15.0 and above is not compatible with atomistic conversion.
+
+**cg2at-lite**
+This is a reduced version of CG2AT. CG2AT is detailed in O. N. Vickery and P. J. Stansfeld, (2021). "CG2AT2: an Enhanced Fragment-Based Approach for Serial Multi-scale Molecular Dynamics Simulations" J. Chem. Theory Comput. 17(10), 6472-6482. Additional details can be found in the [paper](https://doi.org/10.1021/acs.jctc.1c0029), the [CG2AT2 GitHub](https://github.com/owenvickery/cg2at) and the [CG2AT-lite GitHub](https://github.com/pstansfeld/cg2at-lite/tree/main). PyPi version 0.2.3 of cg2at-lite is required.
 
 Functions are converted using:
-- ccd2at.py  (cofolding to CHARMM)
-- at2ccd.py  (CHARMM to CCD/SMILES)
-- ccd2cg.py  (cofolding to Martini 3, where possible)
-- at2cg.py   (CHARMM to Martini 3, where possible)
-- at2mem.py  (embed CHARMM structure in membrane)
-- pos2cif.py (structure file(s) to userCCD)
+- ccd2at  (cofolding to CHARMM)
+- at2ccd  (CHARMM to CCD/SMILES)
+- ccd2cg  (cofolding to Martini 3, where possible)
+- at2cg   (CHARMM to Martini 3, where possible)
+- at2mem  (embed CHARMM structure in membrane)
+- pos2cif (structure file(s) to userCCD)
 
-Note that there are limitations for the ligands available for conversion to Martini 3
+There are limitations for the ligands available for conversion to Martini 3.
 
 ### Usage
 
-pdb2cif is self contained, otherwise (currently) need to ensure that `Ref_data/` and `FuncConv.py` are in the directory of use. Additionally, the location of the CCD2MD suite should be indicatied in line 10 of FuncConv.py
-
-Dependencies are numpy and pandas with vermouth-martinize (martinize2) required for protein conversion, MemPrO required for protein membrane embedding and gromacs (specifically pdb2gmx) required for atomistic topology generation. There may be additional requirements for vermouth-martinize, MemPrO and pdb2gmx.
+Dependencies are numpy and pandas with vermouth-martinize (martinize2) required for protein conversion, MemPrO required for protein membrane embedding and gromacs (specifically pdb2gmx) required for atomistic topology generation. There may be additional requirements for vermouth-martinize, MemPrO and pdb2gmx. Environment variables for MemPrO are set locally within CCD2MD and therefore do not need to be explicitly set if only utilising these packages via CCD2MD.
 
 Topology files are generated except for at2ccd.py and pos2cif.py
 
@@ -29,7 +38,7 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 #### ccd2at
 
-> python ccd2at.py INPUT_FILE OUTPUT_FILE [-L] [-S &lt;smiles&gt; ...]  [-gh &lt;pdb2gmx&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;] [-at &lt;cg2at&gt;]
+> ccd2at INPUT_FILE OUTPUT_FILE [-L] [-S &lt;smiles&gt; ...]  [-gh &lt;pdb2gmx&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;] [-mdef &lt;memprod&gt;] [-ncpu &lt;num_cpus&;] [-at &lt;cg2at&gt;]
 
 `INPUT_FILE`  name of the file to convert - the extension must be either .cif, .pdb or .gro
 
@@ -46,17 +55,21 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 *Optional arguments -- membrane embedding*
 
-`-mem/--membrane [<membrane>]` acts as a flag to embed the system in a membrane. Optionally, it may be followed by the membrane composition in the form `-u POPE:7 -u POPG:2 -u CARD:1 -l POPE:7 -l POPG:2 -l CARD:1` where the numbers give the ratio of lipids, `-u` represents the upper leaflet and `-l` represents the lower leaflet. If not specified, both leaflets are pure POPC. Note that membrane embedding will lead to minor rearrangement of bound ligands.
+`-mem/--membrane [<membrane>]` acts as a flag to embed the system in a membrane. Optionally, it may be followed by additional arguments to be used by [Insane4MemPrO] (https://github.com/ShufflerBardOnTheEdge/MemPrO), most notably the membrane composition in the form `-u POPE:7 -u POPG:2 -u CARD:1 -l POPE:7 -l POPG:2 -l CARD:1` where the numbers give the ratio of lipids, `-u` represents the upper leaflet and `-l` represents the lower leaflet. If not specified, both leaflets are pure POPC. Note that membrane embedding will lead to minor rearrangement of bound ligands.
 
-`-C/--conc <conc>` passes a single number giving the concentration of NaCl in the system, where the charge is balanced. 
+`-C/--conc <conc>` passes a single number giving the concentration of NaCl in the system, where the charge is balanced.
 
 `-mp/--mempro <mempro>` passes optional arguments to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). Default is 5 grid points and 15 minimisation operations 
+
+`-mdef/--memprod <memprod>` is an optional flag to calculate the deformation of the membrane around the protein using[MemPrOD](https://github.com/ShufflerBardOnTheEdge/MemPrOD) -- if ommitted no deformations will be calculated. Optional arguments for MemPrOD will be passed after this flag, otherwise the MemPrOD defaults will be used.
+
+`-ncpu/--num_cpus` passes the environment variable NUM_CPUs to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). If unset, 1 CPU will be used.
 
 `-at/--cg2at <cg2at>` passes optional arguments to [cg2at-lite](https://github.com/pstansfeld/cg2at-lite)
 
 #### at2ccd
 
-> python at2ccd.py INPUT_FILE OUTPUT_FILE [-L] 
+> at2ccd INPUT_FILE OUTPUT_FILE [-L] 
 
 
 `INPUT_FILE`  name of the file to convert - the extension must be either .cif, .pdb or .gro
@@ -70,7 +83,7 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 #### ccd2cg
 
-> python ccd2cg.py INPUT_FILE OUTPUT_FILE [-S &lt;smiles&gt; ...] [-nl] [(-E [&lt;elastic&gt;]) | (-G &lt;go&gt;)] [-M &lt;martinize&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;]
+> ccd2cg INPUT_FILE OUTPUT_FILE [-S &lt;smiles&gt; ...] [-nl] [(-E [&lt;elastic&gt;]) | (-G &lt;go&gt;)] [-M &lt;martinize&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;] [-mdef &lt;memprod&gt;] [-ncpu &lt;num_cpus&;] [-at &lt;cg2at&gt;]
 
 `INPUT_FILE`  name of the file to convert - the extension must be either .cif, .pdb or .gro
 
@@ -99,9 +112,13 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 `-mp/--mempro <mempro>` passes optional arguments to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). Default is 5 grid points and 15 minimisation operations 
 
+`-mdef/--memprod <memprod>` is an optional flag to calculate the deformation of the membrane around the protein using[MemPrOD](https://github.com/ShufflerBardOnTheEdge/MemPrOD) -- if ommitted no deformations will be calculated. Optional arguments for MemPrOD will be passed after this flag, otherwise the MemPrOD defaults will be used.
+
+`-ncpu/--num_cpus` passes the environment variable NUM_CPUs to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). If unset, 1 CPU will be used.
+
 #### at2cg
 
-> python at2cg.py INPUT_FILE OUTPUT_FILE [(-E [&lt;elastic&gt;]) | (-G &lt;go&gt;)] [-M &lt;martinize&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;]
+> at2cg INPUT_FILE OUTPUT_FILE [(-E [&lt;elastic&gt;]) | (-G &lt;go&gt;)] [-M &lt;martinize&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;] [-mdef &lt;memprod&gt;] [-ncpu &lt;num_cpus&;]
 
 `INPUT_FILE`  name of the file to convert - the extension must be either .cif, .pdb or .gro
 
@@ -129,9 +146,13 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 `-mp/--mempro <mempro>` passes optional arguments to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). Default is 5 grid points and 15 minimisation operations 
 
 
+`-mdef/--memprod <memprod>` is an optional flag to calculate the deformation of the membrane around the protein using[MemPrOD](https://github.com/ShufflerBardOnTheEdge/MemPrOD) -- if ommitted no deformations will be calculated. Optional arguments for MemPrOD will be passed after this flag, otherwise the MemPrOD defaults will be used.
+
+`-ncpu/--num_cpus` passes the environment variable NUM_CPUs to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). If unset, 1 CPU will be used.
+
 #### at2mem
 
-> python at2mem.py INPUT_FILE OUTPUT_FILE [-M &lt;martinize&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;] [-at &lt;cg2at&gt;]
+> at2mem INPUT_FILE OUTPUT_FILE [-M &lt;martinize&gt;] [-mem [&lt;membrane&gt;]] [-C &lt;conc&gt;] [-mp &lt;mempro&gt;] [-mdef &lt;memprod&gt;] [-ncpu &lt;num_cpus&;] [-at &lt;cg2at&gt;]
 
 `INPUT_FILE`  name of the file to convert - the extension must be either .cif, .pdb or .gro
 
@@ -145,13 +166,17 @@ For membrane embedding, MemPrO supports parallelisim, the default number of CPUs
 
 `-mp/--mempro <mempro>` passes optional arguments to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). Default is 5 grid points and 15 minimisation operations 
 
+`-mdef/--memprod <memprod>` is an optional flag to calculate the deformation of the membrane around the protein using[MemPrOD](https://github.com/ShufflerBardOnTheEdge/MemPrOD) -- if ommitted no deformations will be calculated. Optional arguments for MemPrOD will be passed after this flag, otherwise the MemPrOD defaults will be used.
+
+`-ncpu/--num_cpus` passes the environment variable NUM_CPUs to [MemPrO](https://github.com/ShufflerBardOnTheEdge/MemPrO). If unset, 1 CPU will be used.
+
 `-at/--cg2at <cg2at>` passes optional arguments to [cg2at-lite](https://github.com/pstansfeld/cg2at-lite)
 
 #### pos2cif
 
 pdb2cif allows for the creation of userCCD codes which can be input into AF3. When the atomic naming and orderings match that of the desired forcefield then no additional post-processing is required. Modified amino acids can also be input and the resulting CCD code manually added as a PTM for the correct location in the protein. Ligands composed of chains of multiple residues can be added, although the quality of the joins may be variable.
 
-> python pos2cif.py [-n &lt;ligand&gt; ... -f &lt;files&gt; ...] [-r (&lt;old&gt; &lt;new&gt;) ...] [-c ((&lt;pdb&gt; &lt;itp&gt;) | &lt;mol2&gt;) ...] [-e &lt;charge&gt;] [-b &lt;bond&gt;] [-H] [-j &lt;json&gt;] [-t &lt;title&gt;] [-A &lt;afvers&gt;] [-s &lt;seed&gt; ...] [-d &lt;dialect&gt;] [-p (&lt;protein&gt; | (&lt;protein N &gt;)) ...]  
+> pos2cif [-n &lt;ligand&gt; ... -f &lt;files&gt; ...] [-r (&lt;old&gt; &lt;new&gt;) ...] [-c ((&lt;pdb&gt; &lt;itp&gt;) | &lt;mol2&gt;) ...] [-e &lt;charge&gt;] [-b &lt;bond&gt;] [-H] [-j &lt;json&gt;] [-t &lt;title&gt;] [-A &lt;afvers&gt;] [-s &lt;seed&gt; ...] [-d &lt;dialect&gt;] [-p (&lt;protein&gt; | (&lt;protein N &gt;)) ...]  
 
 *Specifying ligands* 
 

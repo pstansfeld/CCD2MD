@@ -1,0 +1,6 @@
+recursive-include src/ccd2md/MemPrO *
+recursive-include src/ccd2md/Ref_data *
+recursive-include src/ccd2md/martini *
+recursive-include src/ccd2md/charmm36-ccd2md.ff *
+include src/ccd2md/CCD2MD.cif
+include src/ccd2md/martini*itp

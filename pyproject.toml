@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ccd2md"
+dynamic = ["version"]
+authors = [{name="Katarina E. Blow",email="katarina.blow@warwick.ac.uk"},{name = "Matyas Parrag"},{name="Phillip J. Stansfeld",email="phillip.stansfeld@warwick.ac.uk"}]
+maintainers = [{name="Katarina E. Blow",email="katarina.blow@warwick.ac.uk"},{name="Phillip J. Stansfeld",email="phillip.stansfeld@warwick.ac.uk"}]
+description = "A suite of packages for the conversion of co-folding outputs into simulatable PDB files."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy >= 1.26.4","pandas >= 2.3.1"]
+classifiers = ["Programming Language :: Python :: 3"]
+license = "GPL-3.0"
+license-files = ["LICEN[CS]E*"]
+
+[project.optional-dependencies]
+all = ["vermouth >= 0.13.0, < 0.15.0", "memprod == 0.0.6", "cg2at-lite == 0.2.3"]
+
+[project.scripts]
+ccd2at = "ccd2md:ccd2at.main"
+ccd2cg = "ccd2md:ccd2cg.main"
+at2ccd = "ccd2md:at2ccd.main"
+at2cg = "ccd2md:at2cg.main"
+at2mem = "ccd2md:at2mem.main"
+pos2cif = "ccd2md:pos2cif.main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"package" = ["Ref_data/*", "MemPrO/**/*", "martini/*/", "charmm36-ccd2md.ff/*"]
+
+
+[tool.setuptools.dynamic]
+version = { attr = "ccd2md.FuncConv.__version__" }
+
+[project.urls]
+Homepage = "https://github.com/keb721/CCD2MD"
+Issues = "https://github.com/keb721/CCD2MD/issues"
