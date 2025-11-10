@@ -208,7 +208,7 @@ pdb2cif allows for the creation of userCCD codes which can be input into AF3. Wh
 
 `-d/--dialect <dialect>` gives the dialect to be output in the json file. The default is alphafold3.
 
-`-p/--protein (<protein> | (<protein> <N>)) ...` allows input of FASTA protein sequence(s) for the json file. Sequences can be put in in FASTA form, numbers can be inserted to detail how many of the sequence should be added.
+`-p/--protein (<protein> | (<protein> <N>)) ...` allows input of FASTA protein sequence(s) for the json file. Sequences can be put in in FASTA form or in a FASTA file, numbers can be inserted to detail how many of the sequence should be added. FASTA files can contain multple sequences but each sequence must be preceeded by a protein information line starting with ">". A mixture of sequences and FASTA files may be used, a FASTA file followed by a number will input N copies of all sequences within the file.
 
 
 ### Current ligands

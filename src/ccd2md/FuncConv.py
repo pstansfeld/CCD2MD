@@ -128,7 +128,7 @@ base_ptms = ['CYST', 'CYSD', 'CYSP', 'CYSG', 'CYSF', 'GLYM']
 PTMs = set(base_ptms + [ptm + '_user' for ptm in base_ptms])
 terminal_PTMs = ['CYST', 'GLYM']
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 def read_CIF(name):
     ''' Read CIF file into molecule dictionary. '''

@@ -22,7 +22,7 @@ def main():
     
     parser = argparse.ArgumentParser(description='Generate user-defined CCD code(s) for use in AF3 from position and optionally additional bonding file(s). Saved as json file and cif file for each constituent ligand.')
     
-    parser.add_argument('-v', '--version', action='version', version='Version 1.0.1')
+    parser.add_argument('-v', '--version', action='version', version='Version 1.0.2')
     
     req = parser.add_argument_group('Required inputs')
     
@@ -45,7 +45,7 @@ def main():
     jsn.add_argument('-A', '--afvers',   help='AF3 version. Default = 2', default='2')
     jsn.add_argument('-s', '--seeds',    help='Model seeds - need not be comma separated. Default 1', default = ['1'], nargs='+')
     jsn.add_argument('-d', '--dialect',  help='Dialect. Default "alphafold3"', default="alphafold3")
-    jsn.add_argument('-p', '--protein',  help='FASTA protein sequence(s) or file(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2". Fasta files may contain multiple sequences but each sequence must start with an information line beginning ">". "-p Test.fasta 3" will insert three copies of all sequences within "Test.fasta". A mixture of sequences and files may be used.', default = [], nargs='+')
+    jsn.add_argument('-p', '--protein',  help='FASTA protein sequence(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2".', default = [], nargs='+')
     
     args = parser.parse_args()
     
@@ -873,7 +873,7 @@ def main():
                     if '.' in args.protein[i]:
                         protein_i = read_fasta(args.protein[i])
                     else:
-                        protein_i = args.protein[i]
+                        protein_i = [args.protein[i]]
                     protein.extend(list(protein_i)*num)
                     i += 2
                 except (ValueError, IndexError) as e:
