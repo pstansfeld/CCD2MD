@@ -22,7 +22,7 @@ def main():
     
     parser = argparse.ArgumentParser(description='Generate user-defined CCD code(s) for use in AF3 from position and optionally additional bonding file(s). Saved as json file and cif file for each constituent ligand.')
     
-    parser.add_argument('-v', '--version', action='version', version='Version 1.0.0')
+    parser.add_argument('-v', '--version', action='version', version='Version 1.0.1')
     
     req = parser.add_argument_group('Required inputs')
     
@@ -45,7 +45,7 @@ def main():
     jsn.add_argument('-A', '--afvers',   help='AF3 version. Default = 2', default='2')
     jsn.add_argument('-s', '--seeds',    help='Model seeds - need not be comma separated. Default 1', default = ['1'], nargs='+')
     jsn.add_argument('-d', '--dialect',  help='Dialect. Default "alphafold3"', default="alphafold3")
-    jsn.add_argument('-p', '--protein',  help='FASTA protein sequence(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2".', default = [], nargs='+')
+    jsn.add_argument('-p', '--protein',  help='FASTA protein sequence(s) or file(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2". Fasta files may contain multiple sequences but each sequence must start with an information line beginning ">". "-p Test.fasta 3" will insert three copies of all sequences within "Test.fasta". A mixture of sequences and files may be used.', default = [], nargs='+')
     
     args = parser.parse_args()
     
@@ -163,6 +163,21 @@ def main():
         cif_content.append("_chem_comp_bond.pdbx_aromatic_flag")
     
         return cif_content
+
+    # Fasta file function
+    # -------------------
+
+    def read_fasta(fastafile):
+        ''' Read in and split a fasta file.'''
+
+        fasta = open(fastafile, 'r').read().split('>')   # Split into different seqeunces                                 
+        fasta = [line for line in fasta if len(line)!=0] # Trim newlines                                                  
+        fasta = [entry.split('\n') for entry in fasta]
+        fasta = [[line for line in sequence if len(line)!=0] for sequence in fasta] # Trim newlines                       
+        protein = [''.join(sequence[1:]) for sequence in fasta]
+
+        return protein
+
     
     mol2bond_map  = {'1' : ['SING', 'N'], '2': ['DOUB', 'N'], '3': ['TRIP', 'N'], 'ar': ['AROM', 'Y']}
     allchains     = list(string.ascii_uppercase)
@@ -840,23 +855,36 @@ def main():
     if len(args.protein)==0:
         # Write ligand information only
         pass
-    elif len(args.protein)==1:
-        # Write protein sequence
-        json.write('{"protein": {"id" : ["'+allchains.pop(0)+'"],\n\t\t\t"sequence": "'+args.protein[0]+'"}},\n\t\t')
     else:
-        # Split protien input to determine unique chains
-        protein  = []
-        in_range = True ; i = 0
-        while in_range:
-            try:
-                num = int(args.protein[i+1])
-                protein.extend([args.protein[i]]*num)
-                i += 2
-            except (ValueError, IndexError) as e:
-                protein.append(args.protein[i])
-                i += 1
-            in_range = False if i >= len(args.protein) else True
-        
+        if len(args.protein)==1:
+            # Either a single sequence or a single fasta file   
+            if '.' in args.protein[0]:
+                # Fasta file  
+                protein = read_fasta(args.protein[0])
+            else:
+                protein = args.protein
+        else:
+            # Split protein input to determine unique chains                                                         
+            protein  = []
+            in_range = True ; i = 0
+            while in_range:
+                try:
+                    num = int(args.protein[i+1])
+                    if '.' in args.protein[i]:
+                        protein_i = read_fasta(args.protein[i])
+                    else:
+                        protein_i = args.protein[i]
+                    protein.extend(list(protein_i)*num)
+                    i += 2
+                except (ValueError, IndexError) as e:
+                    if '.' in args.protein[i]:
+                        protein_i = read_fasta(args.protein[i])
+                    else:
+                        protein_i = args.protein[i]
+                    protein.extend(list(protein_i))
+                    i += 1
+                in_range = False if i >= len(args.protein) else True        
+
         seqs   = Counter(protein)
         for sequence in seqs.keys():
             json.write('{"protein": {"id" : ["')

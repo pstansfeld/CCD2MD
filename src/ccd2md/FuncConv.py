@@ -58,6 +58,7 @@ Ref_data   = CCD2MD_dir + 'Ref_data/'
 CHARMMPath = CCD2MD_dir + 'charmm36-ccd2md.ff/'
 oldmartini = CCD2MD_dir + 'martini_v3.itp'
 newmartini = CCD2MD_dir + 'martini_new_lipidome.itp'
+oldinsane  = CCD2MD_dir + 'MemPrO/Insane4MemPrO.py'
 newinsane  = CCD2MD_dir + 'MemPrO/Insane4MemPrO_new_lipidome.py'
 
 
@@ -127,7 +128,7 @@ base_ptms = ['CYST', 'CYSD', 'CYSP', 'CYSG', 'CYSF', 'GLYM']
 PTMs = set(base_ptms + [ptm + '_user' for ptm in base_ptms])
 terminal_PTMs = ['CYST', 'GLYM']
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 def read_CIF(name):
     ''' Read CIF file into molecule dictionary. '''
@@ -499,7 +500,7 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
                     convresi.extend([[curr_chain, curr_resi]])
                     if ligand_chain:
                         max_chnID += 1
-                        lig_IDs.append(curr_resi)
+                    lig_IDs.append(curr_resi)
             prev_max   = 1                  if ligand_chain else curr_resi
             prev_chain = chars[max_chnID-1] if ligand_chain else chain
             
@@ -526,7 +527,7 @@ def get_residues(system_data, data_type, SMILES=[], ligand_chain=False, database
                 convresi.extend([[new_chain, int(i)+1+prev_max] for i in range(len(residues)) if (residues[i] in cres)])
                 if ligand_chain:
                     max_chnID += 1
-                    lig_IDs.append(new_resi)
+                lig_IDs.append(new_resi)
                     
             prev_max   = 1                if ligand_chain else new_resi
             prev_chain = chars[max_chnID] if ligand_chain else ''
@@ -976,10 +977,10 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
 
     MemPrO_dir = '.'.join(outputfile.split('.')[:-1])+'_MemPrO'
     
-    MemPrO = ['mempro', '-f', CG_output, '-res', ','.join(set(CG_ligands)), '-o', MemPrO_dir]
+    MemPrO = ['MemPrO', '-f', CG_output, '-res', ','.join(set(CG_ligands)), '-o', MemPrO_dir]
 
     os.environ['PATH_TO_MARTINI'] = newmartini if newlipidome else oldmartini
-    os.environ['PATH_TO_INSANE']  = newinsane # Not used, but needs to be set.
+    os.environ['PATH_TO_INSANE']  = oldinsane # Not used, but needs to be set.
 
     try:
         insane_params = list(get_command_line_parameters(command_line, ['-mem', '--membrane']))
@@ -1029,14 +1030,14 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
     oriented = MemPrO_dir+'/Rank_1/'+'.'.join(outputfile.split('/')[-1].split('.')[:-1])+'_oriented.pdb'
     subprocess.run(['sed', '/DUM/d', MemPrO_dir+'/Rank_1/oriented_rank_1.pdb'], stdout=open(oriented, 'w'))
     
-    all_insane = ['python', newinsane] if newlipidome else ['insane4mempro']
-    all_insane.extend(['-f', oriented, '-p', MemPrO_dir+'/Rank_1/CG_System_rank_1/topol.top', '-o', MemPrO_dir+'/Rank_1/CG_System_rank_1/CG-System.gro'])
+    all_insane = ['python', newinsane] if newlipidome else ['python', oldinsane]
+    all_insane.extend(['-f', oriented, '-p', MemPrO_dir+'/Rank_1/CG_System_rank_1/topol.top', '-o', MemPrO_dir+'/Rank_1/CG_System_rank_1/CG-system.gro'])
 
     # Now optionally run MemPrOD
     
     if memprod_additional:
         
-        MemPrOD = ['memprod', '-f', oriented, '-res', ','.join(set(CG_ligands)), '-o', MemPrO_dir+'/Rank_1/Deformations/']
+        MemPrOD = ['MemPrOD', '-f', oriented, '-res', ','.join(set(CG_ligands)), '-o', MemPrO_dir+'/Rank_1/Deformations/']
         
         deform_sys = get_command_line_parameters(command_line, ['-mdef', '--memprod'])
         SetFlags = {'-f' : [1, 'input file'], '--file_name' : [1, 'input file'],
