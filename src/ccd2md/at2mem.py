@@ -7,7 +7,8 @@
 # Import relevant functions
 # -------------------------
 
-from ccd2md import FuncConv
+#from ccd2md import FuncConv
+import FuncConv
 import argparse
 import numpy as np
 import pandas as pd
@@ -101,10 +102,26 @@ def main():
     
     # Convert system to CG
     # --------------------
-    
-    prot        = True if len(np.concatenate([np.array(i) for i in IDs])) != len(input_data) else False    
+
+    if len(IDs) == 0:
+        prot = True
+    else:
+        prot = True if len(np.concatenate([np.array(i) for i in IDs])) != len(input_data) else False    
+
+
+    mart_v = subprocess.check_output(['martinize2', '-V'], universal_newlines = True)
+    mart_v = mart_v.split()[-1].split('.')
+        
+    mart_extra = []
+    if int(mart_v[0]) > 0 or int(mart_v[1]) >= 15:
+        # Warning for secondary structure introduced in martinize 0.15.0
+        # Ignore this warning
+        print('# INFO: Ignoring martinize2 secondary structure prediction warning.')
+        mart_extra = ['-maxwarn', '1']
+
     CG_output   = basename+'_CG'
-    output_data = FuncConv.to_CG(args.inputfile, CG_output+'.pdb', input_data, ['-elastic'], ligands, input_data, types, locs, prot)
+    output_data = FuncConv.to_CG(args.inputfile, CG_output+'.pdb', input_data, mart_extra, ligands, input_data,
+                                 types, locs, prot)
     
     CG_output = basename+'_CG_system.pdb'
     

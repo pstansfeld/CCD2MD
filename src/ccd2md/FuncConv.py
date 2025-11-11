@@ -7,7 +7,7 @@
 '''
 General file for functions to convert between CCD/CHARMM/Martini files
 
-Last Update: K Blow 3/11/25
+Last Update: K Blow 11/11/25
 
 Contains:
 read_CIF(INNAME)   # Read CIF file INNAME, return system data (note, only data relevant to PDBs is retained)
@@ -51,9 +51,10 @@ import ast
 # Locations of packages
 # ---------------------
 
-import ccd2md
+#import ccd2md
 
-CCD2MD_dir = os.path.dirname(ccd2md.__file__)+'/'  # Location of CCD2MD
+#CCD2MD_dir = os.path.dirname(ccd2md.__file__)+'/'  # Location of CCD2MD
+CCD2MD_dir = os.path.dirname(os.path.abspath(__file__))+'/'  # Location of CCD2MD
 Ref_data   = CCD2MD_dir + 'Ref_data/'
 CHARMMPath = CCD2MD_dir + 'charmm36-ccd2md.ff/'
 oldmartini = CCD2MD_dir + 'martini_v3.itp'
@@ -128,7 +129,7 @@ base_ptms = ['CYST', 'CYSD', 'CYSP', 'CYSG', 'CYSF', 'GLYM']
 PTMs = set(base_ptms + [ptm + '_user' for ptm in base_ptms])
 terminal_PTMs = ['CYST', 'GLYM']
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 def read_CIF(name):
     ''' Read CIF file into molecule dictionary. '''
@@ -834,7 +835,7 @@ def prot_to_CG(inputfile, basename, input_data, martinizeparams, ligands, types,
         # Cif file - need to test vermouth version and presence of PyCifRW
         version = subprocess.check_output(['martinize2', '-V'], universal_newlines=True)
         version = version.split()[-1].split('.')
-        if int(version[1]) > 0 or int(version[1]) >= 14:
+        if int(version[0]) > 0 or int(version[1]) >= 14:
             # Martinize2 can handle vermouth, test PyCifRW presence
             try:
                 import CifFile
@@ -1025,7 +1026,6 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
     # Test output
     assert result.returncode==0, "ERROR: Failed to run MemPrO, please check for errors in your input"
 
-    
     # Remove dummy membrane - for MemPrOD and Insane4MemPrO
     oriented = MemPrO_dir+'/Rank_1/'+'.'.join(outputfile.split('/')[-1].split('.')[:-1])+'_oriented.pdb'
     subprocess.run(['sed', '/DUM/d', MemPrO_dir+'/Rank_1/oriented_rank_1.pdb'], stdout=open(oriented, 'w'))
@@ -1033,8 +1033,7 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
     all_insane = ['python', newinsane] if newlipidome else ['python', oldinsane]
     all_insane.extend(['-f', oriented, '-p', MemPrO_dir+'/Rank_1/CG_System_rank_1/topol.top', '-o', MemPrO_dir+'/Rank_1/CG_System_rank_1/CG-system.gro'])
 
-    # Now optionally run MemPrOD
-    
+    # Now optionally run MemPrOD    
     if memprod_additional:
         
         MemPrOD = ['MemPrOD', '-f', oriented, '-res', ','.join(set(CG_ligands)), '-o', MemPrO_dir+'/Rank_1/Deformations/']
@@ -1067,15 +1066,12 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
     # insane_params contains arguments passed via the -mem flag
     # Compare with bd_args, insane_params
     
+    insane_params = np.array(insane_params)
     extra_bd_args = extra_bd_args.split()
     if len(extra_bd_args)!=0:
         extra_bd_args = np.array(extra_bd_args)
-        insane_params = np.array(insane_params)
-        flags = [flag for flag in extra_bd_args if flag[0]=='-'] # Preserves order
+        flags = np.array([flag for flag in extra_bd_args if flag[0]=='-']) # Preserves order
 
-        all_insane = []
-        all_insane.extend(insane_params)
-        
         for f in range(len(flags)-1):
             # Insane4MemPrO has short flags only => don't need to consider duplication
             next_flag_loc = np.where(extra_bd_args==flags[f+1])[0][0]
@@ -1083,24 +1079,34 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
                 print('# ERROR: The flag {} has been specified via -mem and -mp. Taking value from -mem.'.format(flag))
             else:
                 # No duplicate specification
-                all_insane.extend(extra_bd_args[:next_flag_loc])
+                insane_params = np.append(insane_params, extra_bd_args[:next_flag_loc])
             # Delete this flag from consideration
+
             extra_bd_args = extra_bd_args[next_flag_loc:]
-    
+            
+        # Deal with last flag
+        if len(np.where(insane_params == flags[-1])[0]) != 0:
+            print('# ERROR: The flag {} has been specified via -mem and -mp. Taking value from -mem.'.format(flags[-1]))
+        else:
+            # No duplicate specification
+            insane_params = np.append(insane_params, extra_bd_args)
+        
+            
     SetFlags = {'-f' : [1, 'input file'], '-p' : [1, 'topology file'], '-o' : [1, 'output file']}
     # Remove any pre-set flags
     for flag in SetFlags.keys():
-        if len(np.where(all_insane==flag)[0])!=0:
-            print('# WARNING: You have tried to overwrite the {} passed to MemPrOD. This will cause an error so this command has been ignored.'.format(SetFlags[flag][1])) 
-            all_insane = np.hstack((all_insane[:np.where(all_insane == flag)[0][0]], all_insane[np.where(all_insane == flag)[0][0]+1+SetFlags[flag][0]:]))                
+        if len(np.where(insane_params==flag)[0])!=0:
+            print('# WARNING: You have tried to overwrite the {} passed to Insane4MemPrO. This will cause an error so this command has been ignored.'.format(SetFlags[flag][1])) 
+            insane_params = np.hstack((insane_params[:np.where(insane_params == flag)[0][0]], insane_params[np.where(insane_params == flag)[0][0]+1+SetFlags[flag][0]:]))                
 
+    all_insane = np.append(np.array(all_insane), insane_params)
 
     # Test for basic system set-up parameters
     extra_flags = {'-sol' : 'W', '-negi_c0': 'CL', '-posi_c0': 'NA', '-l': 'POPC', '-ion_conc': ','.join([str(ion_conc)]*3)}
             
     for flag in extra_flags.keys():
         if len(np.where(all_insane==flag)[0])==0:
-            all_insane.extend([flag, extra_flags[flag]])
+            all_insane = np.append(all_insane, [flag, extra_flags[flag]])
             if flag=='-ion_conc':
                 print('# WARNING: Overwriting any ion concentration specified via -C/--conc with alternative specification')
 
@@ -1124,7 +1130,7 @@ def build_membrane_CG(ligands, CG_output, outputfile, command_line, mempro_addit
             if dim == 'z':
                 dim_len += 2
             
-            all_insane.extend(['-'+dim, str(dim_len)])
+            all_insane = np.append(all_insane, ['-'+dim, str(dim_len)])
 
 
     if not os.path.exists(MemPrO_dir+'/Rank_1/CG_System_rank_1/'):

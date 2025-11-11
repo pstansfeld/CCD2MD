@@ -7,7 +7,8 @@
 # Import relevant functions
 # -------------------------
 
-from ccd2md import FuncConv
+#from ccd2md import FuncConv
+import FuncConv
 import argparse
 import pandas as pd
 from copy import deepcopy

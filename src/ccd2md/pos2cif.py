@@ -22,7 +22,7 @@ def main():
     
     parser = argparse.ArgumentParser(description='Generate user-defined CCD code(s) for use in AF3 from position and optionally additional bonding file(s). Saved as json file and cif file for each constituent ligand.')
     
-    parser.add_argument('-v', '--version', action='version', version='Version 1.0.2')
+    parser.add_argument('-v', '--version', action='version', version='Version 1.0.3')
     
     req = parser.add_argument_group('Required inputs')
     

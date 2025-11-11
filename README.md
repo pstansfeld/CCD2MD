@@ -6,14 +6,14 @@ CCD2MD can be installed via pip (for versions 1.0.0 and above) via
 
 The paper associated with this code can be found on JCIM [here](https://doi.org/10.1021/acs.jcim.5c02066). Please note that there have been updates to the code (documented below) since the release of the paper.
 
-For full functionality, including membrane embedding please run ``pip install "CCD2MD[all]"``.
+For full functionality, including membrane embedding please run ``pip install "CCD2MD[all]"``. Please note that this will not install gromacs, which is required for cg2at-lite/atomistic membrane embedding.
 
 This utilises the following packages:
 **MemPrO/MemPrOD**
-M. Parrag and P. J. Stansfeld, ADD DETAILS. Additional details can be found in the [paper](PAPER LINK), the [MemPrO GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrO), and the [MemPrOD GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrOD). PyPi version 0.0.6 of MemPrOD (which includes MemPrO) is required. 
+M. Parrag and P. J. Stansfeld, ADD DETAILS. Additional details can be found in the [paper](PAPER LINK), the [MemPrO GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrO), and the [MemPrOD GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrOD). PyPi version 0.0.9 of MemPrOD (which includes MemPrO) is required. 
 
 **Vermouth-Martinize**
-P. C. Kroon et al., "Martinize2 and Vermouth: Unified Framework for Topology Generation", arxiv: 2212.01191. Additional details can be found in the [paper](https://arxiv.org/abs/2212.01191) and the [GitHub](https://github.com/marrink-lab/vermouth-martinize). CCD2MD has been tested with vermouth versions 0.13.0 and above, although use of 0.15.0 and above is not compatible with atomistic conversion.
+P. C. Kroon et al., "Martinize2 and Vermouth: Unified Framework for Topology Generation", arxiv: 2212.01191. Additional details can be found in the [paper](https://arxiv.org/abs/2212.01191) and the [GitHub](https://github.com/marrink-lab/vermouth-martinize).
 
 **cg2at-lite**
 This is a reduced version of CG2AT. CG2AT is detailed in O. N. Vickery and P. J. Stansfeld, (2021). "CG2AT2: an Enhanced Fragment-Based Approach for Serial Multi-scale Molecular Dynamics Simulations" J. Chem. Theory Comput. 17(10), 6472-6482. Additional details can be found in the [paper](https://doi.org/10.1021/acs.jctc.1c0029), the [CG2AT2 GitHub](https://github.com/owenvickery/cg2at) and the [CG2AT-lite GitHub](https://github.com/pstansfeld/cg2at-lite/tree/main). PyPi version 0.2.3 of cg2at-lite is required.

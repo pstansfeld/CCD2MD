@@ -7,7 +7,8 @@
 # Import relevant functions
 # -------------------------
 
-from ccd2md import FuncConv
+#from ccd2md import FuncConv
+import FuncConv
 import argparse
 import pandas as pd
 import numpy as np
@@ -110,8 +111,12 @@ def main():
         
     ligands, atoms, IDs, types, locs = FuncConv.get_residues(input_data, 'CCD', SMILES, False)
     
-    # Convert system to CG    
-    prot = True if len(np.concatenate([np.array(i) for i in IDs])) != len(input_data) else False    
+    # Convert system to CG
+    if len(IDs) == 0:
+        # Protein only
+        prot = True
+    else:
+        prot = True if len(np.concatenate([np.array(i) for i in IDs])) != len(input_data) else False    
     
     # Generate the martinize2 parameters
     mart_params = FuncConv.get_CG_params(np.array(sys.argv), args.martinize, args.elastic, args.go) if prot else []
