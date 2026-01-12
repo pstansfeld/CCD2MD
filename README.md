@@ -10,7 +10,7 @@ For full functionality, including membrane embedding please run ``pip install "C
 
 This utilises the following packages:
 **MemPrO/MemPrOD**
-M. Parrag and P. J. Stansfeld, ADD DETAILS. Additional details can be found in the [paper](PAPER LINK), the [MemPrO GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrO), and the [MemPrOD GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrOD). PyPi version 0.0.9 of MemPrOD (which includes MemPrO) is required. 
+M. Parrag and P. J. Stansfeld, (2025). "MemPrO: A Predictive Tool for Membrane Protein Orientation" J. Chem. Theory Comput. Additional details can be found in the [paper](https://pubs.acs.org/doi/full/10.1021/acs.jctc.5c01433), the [MemPrO GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrO), and the [MemPrOD GitHub](https://github.com/ShufflerBardOnTheEdge/MemPrOD). PyPi version 0.0.9 of MemPrOD (which includes MemPrO) is required. 
 
 **Vermouth-Martinize**
 P. C. Kroon et al., "Martinize2 and Vermouth: Unified Framework for Topology Generation", arxiv: 2212.01191. Additional details can be found in the [paper](https://arxiv.org/abs/2212.01191) and the [GitHub](https://github.com/marrink-lab/vermouth-martinize).
