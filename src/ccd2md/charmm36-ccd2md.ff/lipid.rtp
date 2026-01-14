@@ -117679,6 +117679,1268 @@
    C4    CA4   N5    O4      
    N5    C4    CA5   HN5      
    C5    CA5   OT25  OT15      
+[ LP2G ]
+  [ atoms ]
+       P2       PG1   1.46    1 
+      O22     OC30P  -0.62    2 
+      O23     OG2P1  -0.79    3 
+      O24     OG2P1  -0.79    4 
+       P1       PG1   1.46    5 
+      O12     OG303  -0.62    6 
+      O13     OG2P1  -0.79    7 
+      O14     OG2P1  -0.79    8 
+      O11     OG303  -0.62    9 
+      C1A     CG321  -0.08   10 
+     H1A1      HGA2   0.09   11 
+     H1A2      HGA2   0.09   12 
+      C1B     CG2D1  -0.15   13 
+      H1B      HGA4   0.15   14 
+      C1C     CG2D1      0   15 
+      C1D     CG331  -0.27   16 
+     H1D1      HGA3   0.09   17 
+     H1D2      HGA3   0.09   18 
+     H1D3      HGA3   0.09   19 
+      C1E     CG321  -0.18   20 
+     H1E1      HGA2   0.09   21 
+     H1E2      HGA2   0.09   22 
+      C2A     CG321  -0.18   23 
+     H2A1      HGA2   0.09   24
+     H2A2      HGA2   0.09   25 
+      C2B     CG2D1  -0.15   26 
+      H2B      HGA4   0.15   27 
+      C2C     CG2D1      0   28 
+      C2D     CG331  -0.27   29 
+     H2D1      HGA3   0.09   30 
+     H2D2      HGA3   0.09   31 
+     H2D3      HGA3   0.09   32 
+      C2E     CG321  -0.18   33 
+     H2E1      HGA2   0.09   34 
+     H2E2      HGA2   0.09   35 
+      C3A     CG321  -0.18   36
+     H3A1      HGA2   0.09   37 
+     H3A2      HGA2   0.09   38 
+      C3B     CG2D1  -0.15   39 
+      H3B      HGA4   0.15   40 
+      C3C     CG2D1      0   41 
+      C3D     CG331  -0.27   42 
+     H3D1      HGA3   0.09   43 
+     H3D2      HGA3   0.09   44 
+     H3D3      HGA3   0.09   45 
+      C3E     CG321  -0.18   46 
+     H3E1      HGA2   0.09   47 
+	 H3E2      HGA2   0.09   48 
+      C4A     CG321  -0.18   49 
+     H4A1      HGA2   0.09   50 
+     H4A2      HGA2   0.09   51 
+      C4B     CG2D1  -0.15   52 
+      H4B      HGA4   0.15   53 
+      C4C     CG2D1      0   54 
+      C4D     CG331  -0.27   55 
+     H4D1      HGA3   0.09   56 
+     H4D2      HGA3   0.09   57 
+     H4D3      HGA3   0.09   58 
+      C4E     CG321  -0.18   59 
+     H4E1      HGA2   0.09   60 
+     H4E2      HGA2   0.09   61 
+      C5A     CG321  -0.18   62 
+     H5A1      HGA2   0.09   63 
+     H5A2      HGA2   0.09   64 
+      C5B     CG2D1  -0.15   65 
+      H5B      HGA4   0.15   66 
+      C5C     CG2D1      0   67 
+      C5D     CG331  -0.27   68 
+     H5D1      HGA3   0.09   69 
+     H5D2      HGA3   0.09   70 
+     H5D3      HGA3   0.09   71 
+      C5E     CG321  -0.18   72 
+     H5E1      HGA2   0.09   73 
+     H5E2      HGA2   0.09   74 
+      C6A     CG321  -0.18   75 
+     H6A1      HGA2   0.09   76 
+     H6A2      HGA2   0.09   77 
+      C6B     CG2D1  -0.15   78 
+      H6B      HGA4   0.15   79 
+      C6C     CG2D1      0   80 
+      C6D     CG331  -0.27   81 
+     H6D1      HGA3   0.09   82 
+     H6D2      HGA3   0.09   83 
+     H6D3      HGA3   0.09   84 
+      C6E     CG321  -0.18   85 
+     H6E1      HGA2   0.09   86 
+     H6E2      HGA2   0.09   87 
+      C7A     CG321  -0.18   88 
+     H7A1      HGA2   0.09   89 
+     H7A2      HGA2   0.09   90 
+      C7B     CG2D1  -0.15   91 
+      H7B      HGA4   0.15   92 
+      C7C     CG2D1      0   93 
+      C7D     CG331  -0.27   94 
+     H7D1      HGA3   0.09   95 
+     H7D2      HGA3   0.09   96 
+     H7D3      HGA3   0.09   97 
+      C7E     CG321  -0.18   98 
+     H7E1      HGA2   0.09   99 
+     H7E2      HGA2   0.09  100 
+      C8A     CG321  -0.18  101 
+     H8A1      HGA2   0.09  102 
+     H8A2      HGA2   0.09  103 
+      C8B     CG2D1  -0.15  104 
+      H8B      HGA4   0.15  105 
+      C8C     CG2D1      0  106 
+      C8D     CG331  -0.27  107 
+     H8D1      HGA3   0.09  108 
+     H8D2      HGA3   0.09  109 
+     H8D3      HGA3   0.09  110 
+      C8E     CG321  -0.18  111 
+     H8E1      HGA2   0.09  112 
+     H8E2      HGA2   0.09  113 
+      C9A     CG321  -0.18  114 
+     H9A1      HGA2   0.09  115 
+     H9A2      HGA2   0.09  116 
+      C9B     CG2D1  -0.15  117 
+      H9B      HGA4   0.15  118 
+      C9C     CG2D1      0  119 
+      C9D     CG331  -0.27  120 
+     H9D1      HGA3   0.09  121 
+     H9D2      HGA3   0.09  122 
+     H9D3      HGA3   0.09  123 
+      C9E     CG321  -0.18  124 
+     H9E1      HGA2   0.09  125 
+     H9E2      HGA2   0.09  126 
+     C10A     CG321  -0.18  127 
+     H0X1      HGA2   0.09  128 
+     H0X2      HGA2   0.09  129 
+     C10B     CG2D1  -0.15  130 
+     H10B      HGA4   0.15  131 
+     C10C     CG2D1      0  132 
+     C10D     CG331  -0.27  133 
+     H0Y1      HGA3   0.09  134 
+     H0Y2      HGA3   0.09  135 
+     H0Y3      HGA3   0.09  136 
+     C10E     CG321  -0.18  137 
+     H0Z1      HGA2   0.09  138 
+     H0Z2      HGA2   0.09  139 
+     C11A     CG321  -0.18  140 
+     H1X1      HGA2   0.09  141 
+     H1X2      HGA2   0.09  142 
+     C11B     CG2D1  -0.15  143 
+     H11B      HGA4   0.15  144 
+     C11C     CG2D1      0  145 
+     C11D     CG331  -0.27  146 
+     H1Y1      HGA3   0.09  147 
+     H1Y2      HGA3   0.09  148 
+     H1Y3      HGA3   0.09  149 
+     C11E     CG331  -0.27  150 
+     H1Z1      HGA3   0.09  151 
+     H1Z2      HGA3   0.09  152 
+     H1Z3      HGA3   0.09  153 
+      C1M    CC3162   0.11  154 
+      H1M      HCA1   0.09  155 
+      C5M    CC3163   0.11  156 
+      H5M      HCA1   0.09  157 
+      O5M    OC3C61   -0.4  158 
+      C2M    CC3161   0.07  159 
+      H2M      HCA1   0.09  160 
+      NMM     NC2D1  -0.47  161 
+     HNMM      HCP1   0.31  162 
+      CMM     CC2O1   0.51  163 
+      OMM     OC2D1  -0.51  164 
+      CTM     CC331  -0.27  165 
+     HTM1      HCA3   0.09  166 
+     HTM2      HCA3   0.09  167 
+     HTM3      HCA3   0.09  168 
+      C3M    CC3161 -0.024  169 
+      H3M      HCA1   0.09  170 
+      O3M     OC311 -0.406  171 
+      C4M    CC3161   0.27  172 
+      H4M      HCA1   0.09  173 
+      O1G     OC311  -0.36  174 
+      C6M     CC321   0.05  175 
+     H6M1      HCA2   0.09  176 
+     H6M2      HCA2   0.09  177 
+      O6M     OC311  -0.65  178 
+     HO6M      HCP1   0.42  179 
+      CAM       CT1   0.25  180 
+      HAM       HB1   0.09  181 
+      CBM       CT3  -0.27  182 
+     HBM1       HA3   0.09  183 
+     HBM2       HA3   0.09  184 
+     HBM3       HA3   0.09  185 
+       CM         C   0.51  186 
+       OM         O  -0.51  187 
+       N1       NH1  -0.47  188 
+      HN1         H   0.31  189 
+      CA1       CT1   0.07  190 
+      HA1       HB1   0.09  191 
+      CB1       CT3  -0.27  192 
+     HB11       HA3   0.09  193 
+     HB12       HA3   0.09  194 
+     HB13       HA3   0.09  195 
+       C1         C   0.51  196 
+       O1         O  -0.51  197 
+       N2       NH1  -0.47  198 
+      HN2         H   0.31  199 
+      CA2      CTD1   0.07  200 
+      HA2       HB1   0.09  201 
+      CB2       CT2  -0.18  202 
+     HB21       HA2   0.09  203 
+     HB22       HA2   0.09  204 
+      CG2       CT2  -0.28  205 
+     HG21       HA2   0.09  206 
+     HG22       HA2   0.09  207 
+      CD2        CC   0.62  208 
+     OE21        OC  -0.76  209 
+     OE22        OC  -0.76  210 
+       C2         C   0.51  211 
+       O2         O  -0.51  212 
+       N3       NH1  -0.47  213 
+      HN3         H   0.31  214 
+      CA3      CTD1   0.07  215 
+      HA3       HB1   0.09  216 
+      CB3       CT2  -0.18  217 
+     HB31       HA2   0.09  218 
+     HB32       HA2   0.09  219 
+      CG3       CT2  -0.18  220
+      HG31      HA2   0.09  221
+      HG32      HA2   0.09  222
+      CD3       CT2  -0.18  223
+      HD31      HA2   0.09  224
+      HD32      HA2   0.09  225
+      CE3       CT2  -0.02  226
+      HE31      HA2   0.09  227
+      HE32      HA2   0.09  228
+      NX3       NH1  -0.47  229
+      HNX         H   0.31  230
+      N6        NH1  -0.47  231
+      HN6         H   0.31  232
+      CA6       CT2  -0.02  233
+      HA61      HB2   0.09  234
+      HA62      HB2   0.09  235
+      C6          C   0.51  236
+      O6          O  -0.51  237
+      N7        NH1  -0.47  238
+      HN7         H   0.31  239
+      CA7       CT2  -0.02  240
+      HA71      HB2   0.09  241
+      HA72      HB2   0.09  242
+      C7          C   0.51  243
+      O7          O  -0.51  244
+      N8        NH1  -0.47  245
+      HN8         H   0.31  246
+      CA8       CT2  -0.02  247
+      HA81      HB2   0.09  248
+      HA82      HB2   0.09  249
+      C8          C   0.51  250
+      O8          O  -0.51  251
+      N9        NH1  -0.47  252
+      HN9         H   0.31  253
+      CA9       CT2  -0.02  254
+      HA91      HB2   0.09  255
+      HA92      HB2   0.09  256
+      C9          C   0.51  257
+      O9          O  -0.51  258
+      NZ        NH3  -0.30  259
+      HZ1        HC   0.33  260
+      HZ2        HC   0.33  261
+      HZ3        HC   0.33  262
+      CZ10      CT2   0.13  263
+      HAZ1      HB2   0.09  264
+      HAZ2      HB2   0.09  265
+      C10         C   0.51  266
+      O10         O  -0.51  267
+      C3          C   0.51  268
+      O3          O  -0.51  269
+      N4        NH1  -0.47  270
+      HN4         H   0.31  271
+      CA4      CTD1   0.07  272
+      HA4       HB1   0.09  273
+      CB4       CT3  -0.27  274
+      HB41      HA3   0.09  275
+      HB42      HA3   0.09  276
+      HB43      HA3   0.09  277
+      C4          C   0.51  278
+      O4          O  -0.51  279
+      N5        NH1  -0.47  280
+      HN5         H   0.31  281
+      CA5      CTD1   0.07  282
+      HA5       HB1   0.09  283
+      CB5       CT3  -0.27  284
+      HB51      HA3   0.09  285
+      HB52      HA3   0.09  286
+      HB53      HA3   0.09  287
+      C5         CC   0.34  288
+      OT51       OC  -0.67  289
+      OT52       OC  -0.67  290
+      C1G    CC3162   0.11  291
+      H1G      HCA1   0.09  292
+      C5G    CC3163   0.11  293
+      H5G      HCA1   0.09  294
+      O5G    OC3C61  -0.40  295
+      C2G    CC3161   0.07  296
+      H2G      HCA1   0.09  297
+      NMG     NC2D1  -0.47  298
+      HNMG     HCP1   0.31  299
+      CMG     CC2O1   0.51  300
+      OMG     OC2D1  -0.51  301
+      CTG      CC331  -0.27  302
+      HTG1     HCA3   0.09  303
+      HTG2     HCA3   0.09  304
+      HTG3     HCA3   0.09  305
+      C3G    CC3161   0.14  306
+      H3G      HCA1   0.09  307
+      O3G     OC311  -0.65  308
+      HO3G     HCP1   0.42  309
+      C4G    CC3161   0.14  310
+      H4G      HCA1   0.09  311
+      O4G     OC311  -0.65  312
+      HO4G     HCP1   0.42  313
+      C6G      CC321   0.05 314
+      H6G1     HCA2   0.09 315
+      H6G2     HCA2   0.09 316
+      O6G     OC311  -0.65 317
+      HO6G     HCP1   0.42 318     
+  [ bonds ]
+       P2   O22    
+       P2   O23   
+       P2   O24    
+       P2   O12    
+      O22   C1M    
+       P1   O12    
+       P1   O13    
+       P1   O14    
+       P1   O11    
+      O11   C1A    
+      C1A   H1A1    
+      C1A   H1A2    
+      C1A   C1B    
+      C1B   H1B    
+      C1B   C1C    
+      C1C   C1D    
+      C1C   C1E    
+      C1D   H1D1    
+      C1D   H1D2    
+      C1D   H1D3    
+      C1E   H1E1    
+      C1E   H1E2    
+      C1E   C2A    
+      C2A   H2A1    
+      C2A   H2A2    
+      C2A   C2B    
+      C2B   H2B
+      C2B   C2C    
+      C2C   C2D    
+      C2C   C2E
+      C2D   H2D1    
+      C2D   H2D2    
+      C2D   H2D3    
+      C2E   H2E1    
+      C2E   H2E2    
+      C2E   C3A    
+      C3A   H3A1    
+      C3A   H3A2    
+      C3A   C3B    
+      C3B   H3B    
+      C3B   C3C    
+      C3C   C3D    
+      C3C   C3E    
+      C3D   H3D1    
+      C3D   H3D2    
+      C3D   H3D3    
+      C3E   H3E1    
+      C3E   H3E2    
+      C3E   C4A    
+      C4A   H4A1    
+      C4A   H4A2    
+      C4A   C4B    
+      C4B   H4B    
+      C4B   C4C    
+      C4C   C4D    
+      C4C   C4E    
+      C4D   H4D1    
+      C4D   H4D2    
+      C4D   H4D3    
+      C4E   H4E1    
+      C4E   H4E2    
+      C4E   C5A    
+      C5A   H5A1    
+      C5A   H5A2    
+      C5A   C5B    
+      C5B   H5B    
+      C5B   C5C    
+      C5C   C5D    
+      C5C   C5E    
+      C5D   H5D1    
+      C5D   H5D2    
+      C5D   H5D3    
+      C5E   H5E1    
+      C5E   H5E2    
+      C5E   C6A    
+      C6A   H6A1    
+      C6A   H6A2    
+      C6A   C6B    
+      C6B   H6B    
+      C6B   C6C    
+      C6C   C6D    
+      C6C   C6E   
+      C6D   H6D1    
+      C6D   H6D2    
+      C6D   H6D3    
+      C6E   H6E1    
+      C6E   H6E2    
+      C6E   C7A
+      C7A   H7A1    
+      C7A   H7A2    
+      C7A   C7B    
+      C7B   H7B    
+      C7B   C7C    
+      C7C   C7D    
+      C7C   C7E    
+      C7D   H7D1    
+      C7D   H7D2    
+      C7D   H7D3    
+      C7E   H7E1    
+      C7E   H7E2    
+      C7E   C8A    
+      C8A   H8A1    
+      C8A   H8A2    
+      C8A   C8B    
+      C8B   H8B    
+      C8B   C8C    
+      C8C   C8D    
+      C8C   C8E    
+      C8D   H8D1    
+      C8D   H8D2    
+      C8D   H8D3    
+      C8E   H8E1    
+      C8E   H8E2    
+      C8E   C9A    
+      C9A   H9A1    
+      C9A   H9A2    
+      C9A   C9B    
+      C9B   H9B    
+      C9B   C9C    
+      C9C   C9D    
+      C9C   C9E    
+      C9D   H9D1    
+      C9D   H9D2    
+      C9D   H9D3    
+      C9E   H9E1    
+      C9E   H9E2   
+      C9E   C10A    
+      C10A  H0X1    
+      C10A  H0X2    
+      C10A  C10B    
+      C10B  H10B    
+      C10B  C10C    
+      C10C  C10D    
+      C10C  C10E    
+      C10D  H0Y1    
+      C10D  H0Y2    
+      C10D  H0Y3    
+      C10E  H0Z1    
+      C10E  H0Z2    
+      C10E  C11A    
+      C11A  H1X1    
+      C11A  H1X2    
+      C11A  C11B    
+      C11B  H11B    
+      C11B  C11C    
+      C11C  C11D    
+      C11C  C11E    
+      C11D  H1Y1    
+      C11D  H1Y2    
+      C11D  H1Y3    
+      C11E  H1Z1    
+      C11E  H1Z2    
+      C11E  H1Z3    
+      C1M   H1M    
+      C1M   O5M    
+      C1M   C2M    
+      C5M   H5M    
+      C5M   O5M    
+      C5M   C4M    
+      C5M   C6M    
+      C2M   H2M    
+      C2M   NMM    
+      C2M   C3M    
+      NMM  HNMM    
+      NMM   CMM    
+      CMM   OMM    
+      CMM   CTM    
+      CTM  HTM1    
+      CTM  HTM2    
+      CTM  HTM3    
+      C3M   H3M    
+      C3M   O3M    
+      C3M   C4M    
+      O3M   CAM    
+      C4M   H4M    
+      C4M   O1G    
+      O1G   C1G    
+      C6M  H6M1   
+      C6M  H6M2   
+      C6M   O6M   
+      O6M  HO6M    
+      CAM   HAM    
+      CAM   CBM    
+      CAM    CM    
+      CBM  HBM1    
+      CBM  HBM2    
+      CBM  HBM3    
+      CM     OM    
+      CM     N1    
+      N1    HN1    
+      N1    CA1    
+      CA1   HA1    
+      CA1   CB1    
+      CA1    C1    
+      CB1  HB11    
+      CB1  HB12    
+      CB1  HB13    
+      C1     O1    
+      C1     N2    
+      N2    HN2    
+      N2    CA2    
+      CA2   HA2    
+      CA2   CB2    
+      CA2   CD2    
+      CB2  HB21    
+      CB2  HB22    
+      CB2   CG2    
+      CG2  HG21    
+      CG2  HG22    
+      CG2    C2    
+      CD2  OE21    
+      CD2  OE22    
+      C2     O2    
+      C2     N3    
+      N3    HN3    
+      N3    CA3    
+      CA3   HA3    
+      CA3   CB3    
+      CA3    C3    
+      CB3  HB31    
+      CB3  HB32    
+      CB3   CG3    
+      CG3  HG31    
+      CG3  HG32    
+      CG3   CD3    
+      CD3  HD31    
+      CD3  HD32    
+      CD3   CE3    
+      CE3  HE31    
+      CE3  HE32    
+      CE3   NX3
+      NX3   HNX
+      NX3    C6
+      C3     O3    
+      C3     N4    
+      N4    HN4    
+      N4    CA4    
+      CA4   HA4    
+      CA4   CB4    
+      CA4    C4    
+      CB4  HB41    
+      CB4  HB42    
+      CB4  HB43    
+      C4     O4    
+      C4     N5    
+      N5    HN5    
+      N5    CA5    
+      CA5   HA5    
+      CA5   CB5    
+      CA5    C5    
+      CB5  HB51    
+      CB5  HB52    
+      CB5  HB53    
+      C5   OT51    
+      C5   OT52   
+      C1G   H1G    
+      C1G   O5G    
+      C1G   C2G    
+      C5G   H5G    
+      C5G   O5G    
+      C5G   C4G    
+      C5G   C6G    
+      C2G   H2G    
+      C2G   NMG    
+      C2G   C3G    
+      NMG  HNMG    
+      NMG   CMG    
+      CMG   OMG    
+      CMG   CTG    
+      CTG  HTG1    
+      CTG  HTG2    
+      CTG  HTG3    
+      C3G   H3G    
+      C3G   O3G    
+      C3G   C4G    
+      O3G  HO3G    
+      C4G   H4G    
+      C4G   O4G    
+      O4G  HO4G    
+      C6G  H6G1    
+      C6G  H6G2    
+      C6G   O6G    
+      O6G  HO6G          
+       N6   HN6
+       N6   CA6
+       C6   CA6
+      CA6  HA61
+      CA6  HA62
+       O6    C6
+       C7    N6       
+       N7   HN7
+       N7   CA7
+       C7   CA7
+      CA7  HA71
+      CA7  HA72
+       O7    C7
+       C8    N7
+       N8   HN8
+       N8   CA8
+       C8   CA8
+      CA8  HA81
+      CA8  HA82
+       O8    C8
+       C9    N8       
+       N9   HN9
+       N9   CA9
+       C9   CA9
+      CA9  HA91
+      CA9  HA92
+       O9    C9
+      C10    N9       
+       NZ   HZ1
+       NZ   HZ2
+       NZ   HZ3
+       NZ  CZ10
+      C10  CZ10
+     CZ10  HAZ1
+     CZ10  HAZ2
+      O10   C10
+      
+  [ impropers ]
+      NMM   CMM   C2M   HNMM  
+      CMM   CTM   NMM   OMM  
+      CM    CAM   N1    OM  
+      N1    CM    CA1   HN1  
+      C1    CA1   N2    O1  
+      N2    C1    CA2   HN2  
+      CD2   CA2   OE22  OE21  
+      C2    CG2   N3    O2  
+      N3    C2    CA3   HN3  
+      C3    CA3   N4    O3  
+      N4    C3    CA4   HN4  
+      C4    CA4   N5    O4  
+      N5    C4    CA5   HN5  
+      C5    CA5   OT52  OT51  
+      NMG   CMG   C2G   HNMG  
+      CMG   CTG   NMG   OMG
+      NX3   C6    CE3   HNX
+      N6    C7    CA6   HN6
+      N7    C8    CA7   HN7
+      N8    C9    CA8   HN8
+      N9   C10    CA9   HN9
+      C6    CA6    NX3   O6
+      C7    CA7    N6    O7
+      C8    CA8    N7    O8
+      C9    CA9    N8    O9
+      C10   CZ10   N9   O10
+                  
+  [ cmap ]
+       C7     N6    CA6     C6    NX3
+       C8     N7    CA7     C7    N6
+       C9     N8    CA8     C8    N7
+       C10    N9    CA9     C9    N8     
+
+[ LP2K ]
+  [ atoms ]
+       P2       PG1   1.46    1 
+      O22     OC30P  -0.62    2 
+      O23     OG2P1  -0.79    3 
+      O24     OG2P1  -0.79    4 
+       P1       PG1   1.46    5 
+      O12     OG303  -0.62    6 
+      O13     OG2P1  -0.79    7 
+      O14     OG2P1  -0.79    8 
+      O11     OG303  -0.62    9 
+      C1A     CG321  -0.08   10 
+     H1A1      HGA2   0.09   11 
+     H1A2      HGA2   0.09   12 
+      C1B     CG2D1  -0.15   13 
+      H1B      HGA4   0.15   14 
+      C1C     CG2D1      0   15 
+      C1D     CG331  -0.27   16 
+     H1D1      HGA3   0.09   17 
+     H1D2      HGA3   0.09   18 
+     H1D3      HGA3   0.09   19 
+      C1E     CG321  -0.18   20 
+     H1E1      HGA2   0.09   21 
+     H1E2      HGA2   0.09   22 
+      C2A     CG321  -0.18   23 
+     H2A1      HGA2   0.09   24
+     H2A2      HGA2   0.09   25 
+      C2B     CG2D1  -0.15   26 
+      H2B      HGA4   0.15   27 
+      C2C     CG2D1      0   28 
+      C2D     CG331  -0.27   29 
+     H2D1      HGA3   0.09   30 
+     H2D2      HGA3   0.09   31 
+     H2D3      HGA3   0.09   32 
+      C2E     CG321  -0.18   33 
+     H2E1      HGA2   0.09   34 
+     H2E2      HGA2   0.09   35 
+      C3A     CG321  -0.18   36
+     H3A1      HGA2   0.09   37 
+     H3A2      HGA2   0.09   38 
+      C3B     CG2D1  -0.15   39 
+      H3B      HGA4   0.15   40 
+      C3C     CG2D1      0   41 
+      C3D     CG331  -0.27   42 
+     H3D1      HGA3   0.09   43 
+     H3D2      HGA3   0.09   44 
+     H3D3      HGA3   0.09   45 
+      C3E     CG321  -0.18   46 
+     H3E1      HGA2   0.09   47 
+	 H3E2      HGA2   0.09   48 
+      C4A     CG321  -0.18   49 
+     H4A1      HGA2   0.09   50 
+     H4A2      HGA2   0.09   51 
+      C4B     CG2D1  -0.15   52 
+      H4B      HGA4   0.15   53 
+      C4C     CG2D1      0   54 
+      C4D     CG331  -0.27   55 
+     H4D1      HGA3   0.09   56 
+     H4D2      HGA3   0.09   57 
+     H4D3      HGA3   0.09   58 
+      C4E     CG321  -0.18   59 
+     H4E1      HGA2   0.09   60 
+     H4E2      HGA2   0.09   61 
+      C5A     CG321  -0.18   62 
+     H5A1      HGA2   0.09   63 
+     H5A2      HGA2   0.09   64 
+      C5B     CG2D1  -0.15   65 
+      H5B      HGA4   0.15   66 
+      C5C     CG2D1      0   67 
+      C5D     CG331  -0.27   68 
+     H5D1      HGA3   0.09   69 
+     H5D2      HGA3   0.09   70 
+     H5D3      HGA3   0.09   71 
+      C5E     CG321  -0.18   72 
+     H5E1      HGA2   0.09   73 
+     H5E2      HGA2   0.09   74 
+      C6A     CG321  -0.18   75 
+     H6A1      HGA2   0.09   76 
+     H6A2      HGA2   0.09   77 
+      C6B     CG2D1  -0.15   78 
+      H6B      HGA4   0.15   79 
+      C6C     CG2D1      0   80 
+      C6D     CG331  -0.27   81 
+     H6D1      HGA3   0.09   82 
+     H6D2      HGA3   0.09   83 
+     H6D3      HGA3   0.09   84 
+      C6E     CG321  -0.18   85 
+     H6E1      HGA2   0.09   86 
+     H6E2      HGA2   0.09   87 
+      C7A     CG321  -0.18   88 
+     H7A1      HGA2   0.09   89 
+     H7A2      HGA2   0.09   90 
+      C7B     CG2D1  -0.15   91 
+      H7B      HGA4   0.15   92 
+      C7C     CG2D1      0   93 
+      C7D     CG331  -0.27   94 
+     H7D1      HGA3   0.09   95 
+     H7D2      HGA3   0.09   96 
+     H7D3      HGA3   0.09   97 
+      C7E     CG321  -0.18   98 
+     H7E1      HGA2   0.09   99 
+     H7E2      HGA2   0.09  100 
+      C8A     CG321  -0.18  101 
+     H8A1      HGA2   0.09  102 
+     H8A2      HGA2   0.09  103 
+      C8B     CG2D1  -0.15  104 
+      H8B      HGA4   0.15  105 
+      C8C     CG2D1      0  106 
+      C8D     CG331  -0.27  107 
+     H8D1      HGA3   0.09  108 
+     H8D2      HGA3   0.09  109 
+     H8D3      HGA3   0.09  110 
+      C8E     CG321  -0.18  111 
+     H8E1      HGA2   0.09  112 
+     H8E2      HGA2   0.09  113 
+      C9A     CG321  -0.18  114 
+     H9A1      HGA2   0.09  115 
+     H9A2      HGA2   0.09  116 
+      C9B     CG2D1  -0.15  117 
+      H9B      HGA4   0.15  118 
+      C9C     CG2D1      0  119 
+      C9D     CG331  -0.27  120 
+     H9D1      HGA3   0.09  121 
+     H9D2      HGA3   0.09  122 
+     H9D3      HGA3   0.09  123 
+      C9E     CG321  -0.18  124 
+     H9E1      HGA2   0.09  125 
+     H9E2      HGA2   0.09  126 
+     C10A     CG321  -0.18  127 
+     H0X1      HGA2   0.09  128 
+     H0X2      HGA2   0.09  129 
+     C10B     CG2D1  -0.15  130 
+     H10B      HGA4   0.15  131 
+     C10C     CG2D1      0  132 
+     C10D     CG331  -0.27  133 
+     H0Y1      HGA3   0.09  134 
+     H0Y2      HGA3   0.09  135 
+     H0Y3      HGA3   0.09  136 
+     C10E     CG321  -0.18  137 
+     H0Z1      HGA2   0.09  138 
+     H0Z2      HGA2   0.09  139 
+     C11A     CG321  -0.18  140 
+     H1X1      HGA2   0.09  141 
+     H1X2      HGA2   0.09  142 
+     C11B     CG2D1  -0.15  143 
+     H11B      HGA4   0.15  144 
+     C11C     CG2D1      0  145 
+     C11D     CG331  -0.27  146 
+     H1Y1      HGA3   0.09  147 
+     H1Y2      HGA3   0.09  148 
+     H1Y3      HGA3   0.09  149 
+     C11E     CG331  -0.27  150 
+     H1Z1      HGA3   0.09  151 
+     H1Z2      HGA3   0.09  152 
+     H1Z3      HGA3   0.09  153 
+      C1M    CC3162   0.11  154 
+      H1M      HCA1   0.09  155 
+      C5M    CC3163   0.11  156 
+      H5M      HCA1   0.09  157 
+      O5M    OC3C61   -0.4  158 
+      C2M    CC3161   0.07  159 
+      H2M      HCA1   0.09  160 
+      NMM     NC2D1  -0.47  161 
+     HNMM      HCP1   0.31  162 
+      CMM     CC2O1   0.51  163 
+      OMM     OC2D1  -0.51  164 
+      CTM     CC331  -0.27  165 
+     HTM1      HCA3   0.09  166 
+     HTM2      HCA3   0.09  167 
+     HTM3      HCA3   0.09  168 
+      C3M    CC3161 -0.024  169 
+      H3M      HCA1   0.09  170 
+      O3M     OC311 -0.406  171 
+      C4M    CC3161   0.27  172 
+      H4M      HCA1   0.09  173 
+      O1G     OC311  -0.36  174 
+      C6M     CC321   0.05  175 
+     H6M1      HCA2   0.09  176 
+     H6M2      HCA2   0.09  177 
+      O6M     OC311  -0.65  178 
+     HO6M      HCP1   0.42  179 
+      CAM       CT1   0.25  180 
+      HAM       HB1   0.09  181 
+      CBM       CT3  -0.27  182 
+     HBM1       HA3   0.09  183 
+     HBM2       HA3   0.09  184 
+     HBM3       HA3   0.09  185 
+       CM         C   0.51  186 
+       OM         O  -0.51  187 
+       N1       NH1  -0.47  188 
+      HN1         H   0.31  189 
+      CA1       CT1   0.07  190 
+      HA1       HB1   0.09  191 
+      CB1       CT3  -0.27  192 
+     HB11       HA3   0.09  193 
+     HB12       HA3   0.09  194 
+     HB13       HA3   0.09  195 
+       C1         C   0.51  196 
+       O1         O  -0.51  197 
+       N2       NH1  -0.47  198 
+      HN2         H   0.31  199 
+      CA2      CTD1   0.07  200 
+      HA2       HB1   0.09  201 
+      CB2       CT2  -0.18  202 
+     HB21       HA2   0.09  203 
+     HB22       HA2   0.09  204 
+      CG2       CT2  -0.28  205 
+     HG21       HA2   0.09  206 
+     HG22       HA2   0.09  207 
+      CD2        CC   0.62  208 
+     OE21        OC  -0.76  209 
+     OE22        OC  -0.76  210 
+       C2         C   0.51  211 
+       O2         O  -0.51  212 
+       N3       NH1  -0.47  213 
+      HN3         H   0.31  214 
+      CA3      CTD1   0.07  215 
+      HA3       HB1   0.09  216 
+      CB3       CT2  -0.18  217 
+     HB31       HA2   0.09  218 
+     HB32       HA2   0.09  219 
+      CG3       CT2  -0.18  220 
+     HG31       HA2   0.09  221 
+     HG32       HA2   0.09  222 
+      CD3       CT2  -0.18  223 
+     HD31       HA2   0.09  224 
+     HD32       HA2   0.09  225 
+      CE3       CT2   0.21  226 
+     HE31       HA2   0.05  227 
+     HE32       HA2   0.05  228     
+      NZ3       NH3   -0.3  229 
+     HZ31        HC   0.33  230 
+     HZ32        HC   0.33  231 
+     HZ33        HC   0.33  232 
+       C3         C   0.51  233 
+       O3         O  -0.51  234 
+       N4       NH1  -0.47  235 
+      HN4         H   0.31  236 
+      CA4      CTD1   0.07  237 
+      HA4       HB1   0.09  238 
+      CB4       CT3  -0.27  239 
+     HB41       HA3   0.09  240 
+     HB42       HA3   0.09  241 
+     HB43       HA3   0.09  242 
+       C4         C   0.51  243 
+       O4         O  -0.51  244 
+       N5       NH1  -0.47  245 
+      HN5         H   0.31  246 
+      CA5      CTD1   0.07  247 
+      HA5       HB1   0.09  248 
+      CB5       CT3  -0.27  249 
+     HB51       HA3   0.09  250 
+     HB52       HA3   0.09  251 
+     HB53       HA3   0.09  252 
+       C5        CC   0.34  253 
+     OT51        OC  -0.67  254 
+     OT52        OC  -0.67  255 
+      C1G    CC3162   0.11  256 
+      H1G      HCA1   0.09  257 
+      C5G    CC3163   0.11  258 
+      H5G      HCA1   0.09  259 
+      O5G    OC3C61   -0.4  260 
+      C2G    CC3161   0.07  261
+      H2G      HCA1   0.09  262 
+      NMG     NC2D1  -0.47  263 
+     HNMG      HCP1   0.31  264 
+      CMG     CC2O1   0.51  265 
+      OMG     OC2D1  -0.51  266 
+      CTG     CC331  -0.27  267 
+     HTG1      HCA3   0.09  268 
+     HTG2      HCA3   0.09  269 
+     HTG3      HCA3   0.09  270 
+      C3G    CC3161   0.14  271 
+      H3G      HCA1   0.09  272 
+      O3G     OC311  -0.65  273 
+     HO3G      HCP1   0.42  274 
+      C4G    CC3161   0.14  275 
+      H4G      HCA1   0.09  276 
+      O4G     OC311  -0.65  277 
+     HO4G      HCP1   0.42  278 
+      C6G     CC321   0.05  279 
+     H6G1      HCA2   0.09  280 
+     H6G2      HCA2   0.09  281 
+      O6G     OC311  -0.65  282 
+     HO6G      HCP1   0.42  283 
+  [ bonds ]
+       P2   O22    
+       P2   O23   
+       P2   O24    
+       P2   O12    
+      O22   C1M    
+       P1   O12    
+       P1   O13    
+       P1   O14    
+       P1   O11    
+      O11   C1A    
+      C1A   H1A1    
+      C1A   H1A2    
+      C1A   C1B    
+      C1B   H1B    
+      C1B   C1C    
+      C1C   C1D    
+      C1C   C1E    
+      C1D   H1D1    
+      C1D   H1D2    
+      C1D   H1D3    
+      C1E   H1E1    
+      C1E   H1E2    
+      C1E   C2A    
+      C2A   H2A1    
+      C2A   H2A2    
+      C2A   C2B    
+      C2B   H2B
+      C2B   C2C    
+      C2C   C2D    
+      C2C   C2E
+      C2D   H2D1    
+      C2D   H2D2    
+      C2D   H2D3    
+      C2E   H2E1    
+      C2E   H2E2    
+      C2E   C3A    
+      C3A   H3A1    
+      C3A   H3A2    
+      C3A   C3B    
+      C3B   H3B    
+      C3B   C3C    
+      C3C   C3D    
+      C3C   C3E    
+      C3D   H3D1    
+      C3D   H3D2    
+      C3D   H3D3    
+      C3E   H3E1    
+      C3E   H3E2    
+      C3E   C4A    
+      C4A   H4A1    
+      C4A   H4A2    
+      C4A   C4B    
+      C4B   H4B    
+      C4B   C4C    
+      C4C   C4D    
+      C4C   C4E    
+      C4D   H4D1    
+      C4D   H4D2    
+      C4D   H4D3    
+      C4E   H4E1    
+      C4E   H4E2    
+      C4E   C5A    
+      C5A   H5A1    
+      C5A   H5A2    
+      C5A   C5B    
+      C5B   H5B    
+      C5B   C5C    
+      C5C   C5D    
+      C5C   C5E    
+      C5D   H5D1    
+      C5D   H5D2    
+      C5D   H5D3    
+      C5E   H5E1    
+      C5E   H5E2    
+      C5E   C6A    
+      C6A   H6A1    
+      C6A   H6A2    
+      C6A   C6B    
+      C6B   H6B    
+      C6B   C6C    
+      C6C   C6D    
+      C6C   C6E   
+      C6D   H6D1    
+      C6D   H6D2    
+      C6D   H6D3    
+      C6E   H6E1    
+      C6E   H6E2    
+      C6E   C7A
+      C7A   H7A1    
+      C7A   H7A2    
+      C7A   C7B    
+      C7B   H7B    
+      C7B   C7C    
+      C7C   C7D    
+      C7C   C7E    
+      C7D   H7D1    
+      C7D   H7D2    
+      C7D   H7D3    
+      C7E   H7E1    
+      C7E   H7E2    
+      C7E   C8A    
+      C8A   H8A1    
+      C8A   H8A2    
+      C8A   C8B    
+      C8B   H8B    
+      C8B   C8C    
+      C8C   C8D    
+      C8C   C8E    
+      C8D   H8D1    
+      C8D   H8D2    
+      C8D   H8D3    
+      C8E   H8E1    
+      C8E   H8E2    
+      C8E   C9A    
+      C9A   H9A1    
+      C9A   H9A2    
+      C9A   C9B    
+      C9B   H9B    
+      C9B   C9C    
+      C9C   C9D    
+      C9C   C9E    
+      C9D   H9D1    
+      C9D   H9D2    
+      C9D   H9D3    
+      C9E   H9E1    
+      C9E   H9E2   
+      C9E   C10A    
+      C10A  H0X1    
+      C10A  H0X2    
+      C10A  C10B    
+      C10B  H10B    
+      C10B  C10C    
+      C10C  C10D    
+      C10C  C10E    
+      C10D  H0Y1    
+      C10D  H0Y2    
+      C10D  H0Y3    
+      C10E  H0Z1    
+      C10E  H0Z2    
+      C10E  C11A    
+      C11A  H1X1    
+      C11A  H1X2    
+      C11A  C11B    
+      C11B  H11B    
+      C11B  C11C    
+      C11C  C11D    
+      C11C  C11E    
+      C11D  H1Y1    
+      C11D  H1Y2    
+      C11D  H1Y3    
+      C11E  H1Z1    
+      C11E  H1Z2    
+      C11E  H1Z3    
+      C1M   H1M    
+      C1M   O5M    
+      C1M   C2M    
+      C5M   H5M    
+      C5M   O5M    
+      C5M   C4M    
+      C5M   C6M    
+      C2M   H2M    
+      C2M   NMM    
+      C2M   C3M    
+      NMM  HNMM    
+      NMM   CMM    
+      CMM   OMM    
+      CMM   CTM    
+      CTM  HTM1    
+      CTM  HTM2    
+      CTM  HTM3    
+      C3M   H3M    
+      C3M   O3M    
+      C3M   C4M    
+      O3M   CAM    
+      C4M   H4M    
+      C4M   O1G    
+      O1G   C1G    
+      C6M  H6M1   
+      C6M  H6M2   
+      C6M   O6M   
+      O6M  HO6M    
+      CAM   HAM    
+      CAM   CBM    
+      CAM    CM    
+      CBM  HBM1    
+      CBM  HBM2    
+      CBM  HBM3    
+      CM     OM    
+      CM     N1    
+      N1    HN1    
+      N1    CA1    
+      CA1   HA1    
+      CA1   CB1    
+      CA1    C1    
+      CB1  HB11    
+      CB1  HB12    
+      CB1  HB13    
+      C1     O1    
+      C1     N2    
+      N2    HN2    
+      N2    CA2    
+      CA2   HA2    
+      CA2   CB2    
+      CA2   CD2    
+      CB2  HB21    
+      CB2  HB22    
+      CB2   CG2    
+      CG2  HG21    
+      CG2  HG22    
+      CG2    C2    
+      CD2  OE21    
+      CD2  OE22    
+      C2     O2    
+      C2     N3    
+      N3    HN3    
+      N3    CA3    
+      CA3   HA3    
+      CA3   CB3    
+      CA3    C3    
+      CB3  HB31    
+      CB3  HB32    
+      CB3   CG3    
+      CG3  HG31    
+      CG3  HG32    
+      CG3   CD3    
+      CD3  HD31    
+      CD3  HD32    
+      CD3   CE3    
+      CE3  HE31    
+      CE3  HE32    
+      CE3   NZ3      
+      NZ3  HZ31    
+      NZ3  HZ32    
+      NZ3  HZ33    
+      C3     O3    
+      C3     N4    
+      N4    HN4    
+      N4    CA4    
+      CA4   HA4    
+      CA4   CB4    
+      CA4    C4    
+      CB4  HB41    
+      CB4  HB42    
+      CB4  HB43    
+      C4     O4    
+      C4     N5    
+      N5    HN5    
+      N5    CA5    
+      CA5   HA5    
+      CA5   CB5    
+      CA5    C5    
+      CB5  HB51    
+      CB5  HB52    
+      CB5  HB53    
+      C5   OT51    
+      C5   OT52   
+      C1G   H1G    
+      C1G   O5G    
+      C1G   C2G    
+      C5G   H5G    
+      C5G   O5G    
+      C5G   C4G    
+      C5G   C6G    
+      C2G   H2G    
+      C2G   NMG    
+      C2G   C3G    
+      NMG  HNMG    
+      NMG   CMG    
+      CMG   OMG    
+      CMG   CTG    
+      CTG  HTG1    
+      CTG  HTG2    
+      CTG  HTG3    
+      C3G   H3G    
+      C3G   O3G    
+      C3G   C4G    
+      O3G  HO3G    
+      C4G   H4G    
+      C4G   O4G    
+      O4G  HO4G    
+      C6G  H6G1    
+      C6G  H6G2    
+      C6G   O6G    
+      O6G  HO6G    
+  [ impropers ]
+      NMM   CMM   C2M   HNMM  
+      CMM   CTM   NMM   OMM  
+      CM    CAM   N1    OM  
+      N1    CM    CA1   HN1  
+      C1    CA1   N2    O1  
+      N2    C1    CA2   HN2  
+      CD2   CA2   OE22  OE21  
+      C2    CG2   N3    O2  
+      N3    C2    CA3   HN3  
+      C3    CA3   N4    O3  
+      N4    C3    CA4   HN4  
+      C4    CA4   N5    O4  
+      N5    C4    CA5   HN5  
+      C5    CA5   OT52  OT51  
+      NMG   CMG   C2G   HNMG  
+      CMG   CTG   NMG   OMG
 
 [ LIP2 ]
   [ atoms ]
@@ -117989,10 +119251,10 @@
       C1D   H1D2    
       C1D   H1D3    
       C1E   H1E1    
-      C1E   H1M    
+      C1E   H1E2    
       C1E   C2A    
-      C2A   H1A1    
-      C2A   H1A2    
+      C2A   H2A1    
+      C2A   H2A2    
       C2A   C2B    
       C2B   H2B
       C2B   C2C    
@@ -118002,7 +119264,7 @@
       C2D   H2D2    
       C2D   H2D3    
       C2E   H2E1    
-      C2E   H2M    
+      C2E   H2E2    
       C2E   C3A    
       C3A   H3A1    
       C3A   H3A2    
@@ -118015,7 +119277,7 @@
       C3D   H3D2    
       C3D   H3D3    
       C3E   H3E1    
-      C3E   H3M    
+      C3E   H3E2    
       C3E   C4A    
       C4A   H4A1    
       C4A   H4A2    
@@ -118028,7 +119290,7 @@
       C4D   H4D2    
       C4D   H4D3    
       C4E   H4E1    
-      C4E   H4M    
+      C4E   H4E2    
       C4E   C5A    
       C5A   H5A1    
       C5A   H5A2    
@@ -118041,7 +119303,7 @@
       C5D   H5D2    
       C5D   H5D3    
       C5E   H5E1    
-      C5E   H5M    
+      C5E   H5E2    
       C5E   C6A    
       C6A   H6A1    
       C6A   H6A2    
@@ -118054,7 +119316,7 @@
       C6D   H6D2    
       C6D   H6D3    
       C6E   H6E1    
-      C6E   H6M    
+      C6E   H6E2    
       C6E   C7A
       C7A   H7A1    
       C7A   H7A2    
@@ -118067,7 +119329,7 @@
       C7D   H7D2    
       C7D   H7D3    
       C7E   H7E1    
-      C7E   H7M    
+      C7E   H7E2    
       C7E   C8A    
       C8A   H8A1    
       C8A   H8A2    
@@ -118080,7 +119342,7 @@
       C8D   H8D2    
       C8D   H8D3    
       C8E   H8E1    
-      C8E   H8M    
+      C8E   H8E2    
       C8E   C9A    
       C9A   H9A1    
       C9A   H9A2    
@@ -118093,7 +119355,7 @@
       C9D   H9D2    
       C9D   H9D3    
       C9E   H9E1    
-      C9E   H9M    
+      C9E   H9E2   
       C9E   C10A    
       C10A  H0X1    
       C10A  H0X2    
@@ -118105,8 +119367,8 @@
       C10D  H0Y1    
       C10D  H0Y2    
       C10D  H0Y3    
-      C10E  H1Z1    
-      C10E  H1Z2    
+      C10E  H0Z1    
+      C10E  H0Z2    
       C10E  C11A    
       C11A  H1X1    
       C11A  H1X2    
@@ -118160,11 +119422,11 @@
       N1    HN1    
       N1    CA1    
       CA1   HA1    
-      CA1   CB2    
+      CA1   CB1    
       CA1    C1    
-      CB2  HB11    
-      CB2  HB12    
-      CB2  HB13    
+      CB1  HB11    
+      CB1  HB12    
+      CB1  HB13    
       C1     O1    
       C1     N2    
       N2    HN2    
@@ -118250,8 +119512,8 @@
       C4G   H4G    
       C4G   O4G    
       O4G  HO4G    
-      C6G  HG61    
-      C6G  HG62    
+      C6G  H6G1    
+      C6G  H6G2    
       C6G   O6G    
       O6G  HO6G    
   [ impropers ]
