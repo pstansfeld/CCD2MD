@@ -1,0 +1,35 @@
+# Example of a configuration file for at2ccd
+
+# Configuration file set-up
+# --------------------------
+
+# Comments are denoted by '#'
+# Fields may be presented in any order
+# Input and output files may be specified as 'input'/'output', 'inputfile'/'outputfile' or 'input file'/'output file'
+# Otherwise, field names are the long or short command line flags - here long names are presented for clarity
+# Additional fields for secondary structure specification and membrane composition have been added for clarity
+# Field names are case-sensitive but may include leading/trailing whitespace
+# Boolean values (true/false) are case-insensitive
+# Field values need not be encased in quotes
+
+
+# All options can also be specified on the command line
+# In the case of multiple definitions, the programme will present an error message and exit
+# In the case of lacking definitions, the default will be used (available via the -h flag)
+
+##############################################################################################
+
+# ================ # 
+# Base information #
+# ================ # 
+
+title       = Example project    # This will be appended to the TITLE field of pdb files - optional
+input       = input_file.cif     
+outputfile  = output_file.pdb   
+
+# ================================ # 
+# Optional command line arguments  #
+# ================================ #
+
+ligchain = true
+
