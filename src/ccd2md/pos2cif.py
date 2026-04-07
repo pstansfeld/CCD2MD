@@ -9,6 +9,7 @@
 
 import argparse
 from ccd2md import FuncPos
+import ccd2md
 import pandas as pd
 import numpy as np
 import sys, os, subprocess
@@ -461,8 +462,8 @@ def main():
     if not args.no_CCD2MD:
         # Check CCD2MD.cif - no covalent ligands
 
-        # currlig = open(os.path.dirname(ccd2md.__file__)+'/CCD2MD.cif', 'r').read()  # Location of CCD2MD
-        currlig = open('CCD2MD.cif', 'r').read()  # Location of CCD2MD
+        currlig = open(os.path.dirname(ccd2md.__file__)+'/CCD2MD.cif', 'r').read()  # Location of CCD2MD
+        # currlig = open('CCD2MD.cif', 'r').read()  # Location of CCD2MD
 
         json, add_json, ligands, allchains, CIF, inCIF = FuncPos.extract_ligand(currlig, add_json, allchains, inCIF,
                                                                                 CIF, json, args.title, ligands,

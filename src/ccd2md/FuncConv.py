@@ -115,10 +115,10 @@ import ast
 # Locations of packages
 # ---------------------
 
-#import ccd2md
+import ccd2md
 
-#CCD2MD_dir = os.path.dirname(ccd2md.__file__)+'/'  # Location of CCD2MD
-CCD2MD_dir = os.path.dirname(os.path.abspath(__file__))+'/'  # Location of CCD2MD
+CCD2MD_dir = os.path.dirname(ccd2md.__file__)+'/'  # Location of CCD2MD
+# CCD2MD_dir = os.path.dirname(os.path.abspath(__file__))+'/'  # Location of CCD2MD
 Ref_data   = CCD2MD_dir + 'Ref_data/'
 CHARMMPath = CCD2MD_dir + 'charmm36-ccd2md.ff/'
 oldmartini = CCD2MD_dir + 'martini_v3.itp'
