@@ -1,4 +1,4 @@
-##########################################
+###########################################
 #                                         # 
 #    Convert between CRD/PDB and mmCIF    # 
 #                                         #
@@ -8,822 +8,210 @@
 # -------------------------
 
 import argparse
+from ccd2md import FuncPos
+import ccd2md
 import pandas as pd
 import numpy as np
-import sys
+import sys, os, subprocess
 import warnings
 import string
 from collections import Counter
+from glob import glob
 
 def main():
     
     # Get command line arguments
     # ---------------------------
     
-    parser = argparse.ArgumentParser(description='Generate user-defined CCD code(s) for use in AF3 from position and optionally additional bonding file(s). Saved as json file and cif file for each constituent ligand.')
+    parser = argparse.ArgumentParser(description='Generate user-defined CCD code(s) for use in AF3 from position and optionally additional bonding file(s). Generate AF3 input files from specified parameters.', add_help=False)
+
+    info = parser.add_argument_group('pos2cif information')
+    info.add_argument('-v', '--version', action='version', version='Version '+FuncPos.__version__)
+    info.add_argument('-h', '--help',    action='help',    help='Show this message and exit.')
     
-    parser.add_argument('-v', '--version', action='version', version='Version 1.0.3')
+    info.add_argument('-CF',  '--configuration',   help='Specifiy configuration file containing command line arguments. For an example input please see keb721/CCD2MD on GitHub.', default=None)
+    info.add_argument('-ncl', '--no_command_line', help='Prevents addition to multiply defined arguments (seeds/protein/ligand/userCCDPath/name/files/rename/covalent) from the command line. The presence of these will lead to a warning and the command line input(s) will be ignored. The presence of any other flags will still cause the programme to exit with an error.', nargs='?', const=True, default=None)
+
+
+    cif_generation = parser.add_argument_group('CCD code creation information')
+
+    cif_generation.add_argument('-n', '--names',    help='CHARMM code for molecule(s) to convert, note this must not overlap with an existing CCD code.', nargs='+', default = [])
+    cif_generation.add_argument('-r', '--rename',   help='Pair(s) of ligand names in format OLD NEW, where OLD is present in the position files and NEW is the desired new names. Note that this is currently only applicable to userCCD generation, not userCCD usage.', nargs='+', default=[])
+    cif_generation.add_argument('-f', '--files',    help='.gro/.pdb/.crd/.mol2 file(s) containing molecule(s) (note, can contain other moleucles). Optionally may also specify .rtp/.rtf/.itp file(s) containing molecule(s) (note, rtp files can contain other moleucles). If .rtp/.rtf files not provided, bonded information will be inferred from proximty.', nargs='+', default = [])
+    cif_generation.add_argument('-c', '--covalent', help='Position and bonding information for ligands which are to be constructed using covalent modifications. Either mol2 file (including bonding information), or a pair of pdb and itp files.', nargs='+', default = [])
+
     
-    req = parser.add_argument_group('Required inputs')
+    opts = parser.add_argument_group('optional arguments/cutoffs for CCD creation')
+
+    opts.add_argument('-e', '--charge',   help='Minimum charge required for the charge to be non-0 (output integer charges only). Default 0.75', type=float, default=None)
+    opts.add_argument('-b', '--bond',     help='Maximum distance (in A) between atoms to be considered bonded. Note: only utilised if no bonding information is specified in files. Default 1.8', type=float, default=None)
+    opts.add_argument('-H', '--Hydrogen', help='Retain hydrogens in mmCIF data. Default=False.', nargs='?', const=True, default=None)
+
     
-    req.add_argument('-n', '--names',    help='CHARMM code for molecule(s) to convert, note this must not overlap with an existing CCD code.', nargs='+', default = [])
-    req.add_argument('-r', '--rename',   help='Pair(s) of ligand names in format OLD NEW, where OLD is present in the position files and NEW is the desired new names.', nargs='+', default=[])
-    req.add_argument('-f', '--files',    help='.gro/.pdb/.crd/.mol2 file(s) containing molecule(s) (note, can contain other moleucles). Optionally may also specify .rtp/.rtf/.itp file(s) containing molecule(s) (note, rtp files can contain other moleucles). If .rtp/.rtf files not provided, bonded information will be inferred from proximty.', nargs='+', default = [])
-    req.add_argument('-c', '--covalent', help='Position and bonding information for ligands which are to be constructed using covalent modifications. Either mol2 file (including bonding information), or a pair of pdb and itp files.', nargs='+', default = [])
+    af3_system = parser.add_argument_group('system information for AlphaFold3')
     
-    opts = parser.add_argument_group('Optional cutoffs/arguments')
+    af3_system.add_argument('-p', '--protein',          help='FASTA protein sequence(s) or file(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2". Fasta files may contain multiple sequences but each sequence must start with an information line beginning ">". "-p Test.fasta 3" will insert three copies of all sequences within "Test.fasta". A mixture of sequences and files may be used.', default = [], nargs='+')
+    af3_system.add_argument('-ptm', '--post_trans_mod',  help='Add post translational modifications. Each PTM should be specified in the style "A 12 LYSM" (i.e., chain resID CCD). Protein chains are labelled in alphabetical order starting from A, resIDs start from 1, and CCD codes must be specified.', default = [], nargs='+')
+    af3_system.add_argument('-l', '--ligand',            help='Ligands (and numbers) to add to the system. These can be userCCD codes or CCD codes. Note that if unset, one copy of every converted ligand will be added.', nargs='+', default = [])
+    af3_system.add_argument('-u', '--userCCDPath',       help='Locations of userCCD files to add. Note that CCD2MD.cif is added automatically unless disabled via the "-nC/--no_CCD2MD" flag.', nargs='+', default = [])
+    af3_system.add_argument('-nC', '--no_CCD2MD',        help='Prevent use of CCD2MD.cif.', nargs='?', const=True, default=None)    
+
     
-    opts.add_argument('-e', '--charge',   help='Minimum charge required for the charge to be non-0 (output integer charges only). Default 0.75', type=float, default=0.75)
-    opts.add_argument('-b', '--bond',     help='Maximum distance (in A) between atoms to be considered bonded. Default 1.8', type=float, default=1.8)
-    opts.add_argument('-H', '--Hydrogen', help='Retain hydrogens in mmCIF data. Default=False.', action='store_true')
+    af3_setup = parser.add_argument_group('setup information for AlphaFold3')
+
+    af3_setup.add_argument('-j', '--json',     help='Name of JSON file to write output to. Default = "output.json"', default=None)
+    af3_setup.add_argument('-t', '--title',    help='AF3 system title. Default = "pos2cif_system". Will also create a files containing userCCD codes, "{title}_CCD.cif", in current directory', default=None)
+    af3_setup.add_argument('-A', '--afvers',   help='AF3 version. Default = 4', default=None)
+    af3_setup.add_argument('-s', '--seeds',    help='Model seeds - need not be comma separated. Default 1', default = [], nargs='+')
+    af3_setup.add_argument('-d', '--dialect',  help='Dialect. Default "alphafold3"', default=None)
     
-    
-    jsn = parser.add_argument_group('json file parameters')
-    
-    jsn.add_argument('-j', '--json',     help='Name of JSON file to write userCCD to. Default = "output.json"', default='output.json')
-    jsn.add_argument('-t', '--title',    help='AF3 system title. Default = "pos2cif_system"', default='pos2cif_system')
-    jsn.add_argument('-A', '--afvers',   help='AF3 version. Default = 2', default='2')
-    jsn.add_argument('-s', '--seeds',    help='Model seeds - need not be comma separated. Default 1', default = ['1'], nargs='+')
-    jsn.add_argument('-d', '--dialect',  help='Dialect. Default "alphafold3"', default="alphafold3")
-    jsn.add_argument('-p', '--protein',  help='FASTA protein sequence(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2".', default = [], nargs='+')
-    
+ 
+
     args = parser.parse_args()
     
-    position_files = []
-    bonding_files  = []
-    
-    first_rtp = True ; first_rtf = True ; first_mol = True ; first_itp = True ; first_gro = True
-    
-    assert len(args.rename)%2==0, '#ERROR: rename must take in pairs of ligand names.'
-    
-    print('# WARNING: It is assumed ligand information is only present as a single ligand in one position file.')
-    
-    for fl in args.files:
-        if fl[-3:] == 'pdb':
-            position_files.append(fl)
-        elif fl[-3:] == 'crd':
-            position_files.append(fl)
-        elif fl[-3:] == 'gro':
-            position_files.append(fl)
-            if first_gro:
-                print('# WARNING: GRO files cannot be used for userCCD codes longer than 4 characters.')
-                first_gro = False
-        elif fl[-4:] == 'mol2':
-            position_files.append(fl)
-            bonding_files.append(fl)
-            if first_mol:
-                print('# WARNING: if mol2files do not contain NAME within @<TRIPOS>ATOM this must be given as the molecule name in @<TRIPOS>MOLECULE')
-        elif fl[-3:] == 'rtp':
-            bonding_files.append(fl)
-            if first_rtp:
-                print('# WARNING: rtp file entries must start with [ NAME ], then [ atoms ] and [ bonds ]')
-                first_rtp = False
-        elif fl[-3:] == 'rtf':
-            bonding_files.append(fl)
-            if first_rtf:
-                print('# WARNING: rtf files must contain only a single ligand')
-                first_rtf = False
-        elif fl[-3:] == 'itp':
-            bonding_files.append(fl)
-            if first_itp:
-                print('# WARNING: itp files must contain only a single ligand')
-                first_itp = False
-        else:
-            print('# WARNING: {} was input but is not a .crd/.gro/.itp/.mol/.pdb/.rtf/.rtp file'.format(fl))
-    
-    print('# INFO: Writing userCCD to {}'.format(args.json))
-    json = open(args.json, 'w')
-    json.write('{\n\t"userCCD" : "')
-    
-    json_ligands = []
-    
-    # ================ #
-    # Define functions #
-    # ================ #
-    
-    # Charge function
-    # ---------------
-    
-    def get_charge(charge, charge_cutoff):
-        if abs(charge) < charge_cutoff:
-            return 0
-        # Some charge - want charge of 2 to require > 1 + charge_cutoff
-        int_charge = np.floor(abs(charge))
-        rem_charge = abs(charge) - int_charge
-        tot_charge = int_charge + 1 if rem_charge > charge_cutoff else int_charge
-        tot_charge = tot_charge if charge > 0 else -1* tot_charge
-        return tot_charge
-    
-    # Distance function
+    if args.configuration != None:
+        args = FuncPos.read_configuration_file(args.configuration, args)
+
+
+    # Restore defaults
     # -----------------
     
-    def get_bonds_dist(atom_data):
-        bonds = []
-        for i, atomi in enumerate(atom_data[:-1]):
-            posx = np.array([atomi['x'], atomi['y'], atomi['z']])
-            for j, atomj in enumerate(atom_data[i+1:]):
-                posy = np.array([atomj['x'], atomj['y'], atomj['z']])
-                dist = np.sqrt(np.vdot((posx-posy), (posx-posy)))
-                if dist < args.bond:
-                    bonds.append([atomi['name'], atomj['name'], 'SING', 'N'])
-        return bonds
-    
-    # cif information function
-    # -------------------------
-    
-    def cif_information(nname, descript, posdata):
-        cif_content = []
-        cif_content.append("data_"+nname+"\\n#")
-        cif_content.append("_chem_comp.id "+nname)
-        cif_content.append("_chem_comp.name '{}'".format(descript))
-        cif_content.append("_chem_comp.type lipid")
-        cif_content.append("_chem_comp.formula ?")
-        cif_content.append("_chem_comp.mon_nstd_parent_comp_id ?")
-        cif_content.append("_chem_comp.pdbx_synonyms ?")
-        cif_content.append("_chem_comp.formula_weight ?")
-        cif_content.append("#")
-        cif_content.append("loop_")
-        cif_content.append("_chem_comp_atom.comp_id")
-        cif_content.append("_chem_comp_atom.atom_id")
-        cif_content.append("_chem_comp_atom.type_symbol")
-        cif_content.append("_chem_comp_atom.charge")
-        cif_content.append("_chem_comp_atom.pdbx_leaving_atom_flag")
-        cif_content.append("_chem_comp_atom.pdbx_model_Cartn_x_ideal")
-        cif_content.append("_chem_comp_atom.pdbx_model_Cartn_y_ideal")
-        cif_content.append("_chem_comp_atom.pdbx_model_Cartn_z_ideal")
-    
-        for atom in posdata:
-            cif_content.append(f"{nname} {atom['name']} {atom['elem']} {int(atom['charge'])} N {atom['x']:.3f} {atom['y']:.3f} {atom['z']:.3f}")        
+    default_dict = {'charge'   : 0.75,
+                    'bond'     : 1.8,
+                    'Hydrogen' : False,
+                    'json'     : 'output.json',
+                    'title'    : 'pos2cif_system',
+                    'afvers'   : '4', # Required for CCDPath
+                    'dialect'  : 'alphafold3'}
+
+
+    for entry in default_dict.keys():
+        if args.__dict__[entry] == None:
+            args.__dict__[entry] = default_dict[entry]
+            
+
+    if args.seeds == []:
+        args.seeds = ['1']
+
+    curr_ligands = []
         
-        cif_content.append("#")
-        cif_content.append("loop_")
-        cif_content.append("_chem_comp_bond.atom_id_1")
-        cif_content.append("_chem_comp_bond.atom_id_2")
-        cif_content.append("_chem_comp_bond.value_order")
-        cif_content.append("_chem_comp_bond.pdbx_aromatic_flag")
-    
-        return cif_content
+    # Input parameters parsed
 
-    # Fasta file function
-    # -------------------
+    # Determine information for userCCD generation
+    # ---------------------------------------------
 
-    def read_fasta(fastafile):
-        ''' Read in and split a fasta file.'''
+    if len(args.covalent) != 0 or len(args.names) != 0:
+        # Requesting conversion - check input files
 
-        fasta = open(fastafile, 'r').read().split('>')   # Split into different seqeunces                                 
-        fasta = [line for line in fasta if len(line)!=0] # Trim newlines                                                  
-        fasta = [entry.split('\n') for entry in fasta]
-        fasta = [[line for line in sequence if len(line)!=0] for sequence in fasta] # Trim newlines                       
-        protein = [''.join(sequence[1:]) for sequence in fasta]
+        # Sense checks on inputs
+        # -----------------------
 
-        return protein
+        position_files, bonding_files = FuncPos.get_files(args.files)
+        if len(args.names) != 0 and len(position_files) == 0 :
+            print('ERROR: Cannot generate userCCD codes for {} - no position files provided.'.format(args.names))
+            exit()
+            
+        assert len(args.rename)%2==0, 'ERROR: rename must take in pairs of ligand names.'
 
-    
-    mol2bond_map  = {'1' : ['SING', 'N'], '2': ['DOUB', 'N'], '3': ['TRIP', 'N'], 'ar': ['AROM', 'Y']}
-    allchains     = list(string.ascii_uppercase)
-    
-    # Determine elements from names
-    # -----------------------------
-    
-    def get_elements(name):
-        if name.count('H')!=0:
-            return 'H'
-        elif name.count('O')!=0:
-            return 'O'
-        elif name.count('N')!=0:
-            return 'N'
-        elif name.count('C')!=0:
-            return 'C'
-        elif name.count('S')!=0:
-            return 'S'
-        elif name.count('P')!=0:
-            return 'P'
-    
-    # Define name changes
-    # --------------------
-    
-    new_names = {} ; rename = np.array([])
-    for i in range(0, len(args.rename), 2):
-        rename                = np.append(rename, args.rename[i].upper())
-        new_names[rename[-1]] = args.rename[i+1].upper()
-    
-    # ------------------------------------- #
-    #                                       #
-    # Work through list of names to convert #
-    #                                       #
-    # ------------------------------------- #
-    
-    args.names = [name.upper() for name in args.names]
-    for i, name in enumerate(args.names):
-        # Check renaming
-        # --------------
-        with warnings.catch_warnings():
-            warnings.simplefilter(action='ignore', category=FutureWarning)
-            # Note that there is a future warning about the behaviour of this comparison - may fail with new numpy release
-            if len(np.where(rename==name)[0])!=0:
-                # Rename
-                nname = new_names[name]
-                print('# INFO: Creating user-defined CCD code for {}, which has been renamed from {}'.format(nname, name))
-                extra_info = ' (renamed from {})'.format(name)
-            else:
-                nname = name
+        print('# WARNING: It is assumed ligand information is only present as a single ligand in one position file.')
+
+        # Define name changes
+        # --------------------
+        
+        new_names = {} 
+        for i in range(0, len(args.rename), 2):
+            new_names[args.rename[i]] = args.rename[i+1].upper()
+            
+        # ======================================================== #
+        # Generate userCCD codes from position/bonding information #
+        # ======================================================== #
+                
+        args.names = [name.upper() for name in args.names]
+        for i, name in enumerate(args.names):
+            
+            # Check renaming
+            # --------------
+
+            nname = new_names.get(name, name)
+            if nname == name:
                 print('# INFO: Creating user-defined CCD code for {}'.format(name))
                 extra_info = ''
-                
-        pos_info = []
-        descript = "?"
-    
-        molfile = None
-    
-        # ======================== #
-        # Get position information #
-        # ======================== #
-        
-        # Scan through position files
-        # ----------------------------
-        for posfl in position_files:
-            pos = open(posfl).read()
-            lig_present   = False
-            if pos.count(name) == 0 and pos.count(name.lower())==0:
-                # No reference to the ligand, move on to next position file
-                continue
-    
-            if posfl[-4:] == 'mol2':
-                # Open and read mol2 file - consider both full-length and short atom information
-                # -------------------------------------------------------------------------------
-                keywords = {'name'   : 1,
-                            'x'      : 2,
-                            'y'      : 3,
-                            'z'      : 4,
-                            'elem'   : 5}
-                resnm = 7
-    
-                # Test if atomic or molecular data contains residue name - avoid similar names
-                atomic = pos.split('@<TRIPOS>ATOM')[1].split('@')[0].split('\n')
-                molec  = pos.split('@<TRIPOS>MOLECULE')[1].split('@')[0].split('\n')
-    
-                atomic = [[p for p in line.split(' ') if len(p)!=0] for line in atomic if len(line)!=0]
-                molec  = [dat for dat in molec  if len(dat)!=0]
-                
-                if len(atomic[0]) >= 8:
-                    # Optional keyword of name present - scan through molecules
-                    atoms = np.array(atomic)
-                    ligs  = ' '.join(atoms[:, resnm])
-                    if ligs.count(' {} '.format(name))==0 and ligs.count(' {} '.format(name.lower()))==0:
-                        # Reject similar names
-                        continue
-                    else:
-                        lig_present = True
-                        print('# INFO: Gathering position and bonding information from {}.'.format(posfl))
-                        descript = molec[0].strip().strip(';').strip() if molec[0].strip() != '[ atoms ]' else '?'
-                        all_ats  = False # Check descriptor of atom before adding
-                        if len(atomic[0]) >= 9:
-                            keywords['charge'] = 8 # Optional keyword
-                else:
-                    # Check molecular descriptor
-                    if molec[0].strip()==name:
-                        lig_present = True
-                        print('# INFO: Gathering position information from {}.'.format(posfl))
-                        descript = descript if len(molec[6].strip())==0 else molec[6].strip()
-                        all_ats  = True # Consider all atoms
-                    else:
-                        continue
-                    
-                molfile = posfl
-                molmap  = {}
-                # Look for named molecules
-                for atom in atomic:
-                    if not all_ats:
-                        if atom[resnm].strip() != name:
-                            # Reject similar names
-                            continue
-                    # Append relevant information
-                    pos_info.append({})
-                    pos_info[-1]['charge'] = 0
-                    for i, key in enumerate(keywords.keys()):
-                        sect = atom[keywords[key]]
-                        if key == 'name':
-                            pos_info[-1][key] = sect.strip()
-                            molmap[atom[0]] = pos_info[-1][key]
-                        elif key == 'elem':
-                            pos_info[-1][key] = sect.strip().split('.')[0]
-                        else:
-                            pos_info[-1][key] = float(sect.strip())            
-                    
             else:
-                if posfl[-3:] == 'pdb':
-                    keywords = {'name'  : [12, 16],
-                                'x'     : [30, 38],
-                                'y'     : [38, 46],
-                                'z'     : [46, 54],
-                                'elem'  : [76, 78]}
-                    resnm = [17, 21]
-                
-                elif posfl[-3:] == 'crd':    
-                    keywords = {'name'  : [32,   40],
-                                'x'     : [41,   60],
-                                'y'     : [61,   80],
-                                'z'     : [81,  100],
-                                'elem'  : [101, 102]} # Empty element identifier to force self-identification
-                    resnm =  [22, 30]
+                print('# INFO: Creating user-defined CCD code for {}, which has been renamed from {}'.format(nname, name))
+                extra_info = ' (renamed from {})'.format(name)
+
+            descript, pos, bonds, Hs = FuncPos.CCD_from_name(name, position_files, bonding_files, args.bond, args.charge)
+
+            # ======================================== #  
+            # Write mmCIF output in the desired format #
+            # ======================================== #
     
-                elif posfl[-3:] == 'gro':
-                    keywords = {'name'  : [10, 15],
-                                'x'     : [20, 28],
-                                'y'     : [28, 36],
-                                'z'     : [36, 44],
-                                'elem'  : [14, 15]} # Empty element identifier to force self-identification - assume 4 letter code only
-                    resnm =  [5, 10]
-                
-                pos.split('END')[0]
-                # Consider if a similar name has been used - gormatting depends on name length and file type
-    
-                pos           = pos.split('\n')[:-1]
-                element_names = True
-                
-                for line in pos:
-                    # Only look for named molecules
-                    if line[resnm[0]:resnm[1]].strip() != name:
-                        # Reject similar names
-                        continue
-                    if line.count('TER') == 1:
-                        # Termination of residue chain, skip
-                        continue
-                    
-                    if not lig_present:
-                        print('# INFO: Gathering position information from {}. Note it is assumed ligand information is only present as a single ligand in one position file.'.format(posfl))
-                        lig_present = True
-                    # Append relevant information
-                    pos_info.append({})
-                    for i, key in enumerate(keywords.keys()):
-                        sect = line[keywords[key][0]:keywords[key][1]]
-                        if key == 'name':
-                            pos_info[-1][key] = sect.strip()
-                        elif key == 'elem':
-                            pos_info[-1][key] = sect.strip()
-                            if len(pos_info[-1]['elem']) == 0:
-                                if element_names:
-                                    print('# WARNING: Element names are missing - attempting to infer from atom names. Note that this may cause issues.')
-                                    element_names = False
-                                pos_info[-1]['elem'] = get_elements(pos_info[-1]['name'])
-                        else:
-                            pos_info[-1][key] = float(sect.strip())
-            if lig_present:            
-                break            
-    
-        position_data = pd.DataFrame.from_dict(pos_info, orient='columns')
-        bonds         = []
-        first_bond    = True ; first_unknown = True
-        mol2bond_map  = {'1' : ['SING', 'N'], '2': ['DOUB', 'N'], '3': ['TRIP', 'N'], 'ar': ['AROM', 'Y']} 
-    
-        # ======================= #
-        # Get bonding information #
-        # ======================= #
+            # Check renaming
+            # --------------
         
-        # Scan through RTP/RTF/ITP/MOL2 files
-        # ------------------------------------
-        for bndfl in bonding_files:
-            if molfile != None:
-                bondfile = open(molfile).read()
-    
-                # Open and read mol2 file
-                # ------------------------            
-                mbonds = bondfile.split('@<TRIPOS>BOND')[1].split('@')[0].split('\n')
-                mbonds = [[b for b in line.split(' ') if len(b)!=0] for line in mbonds if len(line)!=0]
-                
-                for line in mbonds:
-                    currbond = [molmap[line[1]], molmap[line[2]]]
-                    try:
-                        currbond.extend(mol2bond_map[line[3]])
-                    except KeyError:
-                        if first_unknown:
-                            print('# WARNING: Allocating unknown bonds as single bonds - this should not affect output.')
-                            first_unknown = False
-                        currbond.extend(mol2bond_map['1'])
-                    bonds.append(currbond)
-                break
-    
-            else:
-                if first_bond:
-                    print('# WARNING: Allocating all bonds as single bonds - this should not affect output.')
-                    first_bond = False
-                    
-                bondfile = open(bndfl).read()
-                if bondfile.count(name) == 0 and bondfile.count(name.lower()) == 0:
-                    # Note crd file from CHARMMGUI may convert to lowercase
-                    continue
-                
-                if bndfl[-3:] == 'rtp':
-                    # Open and read rtp file
-                    # ----------------------
-                    if bondfile.count('[ {} ]'.format(name)) == 0:
-                        # Check for similar names
-                        continue
-                    
-                    print('# INFO: Gathering bonding information from {}.'.format(bndfl))
-                    RTP  = bondfile.split('[ {} ]'.format(name))[1] # Strip previous molecules - consider presence of similar names
-                    RTP      = RTP.split(']')[:3]                           # Select atoms and bonds
-                    descript = RTP[0].split('\n')[1].strip(';').strip()  # Name may be below the CHARMM code
-    
-                    # Get charges
-                    atom_data = RTP[1].split('\n')[1:-1]
-                    for line in atom_data:
-                        if len(line)==0:
-                            continue
-                        info = [split for split in line.strip().split(' ') if len(split)!=0]
-                        if len(info)==0 or info[0][0] == ';':
-                            # Skip comments
-                            continue
-                        position_data.loc[position_data['name']==info[0].strip(), 'charge'] = get_charge(float(info[2].strip()), args.charge)
-            
-                    # Get bonds
-                    bond_data = RTP[2].split('\n')[1:-1]
-                    for line in bond_data:
-                        if len(line)==0:
-                            continue
-                        info = [split for split in line.strip().split(' ') if len(split)!=0]
-                        if len(info)==0 or info[0][0] == ';':
-                            # Skip comments
-                            continue
-                        bonds.append([info[0], info[1], 'SING', 'N'])
-                    break
-    
-                elif bndfl[-3:] == 'rtf':
-                    # Open and read rtp file
-                    # ----------------------
-                    if bondfile.count(' {} '.format(name)) == 0 and bondfile.count(' {} '.format(name.lower())) == 0:
-                        # Check for similar names
-                        continue
-                
-                    print('# INFO: Gathering bonding information from {}.'.format(bndfl))
-                    RTF = bondfile.split('\n')
-                    for line in RTF:
-                        if line[:4] == 'ATOM':
-                            # Get charges
-                            info = [split for split in line.strip().split(' ') if len(split)!=0]
-                            position_data.loc[position_data['name']==info[0], 'charge'] = get_charge(float(info[3]), args.charge)
-            
-                        elif line[:4] == 'BOND':
-                            info = [split for split in line.strip().split(' ') if len(split)!=0]
-                            bonds.append([info[1], info[2], 'SING', 'N'])
-                    break
-    
-    
-                elif bndfl[-3:] == 'itp':
-                    # Open and read itp file
-                    # ----------------------
-                    if bondfile.count(' {} '.format(name)) == 0 and bondfile.count(' {} '.format(name.lower())) == 0 :
-                        # Check for similar names
-                        continue
-    
-                    
-                    print('# INFO: Gathering bonding information from {}.'.format(bndfl))
-    
-                    # Generate mapping
-                    # ----------------
-                    molmap = {}
-                    itpmap = bondfile.split('[ atoms ]')[1].split('[')[0].split('\n')
-    
-                    atoms = [[b for b in line.split(' ') if len(b)!=0] for line in itpmap if len(line)!=0]
-                    for atom in atoms:
-                        # Get charges and mapping
-                        if atom[0][0] == ';':
-                            # Skip comments
-                            continue
-                        molmap[atom[0]] = atom[4]
-                        position_data.loc[position_data['name']==atom[4], 'charge'] = get_charge(float(atom[6]), args.charge)
-    
-                    # Get bonds
-                    # ---------
-                    ITP = bondfile.split('[ bonds ]')[1].split('[')[0].split('\n')
-                    ITP = [[b for b in line.split(' ') if len(b)!=0] for line in ITP if len(line)!=0]
-    
-                    for line in ITP:
-                        if line[0][0] == ';':
-                            # Skip comments
-                            continue
-                        bonds.append([molmap[line[0]], molmap[line[1]], 'SING', 'N'])
-            
-                    break
-    
-                elif bndfl[-4:] == 'mol2':
-                    # Not molfile
-                    continue
-    
-        # Generate bonding information if needed
-        # --------------------------------------
-                
-        if len(bonds) == 0:
-            # Specify bonds from pos file - either no RTP/RTF file or wrong.
-            # Also do I want to get information about the bond order (single/double/triple)?
-    
-            # Note that AF README states that the bond order and aromacity don't matter
-    
-            print('# WARNING: Inferring bonding from proximity, ignoring Hs.')
-            print('# WARNING: Giving all atoms a charge of 0.')
-            
-            if first_bond:
-                print('# WARNING: Allocating all bonds as single bonds - this should not affect output.')
-                first_bond = False
-    
-            position_data.loc[:, 'charge'] = 0
-            noHdata = position_data.loc[position_data['elem'] != 'H'].to_dict(orient='records')
-    
-            bonds = get_bonds_dist(noHdata)
-    
-        if args.Hydrogen:
-            posdata = position_data.to_dict(orient='records')
-            Hs      = []
-        else:
-            posdata = position_data.loc[position_data['elem'] != 'H'].to_dict(orient='records')
-            Hs      = position_data.loc[position_data['elem'] == 'H', 'name'].to_list()
-            
-        # ======================================== #  
-        # Write mmCIF output in the desired format #
-        # ======================================== #
-    
-        # Check renaming
-        # --------------
+            print('# INFO: Writing CCD data to {}_output.cif for residue {}'.format(nname, nname)+extra_info)
         
-        print('# INFO: Writing CCD data to {}_output.cif for residue {}'.format(nname, nname)+extra_info)
-        
-        # Write cif data
-        # -------------
-        cif_content = cif_information(nname, descript, posdata)
+            # Write cif data
+            # -------------
+            cif_content = FuncPos.cif_information(nname, descript, pos)
     
-        for bond in bonds:
-            if Hs.count(bond[0])==0 and Hs.count(bond[1])==0:
-                cif_content.append(f"{bond[0]} {bond[1]} {bond[2]} {bond[3]}")
-        cif_content.append('#')
+            for bond in bonds:
+                if Hs.count(bond[0])==0 and Hs.count(bond[1])==0:
+                    cif_content.append(f"{bond[0]} {bond[1]} {bond[2]} {bond[3]}")
+            cif_content.append('#')
         
-        # Write to CIF file
-        with open(nname+'_output.cif', 'w') as cif_file:
-            cif_file.write("\\n".join(cif_content))
-        cif_file.close()
+            # Write to CIF file
+            with open(nname+'_output.cif', 'w') as cif_file:
+                cif_file.write("\n".join(cif_content))
+            cif_file.close()
+
+            curr_ligands.append(nname)
             
-        # Write to JSON file
-        json_content = "\\n".join(cif_content)
-        json.write(json_content)
-        json_ligands.append(nname)
-    
-        
-    # ------------------------------------------------------------- #
-    #                                                               #
-    # Work through list of molecules made of covalent modifications #
-    #                                                               #
-    # ------------------------------------------------------------- #
+        # Single molecule conversion complete
+
+    # ============================ #
+    #  Covalently modified ligands #
+    # ============================ #
     
     if len(args.covalent)!=0:
         print('# WARNING: No other molecules can be present in files for covalently bonded molecules. If using pdb files must provide itp after it.')
-    
-    first_component = True
-    
-    # ===============
-    
-    # For each molecule I need to:
-    # 0.   Determine the ligand name
-    # 1.   Determine the different components which need to be added to userCCD
-    # 1.a) Make sure that any duplicates within the molecule are ignored (take the first one?)
-    # 1.b) Make sure that any duplicates outwith the molecule are ignored (take the one outside of the molecule) - also want to add this to the file for the molecule but probably take the one in the molecule
-    # 2.   Determine the covalent modifications between components
-    # 3.   Add the necessary components to userCCD
-    # 4.   Add the necessary modifications to userCCD
-    
-    full_ligand_information = []
-    full_modification_info  = []
-    
-    for Nfile, molfile in enumerate(args.covalent):
-        chain = allchains.pop(0)
-        if molfile[-3:]=='itp':
-            continue
-        print('# INFO: Creating necessary user-defined CCD codes and covalent modifications for the ligand in {}. Note that bonding information must be provided.'.format(molfile))
         
-        full_bonds = []
+        for Nfile, molfile in enumerate(args.covalent):
+            chain = 'A'
+            if molfile[-3:]=='itp':
+                continue
+            print('# INFO: Creating necessary user-defined CCD codes and covalent modifications for the ligand in {}. Note that bonding information must be provided.'.format(molfile))
         
-        if molfile[-4:] == 'mol2':
-            # Open and read mol2 file - must have substructure information
-            # -------------------------------------------------------------
-            keywords = {'ID'     : 0,
-                        'name'   : 1,
-                        'x'      : 2,
-                        'y'      : 3,
-                        'z'      : 4,
-                        'elem'   : 5,
-                        'resi'   : 6,
-                        'resnm'  : 7}
-    
-            data = open(molfile).read()
-            
-            # Get full name of ligand from @<TRIPOS>MOLECULE
-            # -----------------------------------------------
-            ligname = data.split('@<TRIPOS>MOLECULE')[1].split('@')[0].split('\n')[1].strip()
-    
-            # Get atomic positions and unique component names within molecule
-            # ----------------------------------------------------------------
-            
-            atomic = data.split('@<TRIPOS>ATOM')[1].split('@')[0].split('\n')
-            atomic = [[p for p in line.split(' ') if len(p)!=0] for line in atomic if len(line)!=0]
-            if np.shape(atomic)[1] == 9:
-                keywords[8] = 'charge'
-            elif np.shape(atomic)[1] == 10:
-                keywords[8] = 'charge' ; keywords[9] = 'status'
-            atomic = pd.DataFrame(atomic, columns = keywords.keys()) ; atomic = atomic.set_index('ID')
-            atomic['elem'] = atomic['elem'].apply(lambda x: x.split('.')[0])      
-    
-            components = atomic['resnm'].unique()
-    
-            # Get full bonding information - intra- and inter-component
-            # ----------------------------------------------------------
-            mbonds = data.split('@<TRIPOS>BOND')[1].split('@')[0].split('\n')
-            mbonds = [[b for b in line.split(' ') if len(b)!=0] for line in mbonds if len(line)!=0]
-            
-            for line in mbonds:
-                # Need to take into account both name and residue number 
-                currbond = [atomic.at[line[1], 'name'], atomic.at[line[1], 'resi'],
-                            atomic.at[line[2], 'name'], atomic.at[line[2], 'resi']]
-                try:
-                    currbond.extend(mol2bond_map[line[3]])
-                except KeyError:
-                    if first_unknown:
-                        print('# WARNING: Allocating unknown bonds as single bonds - this should not affect output.')
-                        first_unknown = False
-                        currbond.extend(mol2bond_map['1'])
-                        full_bonds.append(currbond)
-    
-        elif molfile[-3:] == 'pdb':
-            keywords = {'ID'    : [6, 11],
-                        'name'  : [12, 16],
-                        'resnm' : [17, 21],
-                        'resi'  : [22, 26],
-                        'x'     : [30, 38],
-                        'y'     : [38, 46],
-                        'z'     : [46, 54],
-                        'elem'  : [76, 78]}
-    
-            posdata  = open(molfile).read()
-            posdata  = posdata.split('END')[0]
-            posdata  = posdata.split('\n')[:-1]
-            pos_info = []
-    
-            element_names = True
-            
-            for line in posdata:
-                if line.count('TER') == 1:
-                    # Termination of residue chain, skip
-                    continue
-                if line.count('ATOM')==0 and line.count('HETATM')==0:
-                    # Not residue information
-                    continue
-                pos_info.append({})
-                for i, key in enumerate(keywords.keys()):
-                    sect = line[keywords[key][0]:keywords[key][1]]
-                    if key =='x' or key == 'y' or key == 'z':
-                        pos_info[-1][key] = float(sect.strip())
-                    elif key == 'elem':
-                        pos_info[-1][key] = sect.strip()
-                        if len(pos_info[-1]['elem']) == 0:
-                            if element_names:
-                                print('# WARNING: Element names are missing - attempting to infer from atom names. Note that this may cause issues.')
-                                element_names = False
-                            pos_info[-1]['elem'] = get_elements(pos_info[-1]['name'])
-                    else:
-                        pos_info[-1][key] = sect.strip()
-    
-            atomic = pd.DataFrame.from_dict(pos_info, orient='columns') ; atomic = atomic.set_index('ID')
-            components = atomic['resnm'].unique()
-            
-            # ======================= #
-            # Get bonding information #
-            # ======================= #
-    
-            assert args.covalent[Nfile+1][-3:] == 'itp', 'ERROR: missing bonding information for covalently modified ligand'     
-            bondfile = open(args.covalent[Nfile+1]).read()
-    
-            # Get full name of ligand from [ moleculetype ]  
-            # ---------------------------------------------
-            ligname = bondfile.split('[ moleculetype ]')[1].split('[')[0].split('\n')
-            ligname = [l for l in ligname if len(l)!=0 and l[0:4].count(';')==0]
-            ligname = ligname[0].split(' ')[0]
-            
-            # Generate mapping
-            # ----------------
-            molmap = {}
-            itpmap = bondfile.split('[ atoms ]')[1].split('[')[0].split('\n')
-            
-            atoms = [[b for b in line.split(' ') if len(b)!=0] for line in itpmap if len(line)!=0]
-            for atom in atoms:
-                # Get charges and mapping
-                if atom[0][0] == ';':
-                    # Skip comments
-                    continue
-                molmap[atom[0]] = atom[4]
-                atomic.loc[atomic['name']==atom[4], 'charge'] = get_charge(float(atom[6]), args.charge)
-    
-            # Get bonds
-            # ---------
-            ITP = bondfile.split('[ bonds ]')[1].split('[')[0].split('\n')
-            ITP = [[b for b in line.split(' ') if len(b)!=0] for line in ITP if len(line)!=0]
-            
-            for line in ITP:
-                if line[0][0] == ';':
-                    # Skip comments
-                    continue
-                currbond = [atomic.at[line[0], 'name'], atomic.at[line[0], 'resi'],
-                            atomic.at[line[1], 'name'], atomic.at[line[1], 'resi'],
-                            'SING', 'N']
-                full_bonds.append(currbond)
+            if molfile[-4:] == 'mol2':
+                atomic, full_bonds, components = FuncPos.read_covalent_mol2(molfile)
+                
+            elif molfile[-3:] == 'pdb':
+                # Note currently only applicable to pdb/itp format - may change in future
+
+                assert args.covalent[Nfile+1][-3:] == 'itp', 'ERROR: missing bonding information for covalently modified ligand'     
+
+                atomic, components = FuncPos.get_covalent_position(molfile)
+                atomic, full_bonds = FuncPos.get_covalent_bonding_itp(args.covalent[Nfile+1], atomic)
     
                         
-        flbnds = pd.DataFrame(full_bonds, columns = ['atom1', 'resi1', 'atom2', 'resi2', 'type', 'ar'])
-        chains = []
+            flbnds = pd.DataFrame(full_bonds, columns = ['atom1', 'resi1', 'atom2', 'resi2', 'type', 'ar'])
             
-        # =========================== #
-        # Intra-component information # 
-        # =========================== #
-    
-        molecule_file = open(ligname+'_output.json', 'w')
-        molecule_file.write('{\n\t"userCCD" : "')    
-    
-        resimapping = {}
-        for counter, resi in enumerate(list(atomic['resi'].unique())):
-            chains.append([counter+1, chain, atomic.loc[atomic['resi']==resi, 'resnm'][0]])
-            # AF3 indexes from 0, add residues to the same chain
-            resimapping[resi] = str(counter+1)
-    
-        for j, component in enumerate(components):
-                
-            # Determine if multiple components are the same
-            resis = list(atomic.loc[atomic['resnm']==component, 'resi'].unique())
-            if len(resis) > 1 and first_component:
-                print('# INFO: Where multiple of the same component are present the first component present in the file is used to construct userCCD')
-                first_component = False
+            FuncPos.covalent_cif(ligname, atomic, full_bonds, components, args.Hydrogen)
+            curr_ligands.append(ligname)
             
-            component_data        = atomic.loc[atomic['resi']==resis[0]]
-            intra_component_bonds = flbnds.loc[flbnds['resi1']==resis[0]].loc[flbnds['resi2']==resis[0]]
-                    
-            # Write userCCD data for component only 
-            # --------------------------------------
-                    
-            if args.Hydrogen:
-                posdata = component_data.to_dict(orient='records')
-                Hs      = []
-            else:
-                posdata = component_data.loc[component_data['elem'] != 'H'].to_dict(orient='records')
-                Hs      = component_data.loc[component_data['elem'] == 'H', 'name'].to_list()
-    
-            cif_content = cif_information(component.upper(), '?',  posdata)
-                
-            for row, bond in intra_component_bonds.iterrows():
-                if Hs.count(bond['atom1'])==0 and Hs.count(bond['atom2'])==0:
-                    cif_content.append(f"{bond['atom1']} {bond['atom2']} {bond['type']} {bond['ar']}")
-            cif_content.append('#')
+    if len(args.files) != 0 and len(args.names)==0:
+            print('# WARNING: files ({}) for creation of userCCD codes have been added but will not be parsed. To generate userCCD codes please add the flag -n NAME for NAME in files.'.format(args.files))
+    if len(args.names) ==0 and len(args.rename) != 0:
+        print('# WARNING: renaming is only applicable to userCCD generation. The specified renaming(s) ({}) will not be performed when generating AF3 input.'.format(args.rename))
             
-            # Write to CIF file
-            molecule_file.write("\\n".join(cif_content))
-            # Determine if already in JSON file
-            if args.names.count(component.upper())==0:
-                # Write to JSON file - not already present
-                json_content = "\\n".join(cif_content)
-                json.write(json_content)
-            first_CCD = False
-    
-        # =================== #
-        # Write modifications # 
-        # =================== #
-    
-        # Close userCCD section
-        
-        molecule_file.write('",\n  "sequences": [ \n')
-    
-        chains = pd.DataFrame(chains, columns=['resi', 'chain', 'resnm']) ; chains = chains.set_index('resi')
-        
-        # Add correct number of ligands - want to keep a record of this for JSON
-        # ----------------------------------------------------------------------
-        lig = '   {"ligand": {"id": ["'+chain+'"], "ccdCodes": ["'+'", "'.join(chains['resnm'])+'"]}}'
-    
-        full_ligand_information.append(lig)
-        molecule_file.write(lig+', \n')
+    # ================ #
+    #    WRITE JSON    #
+    # ================ #
+
+    print('# INFO: Writing output json, {}'.format(args.json))
+    json = open(args.json, 'w')
+    json.write('{\n')
             
-        # Add modifications - currently won't work for proteins but could extend in future
-        # --------------------------------------------------------------------------------
-    
-        modification_info = []
-        molecule_file.write('\n    ], \n   "bondedAtomPairs": [\n')
-        for row, bond in flbnds.loc[flbnds['resi1']!=flbnds['resi2']].iterrows():
-            # Assume all ligands at residue 1
-            mod  = '    [["'+chain+'", '+resimapping[bond['resi1']]+', "'+bond['atom1']+'"],'
-            mod +=      '["'+chain+'", '+resimapping[bond['resi2']]+', "'+bond['atom2']+'"]]'
-            modification_info.append(mod)
-    
-        full_modification_info.extend(modification_info)
-    
-        molecule_file.write(',\n'.join(modification_info))
-        molecule_file.write('],')
-            
-        molecule_file.close()                
-    
-    json.write('",\n')
-    
     # Write preamble
     # --------------
     
@@ -832,75 +220,281 @@ def main():
     json.write('\t"version": '+args.afvers+',\n')
     seeds = [s.strip() if s[-1] != ',' else s[:-1].strip() for s in args.seeds]
     json.write('\t"modelSeeds": ['+', '.join(seeds)+'],\n')
+    json.write('\t"userCCDPath": "{}_CCD.cif",\n'.format(args.title))
     json.write('\t"sequences": [\n\t\t')
+
+    # Write protein sequences and modifications 
+    # -----------------------------------------
+
+    add_PTMs = []
+
+    base_chains = np.array(list(string.ascii_uppercase))
+
+    allchains = list(string.ascii_uppercase)
+    for entry in base_chains:
+        allchains.extend(list(entry+base_chains))
+
+    allchains = [str(item) for item in allchains]
     
-    
-    print('# INFO: Assuming 1 of every ligand.')
-    
-    if len(args.covalent)!=0:
-        # ==================== #
-        # Write full JSON file # 
-        # ==================== # 
-    
-        # Close userCCD section
-        json.write(', \n'.join(full_ligand_information))
-        json.write('\n    ], \n   "bondedAtomPairs": [')
-        json.write(',\n'.join(full_modification_info))
-        json.write('\n      ],')
-    
-    
-    # Write protein sequences
-    # -----------------------
     
     if len(args.protein)==0:
         # Write ligand information only
+        if len(args.post_trans_mod) != 0:
+            print('# WARNING: PTMs were sepcified but there are no proteins to apply this to.')
         pass
     else:
         if len(args.protein)==1:
             # Either a single sequence or a single fasta file   
             if '.' in args.protein[0]:
                 # Fasta file  
-                protein = read_fasta(args.protein[0])
+                protein = FuncPos.read_fasta(args.protein[0])
             else:
                 protein = args.protein
         else:
-            # Split protein input to determine unique chains                                                         
-            protein  = []
-            in_range = True ; i = 0
-            while in_range:
-                try:
-                    num = int(args.protein[i+1])
-                    if '.' in args.protein[i]:
-                        protein_i = read_fasta(args.protein[i])
-                    else:
-                        protein_i = [args.protein[i]]
-                    protein.extend(list(protein_i)*num)
-                    i += 2
-                except (ValueError, IndexError) as e:
-                    if '.' in args.protein[i]:
-                        protein_i = read_fasta(args.protein[i])
-                    else:
-                        protein_i = args.protein[i]
-                    protein.extend(list(protein_i))
-                    i += 1
-                in_range = False if i >= len(args.protein) else True        
-
-        seqs   = Counter(protein)
-        for sequence in seqs.keys():
-            json.write('{"protein": {"id" : ["')
-            for i in range(seqs[sequence]):
-                json.write(allchains.pop(0)+'"')
-                if i != seqs[sequence]-1:
-                    json.write(', "')
-            json.write('],\n\t\t\t"sequence": "'+sequence+'"}},\n\t\t')
-        
-    for i, lig in enumerate(json_ligands):        
-        json.write('{"ligand": {"id": ["'+allchains.pop(0)+'"], "ccdCodes": ["'+lig+'"]}}')
-        if i == len(json_ligands)-1:
-            json.write(']\n}')
-        else:
-            json.write(',\n\t\t')
+            # Split protein input to determine unique chains
+            protein = FuncPos.get_components(args.protein)
             
+        seqs      = Counter(protein)
+
+        if len(args.post_trans_mod)!=0:
+        
+            assert len(args.post_trans_mod)%3==0, 'ERROR: PTMs must be triplets of chain ID, residue number and CCD code.'
+
+            PTMs = np.array(args.post_trans_mod).reshape(int(len(args.post_trans_mod)/3), 3)
+            PTMs = pd.DataFrame(PTMs, columns = ['chain', 'resID', 'CCD'])  # May not be in order
+
+            if len(PTMs)!=0:
+                print('# WARNING: No checks are made between specified PTM and amino acid at specified sequence position.')
+                print('# WARNING: Covalently bonded PTMs are currently not supported.')
+                
+            for sequence in seqs.keys():
+                        
+                # Determine all relevant chains
+
+                protein_chains = allchains[:seqs[sequence]]
+                allchains      = allchains[seqs[sequence]:]
+
+                while len(protein_chains) > 0:
+                    json.write('{"protein": {"id" : ["')
+        
+                    firstchain = protein_chains.pop(0)
+                    json.write(firstchain+'"')
+                    
+                    firstPTM = PTMs.loc[PTMs['chain']==firstchain]
+                    
+                    reduced_chain = []
+                
+                    for i in range(len(protein_chains)):
+                    
+                        currchain = protein_chains[i]
+
+                        diffPTM = pd.merge(firstPTM,PTMs.loc[PTMs['chain']==currchain],how='outer',on=['resID','CCD'],indicator=True)
+
+                        # All both indicates the same modifications
+                        
+                        if sum(diffPTM['_merge'] == 'both') == len(diffPTM):
+                            json.write(', "'+currchain+'"')
+                        else:
+                            reduced_chain.append(currchain)
+
+
+                    # Gone through same modifications as first chain
+                    json.write('],\n\t\t\t"sequence": "'+sequence+'"')
+                    if len(firstPTM) != 0:
+                        json.write(',\n\t\t"modifications": [')
+                        numPTMs = len(firstPTM)
+                        for i in range(numPTMs):
+                            json.write('\n\t\t\t{"ptmType": "'+firstPTM.iloc[i]['CCD']+'", "ptmPosition": '+firstPTM.iloc[i]['resID'])
+                            add_PTMs.append(firstPTM.iloc[i]['CCD'])
+                            if i == numPTMs-1:
+                                json.write(']')
+                            else:
+                                json.write(', ')
+                
+                    json.write('}},\n\t\t')                
+                
+                    protein_chains = reduced_chain
+
+        else:
+            for sequence in seqs.keys():
+                        
+                # Determine all relevant chains
+
+                protein_chains = allchains[:seqs[sequence]]
+                allchains      = allchains[seqs[sequence]:]
+
+                json.write('{"protein": {"id" : ["'+'", "'.join(protein_chains)+'"],')
+                json.write('\n\t\t\t"sequence": "'+sequence+'"')
+                json.write('}},\n\t\t')                
+                
+    # Completed writing proteins
+
+    # Check no PTMs applied to non-protein
+    if len(args.post_trans_mod)!=0:
+        assert len(PTMs.loc[PTMs['chain'].isin(allchains)])==0, 'ERROR: PTM applied to a chain which does not correspond to a protein'
+
+    # ============= #
+    # WRITE LIGANDS #
+    # ============= #
+
+    if args.ligand == []:
+        args.ligand = curr_ligands
+    
+    curr_ligands = pd.DataFrame(curr_ligands[::-1], columns=['CCD'])
+
+    # Open file for CCD library
+    # -------------------------
+
+    exists = os.path.exists('{}_CCD.cif'.format(args.title)) # Check if file already exists
+    if exists:
+        backup = glob('#{}_CCD.cif.*#'.format(args.title))
+        subprocess.run(['scp', '{}_CCD.cif'.format(args.title), '#{}_CCD.cif.{}#'.format(args.title, len(backup)+1)])
+
+    CIF = open('{}_CCD.cif'.format(args.title), 'w')
+
+    bonded_pairs = []
+                        
+    # First need to consider if any of the ligands to add are covalently bonded as these are the most difficult!
+
+    ligs     = FuncPos.get_components(args.ligand)
+    ligands  = Counter(ligs)
+    for PTM in set(add_PTMs):
+        ligands[PTM] = 0
+    add_json = {lig: True for lig in list(ligands.keys())}
+        
+    inCIF   = {}
+
+    base = '# INFO: CCD codes will be pulled from '
+    if args.no_CCD2MD:
+        base = base + 'the ligands just converted.' if len(args.userCCDPath)==0 else base + '(in order): the ligands just converted; and the ligands in {}.'.format(', '.join(args.userCCDPath))
+    else:
+        base += '(in order): the ligands just converted;'
+        if len(args.userCCDPath)!=0:
+            base += ' the ligands in {}; '.format(', '.join(args.userCCDPath))
+        base += ' and the ligands in CCD2MD.cif.' 
+        
+    base += ' Ligands present in multiple locations will be added from the first location. Any ligands not present will be assumed to be conventional CCD codes.'
+
+    print(base)                                                                                                                                                                                                                 
+    
+    # Read inputs
+    # Consider in the order:
+    # 1. Ligands defined in this session (start with covalent)
+    # 2. Ligands in path specified locations
+    # 3. Ligands in CCD2MD.cif
+
+    # Check ligands defined in this session
+    # --------------------------------------
+
+    this_session = list(curr_ligands.loc[curr_ligands['CCD'].isin(add_json)].to_numpy().flatten())
+        
+    for lig in this_session:
+        currlig = open('{}_output.cif'.format(lig), 'r').read()
+
+        numligs = ligands.pop(lig)
+        
+        lig_chains = allchains[:numligs]
+        allchains  = allchains[numligs:]
+
+        if currlig[0] == '{':
+            
+            json, CIF, inCIF, bonding_info = FuncPos.extract_covalent(currlig, lig, json, inCIF, CIF,
+                                                                          args.title, lig_chains, True)
+            bonded_pairs.append(bonding_info)
+
+        else:
+            # Will only be a single ligand
+            if inCIF.get(lig) == None:
+                inCIF[lig] = '{}_output.cif (this session)'.format(lig)
+                CIF.write(currlig)
+            else:
+                print('# WARNING: {} is defined in {}_output.cif but {}_CCD.cif contains a version from ,'.format(lig, lig))
+
+            
+            if len(lig_chains)!=0:    
+                json.write('{"ligand": {"id": ["'+', '.join(lig_chains)+'"], "ccdCodes": ["{}"]}}'.format(lig))
+                
+        if len(ligands) != 0:
+            json.write(',\n\t\t')                
+            
+        add_json[lig] = False
+
+            
+    # Ok, now want to go through the rest of the files and determine what needs to be added
+    # --------------------------------------------------------------------------------------
+
+    for ligfile in args.userCCDPath:
+        currlig = open(ligfile, 'r').read()
+
+        if currlig[0] == '{':
+            # Determine if contents are covalent or not - note assumptions here on name etc.
+
+            test_ligname = ligfile.split('_output.cif')[0]
+            print('# WARNING: Assuming that {} contains a covalently bonded molecule of the name {}'.format(ligfile, test_ligname))
+                
+            # Test if this ligand is to be considered
+            if add_json.get(test_ligname)!=None:
+                if add_json[test_ligname]:
+
+                    numligs = ligands.pop(test_ligname)
+                    
+                    lig_chains = allchains[:numligs]
+                    allchains  = allchains[numligs:]
+                    
+                    json, CIF, inCIF, bonding_info = FuncPos.extract_covalent(currlig, test_ligname, json, inCIF,
+                                                                          CIF, args.title, lig_chains)
+                    bonded_pairs.append(bonding_info)
+
+                    add_json[test_ligname] = False
+                
+                    if len(ligands) != 0:
+                        json.write(',\n\t\t')
+                else:
+                    print('# WARNING: {} is defined in {} but {}_CCD.cif contains a version from {}'.format(test_ligname, ligfile, title, inCIF[ligname]))
+          
+        else:
+                
+            json, add_json, ligands, allchains, CIF, inCIF = FuncPos.extract_ligand(currlig, add_json, allchains,
+                                                                                    inCIF, CIF, json, args.title,
+                                                                                    ligands, ligfile)
+
+                
+    if not args.no_CCD2MD:
+        # Check CCD2MD.cif - no covalent ligands
+
+        currlig = open(os.path.dirname(ccd2md.__file__)+'/CCD2MD.cif', 'r').read()  # Location of CCD2MD
+        # currlig = open('CCD2MD.cif', 'r').read()  # Location of CCD2MD
+
+        json, add_json, ligands, allchains, CIF, inCIF = FuncPos.extract_ligand(currlig, add_json, allchains, inCIF,
+                                                                                CIF, json, args.title, ligands,
+                                                                                'CCD2MD.cif')
+        
+
+    # Add the other ligands, which may represent conventional CCD codes - check if they are not 2/3 letter codes.
+    if len(ligands) != 0:
+        missed_CCD = [code for code in ligands.keys() if len(code) > 3]
+        if len(missed_CCD):
+            print('# WARNING: The CCD codes {} have not been defined - these are presumed to be userCCD codes.')
+        else:
+            print('# INFO: 2/3 letter CCD codes undefined are presumed to be ions/conventional CCD codes.')
+        conventional = list(ligands.keys())
+        for lig in conventional:
+
+            numligs = ligands[lig]
+                        
+            lig_chains = allchains[:numligs]
+            allchains  = allchains[numligs:]    
+
+            if numligs!=0:
+                json.write('{"ligand": {"id": ["'+', '.join(lig_chains)+'"], "ccdCodes": ["{}"]}}'.format(lig))
+            if lig == conventional[-1]:
+                json.write(',\n\t\t')                
+
+    if len(bonded_pairs)!=0:
+        json.write('],\n\t"bondedAtomPairs": [')
+        json.write(',\n'.join(bonded_pairs))
+    
+    json.write(']\n}')            
     json.close()
 
 

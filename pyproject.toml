@@ -10,13 +10,13 @@ maintainers = [{name="Katarina E. Blow",email="katarina.blow@warwick.ac.uk"},{na
 description = "A suite of packages for the conversion of co-folding outputs into simulatable PDB files."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["numpy >= 1.26.4","pandas >= 2.3.1"]
+dependencies = ["numpy >= 1.26.4","pandas >= 2.3.1", "vermouth >= 0.13.0"]
 classifiers = ["Programming Language :: Python :: 3"]
 license = "GPL-3.0"
 license-files = ["LICEN[CS]E*"]
 
 [project.optional-dependencies]
-all = ["vermouth >= 0.13.0", "memprod == 0.0.9", "cg2at-lite == 0.2.3"]
+membrane = ["memprod == 0.0.9", "cg2at-lite == 0.3.1", "mdtraj"]
 
 [project.scripts]
 ccd2at = "ccd2md:ccd2at.main"
@@ -34,7 +34,7 @@ include-package-data = true
 where = ["src"]
 
 [tool.setuptools.package-data]
-"package" = ["Ref_data/*", "MemPrO/**/*", "martini/*", "charmm36-ccd2md.ff/*"]
+"package" = ["Ref_data/*", "MemPrO/**/*", "martini/*", "charmm36-ccd2md.ff/* mdp_files/*"]
 
 
 [tool.setuptools.dynamic]

@@ -1,0 +1,113 @@
+# Example of a configuration file for pos2cif
+
+# Configuration file set-up
+# --------------------------
+
+# Comments are denoted by '#'
+# Fields may be presented in any order
+# Input and output files may be specified as 'input'/'output', 'inputfile'/'outputfile' or 'input file'/'output file'
+# Otherwise, field names are the long or short command line flags - here long names are presented for clarity
+# Additional fields for secondary structure specification and membrane composition have been added for clarity
+# Field names are case-sensitive but may include leading/trailing whitespace
+# Boolean values (true/false) are case-insensitive
+# Field values need not be encased in quotes
+
+
+# All options can also be specified on the command line
+# In the case of lacking definitions, the default will be used (available via the -h flag)
+
+# For options where only one input is allowed, multiple specifications will cause the programme to exit with an error
+
+# For options where multiple lines can be added, all inputs will be concatenated, INCLUDING command line inputs
+# To prevent unintended addition of command line inputs, please set the no_command_line flag to True
+
+# This will raise a warning when a command line input is present for multiply defined arguments only
+# This applies to seeds, protein, ligand, userCCDPath, names, files, rename, covalent
+
+# For singly-defined arguments a dual definition will still cause the programme to exit with an error
+
+#######################################################################################################
+
+# ========================= #
+# Setup information for AF3 #
+# ========================= #
+
+json    = output.json
+title   = test_pos2cif
+afvers  = 2
+seeds   = 1
+dialect = alphafold3 
+
+no_command_line = True
+
+
+# ========================== #
+# System information for AF3 #
+# ========================== #
+
+# All lines starting protein will be concatenated
+protein = protein.fasta 2
+protein = CCDDD AACCS 3
+protein = CCDDD AACCS CCDDD
+# Adds 2 copies of all proteins in "protein.fasta" (each fasta sequence must have a preceeding line starting ">")
+# 4 copies of AACCS and 2 of CCDDD
+
+# Post translational modifications can be specified as below
+post_trans_mod = A 12 LYSM
+post_trans_mod = C 25 CYST D 40 CYSG
+# Where there must be a set of three pieces of information - chain ID, residue ID, PTM CCD code
+# chain IDs start from A (command line precedes configuration file)
+# residue IDs start from 0
+# PTM CCD codes must be specified in some manner if user-defined (either created, or path added to userCCDPath)
+
+# Similarly ligands can be added via multiple lines
+# Currently only CCD codes (either from the CCD/existing userCCD files or created using pos2cif) are accepted
+# Note that the default is that CCD2MD.cif is added automatically, therefore if wishing to use the same ligand
+# name please utilise the no_CCD2MD flag in the userCCD_paths section.
+
+# ONLY in the absence of any ligand information will 1 copy of each converted ligand be added
+ligand = POPE 2
+ligand = ULG1 ULG2 2 ULG3
+ligand = WNZ ULG1 2
+# Adds 2 copies of POPE, 3 of ULG1, and 2 of ULG2 and one ULG3 (all userCCDs) and one of WNZ from the CCD
+
+# Paths for userCCD codes which already exist can be specified via
+# NOTE: what happens for multiple??? Can I add multiple or would I need to concatenate?
+userCCDPath = ../ULG1_userCCD.cif
+userCCDPath = ULG2_userCCD.cif /full/path/to/POPE_userCCD.cif
+# Where all lines are concatenated
+
+# By default, the CCD2MD.cif file from CCD2MD is added to the working directory and added to the path
+# If this is NOT intended behaviour (e.g. wishing to overwrite a name specified in CCD2MD) please add
+no_CCD2MD   = True
+
+# Please note that pos2cif will make no checks on the number of tokens requested
+
+# ========================== # 
+# CIF generation information #
+# ========================== # 
+
+# Names and relevant files for molecules to convert can be added via multiple lines
+# All lines will be concatenated
+
+# Please note that unlike previous instances of pos2cif it is now possible to convert
+# a ligand and NOT add it to the AF3 output
+
+names = ULG3 ULG4
+names = ULG5
+
+files = ULGs.pdb ULGs.rtp
+
+rename = ULG3 ULIG 
+
+covalent = covalent.pdb covalent.itp covalent2.mol
+
+
+# =========================================== #
+# Optional arguments/cutoffs for CCD creation # 
+# =========================================== #
+
+charge   = 0.9
+bond     = 3
+Hydrogen = True
+

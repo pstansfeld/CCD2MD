@@ -1,0 +1,134 @@
+# Example of a configuration file for ccd2cg
+
+# Configuration file set-up
+# --------------------------
+
+# Comments are denoted by '#'
+# Fields may be presented in any order
+# Input and output files may be specified as 'input'/'output', 'inputfile'/'outputfile' or 'input file'/'output file'
+# Otherwise, field names are the long or short command line flags - here long names are presented for clarity
+# Additional fields for secondary structure specification and membrane composition have been added for clarity
+# Field names are case-sensitive but may include leading/trailing whitespace
+# Boolean values (true/false) are case-insensitive
+# Field values need not be encased in quotes
+
+
+# All options can also be specified on the command line
+# In the case of multiple definitions, the programme will present an error message and exit
+# In the case of lacking definitions, the default will be used (available via the -h flag)
+
+##############################################################################################
+
+# ================ # 
+# Base information #
+# ================ # 
+
+title       = Example project    # This will be appended to the TITLE field of pdb files - optional
+input       = input_file.cif     
+outputfile  = output_file.pdb   
+
+SMILES = POES 2 ...    # SMILES strings in co-folding output
+# or
+SMILES = POES POES ...
+
+conc   = 0.15          # Ionic concentration, applicable to membrane-embedded and non-membrane embedded proteins
+
+# ========================== # 
+# Coarse-graining arguments  #
+# ========================== #
+
+newlipidome = True        
+martinize   = -scfix -dssp dssp ... # Arguments for martinize excluding secondary structure information
+
+# Secondary structure information
+# -------------------------------
+
+# Note that there may be issues when trying to post-process using a go-network
+
+# Specifying e.g. an elastic network with default arguments is done as
+ secondary structure = elastic
+# or
+secondary structure = -E
+# or
+secondary structure = --elastic
+# noting the '--' for elastic ('-elastic' or 'E' will cause issues)
+
+# Specifying additional arguments can be done e.g. for a go network as 
+secondary structure            = --go -go-eps 9.5 ...
+# or
+secondary structure            = go
+secondary structure additional = -go-eps 9.5 ...
+# If both are specified, anything in 'secondary structure additional' will be appended to martinize2 after
+# the informtaion in 'secondary structure'
+
+
+# =============================== # 
+# Membrane embedding information  #
+# =============================== # 
+
+# Specifying membrane embedding may be done as
+membrane = True
+# or
+membrane = -micelle ... # Specifying additional parameters to pass to Insane4MemPrO
+
+conc     = 0.15
+mempro   = -ni 10 ...
+memprod  = -k1 5 ...
+num_cpus = 4
+
+
+# Membrane composition
+# --------------------
+
+# Membrane composition may be specified via the membrane flag, e.g.
+# membrane = -u POPE:7 -u POPG:2 -u CARD:1 -l POPE:7 -l POPG:2 -l CARD:1
+# Noting that there should only be one membrane definition
+# Alternatively it may be specified through the new composition fields, e.g.
+lower leaflet composition = POPE:7 POPG:2 CARD:1
+#upper leaflet composition = POPE:7 POPG:2 CARD:1
+# Here, the ':' may be replaced by whitespace, although the lipid name must preceed the ratio e.g.
+#lower leaflet composition = POPE 7 POPG 2 CARD 1
+# upper leaflet composition = POPE 7 POPG 2 CARD 1
+upper leaflet composition = POPE 
+# As in Insane4MemPrO if an upper leaflet composition is not given, the lower leaflet specification is used for both leaflets
+
+
+# ======================= # 
+# Simulation box creation # 
+# ======================= # 
+
+# Creates a solvated simulation box with ions for a non-membrane protein
+# To just create a box with the default parameters, either
+box     = True
+# or
+solvate = True
+# or
+ions    = True
+
+# For greater control of simulation box properties
+box     = -bt triclinic -center 10 10 10 ...   # editconf options to create box
+solvate = -shell 1 -maxsol 30 ...              # solvate options - note this overwrites ALL defaults
+ions    = -pname CA -pq 2 ...                  # genion options  
+
+
+# ============== #
+# MD information #
+# ============== #
+
+# For non-membrane embedded proteins, the inclusion of any MD steps will force simulation box creation
+# The presence of run_AA_equil will force generation of tpr with defaults (i.e. AA_equil = True)
+# (equivalent for CG_equil/CG_energy_minimise/AA_energy_minimise)
+# Energy minimisation will be forced if equilibration/production selected
+# Equilibration can be skipped, but will be run if AA_equil and AA_prod (equivalently CG_equil/CG_prod) are present
+
+make_ndx = True # Note that making an ndx file is currently interactive ONLY
+
+# CG options - used for final step of ccd2cg
+# ------------------------------------------
+
+CG_energy_minimise     = -f CG_em_script.mdp    # True/grompp options for generating EM tpr
+run_CG_energy_minimise = True                   # True/mdrun options for EM tpr
+CG_equil               = -f CG_equil_script.mdp # True/grompp options for generating equilibration tpr
+run_CG_energy_minimise = -v                     # True/mdrun options for EM tpr
+CG_prod                = -f CG_10us_script.mdp  # True/grompp options for generating production tpr (at2cg/ccd2cg only)
+
