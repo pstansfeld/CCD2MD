@@ -161,8 +161,11 @@ def main():
         mempro_output, title, cryst = FuncConv.read_GRO(basename+'_MemPrO/Rank_1/CG_System_rank_1/CG-system.gro')
         
         FuncConv.write_PDB(args.outputfile, mempro_output, title=title, cryst=cryst, ligand_chains=False)
+        subprocess.run(['scp', basename+'_MemPrO/Rank_1/CG_System_rank_1/CG-system.gro', '.'], check=True)
+        final = 'CG-system.gro'
     
     FuncConv.get_topology_CG(args.outputfile, args.membrane, ligands, prot, args.inputfile, newlipidome=args.newlipidome)
+    topol = "topol.top"
 
     # For globular proteins, add to box if specified OR performing MD
     # ----------------------------------------------------------------
@@ -216,14 +219,16 @@ def main():
         output_dir = '/'.join(args.outputfile.split('/')[:-1])
         suffix     = '_lip' if args.membrane else '_prot'
         
-        # Generate and run AA energy minimisation file
+        # Generate and run CG energy minimisation file
 
         if args.CG_equil or args.CG_prod:
             command_line = np.append(command_line, ['-rCGEM'])
             args.run_CG_energy_minimise = True
-        
-        em_name = FuncConv.make_gmx(final, command_line, 'CGEM', args.gmx, ndx=ndx,
-                                    run=args.run_AA_energy_minimise, topol=topol)
+
+        import os
+        print(f"[ccd2cg] Working directory: {os.getcwd()}")
+
+        em_name = FuncConv.make_gmx(final, command_line, 'CGEM', args.gmx, ndx=ndx, run=args.run_CG_energy_minimise, topol=topol)
         CG_name = em_name
 
         if args.CG_equil:
@@ -232,10 +237,8 @@ def main():
                 args.run_CG_equil = True
                 command_line = np.append(command_line, ['-rCGeq'])
             
-            eq_name = FuncConv.make_gmx(em_name, command_line, 'CGeq'+suffix, args.gmx,
-                                        ndx=ndx, run=args.run_AA_equil, topol=topol)
+            eq_name = FuncConv.make_gmx(em_name, command_line, 'CGeq'+suffix, args.gmx, ndx=ndx, run=args.run_CG_equil, topol=topol)
             CG_name = eq_name
-
 
         if args.CG_prod:
             # Generate production data
