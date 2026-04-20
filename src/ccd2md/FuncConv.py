@@ -2524,9 +2524,9 @@ def get_topology_atomistic(outputfile, membrane, executable, at_command=None, ou
 
         curr_sys = platform.system()
         if curr_sys == 'Darwin' or curr_sys == 'darwin':
-            subprocess.run(['sed', '-i', '', r's|../FINAL/charmm36-cg2at.ff|charmm36-ccd2md.ff|g', 'topol.top'])
+            subprocess.run(['sed', '-i', '', r's|../FINAL/charmm36-cg2at.ff|charmm36-cg2at.ff|g', 'topol.top'])
         else:
-            subprocess.run(['sed', '-i', r's|../FINAL/charmm36-cg2at.ff|charmm36-ccd2md.ff|g', 'topol.top'])
+            subprocess.run(['sed', '-i', r's|../FINAL/charmm36-cg2at.ff|charmm36-cg2at.ff|g', 'topol.top'])
         
         final = outputfile
         topol = 'topol.top'
