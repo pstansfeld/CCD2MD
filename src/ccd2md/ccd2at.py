@@ -272,6 +272,7 @@ def main():
                                      args.newlipidome)
            
         subprocess.run(['scp', basename+'_CG2AT/FINAL/final_cg2at_aligned.pdb', args.outputfile])
+		subprocess.run(['scp', '-r', f'{basename}_CG2AT/FINAL/charmm36-cg2at.ff', '.'], check=True)
     
     if args.membrane or not args.pdb2gmx:
         final, topol = FuncConv.get_topology_atomistic(args.outputfile, args.membrane, args.gmx,
