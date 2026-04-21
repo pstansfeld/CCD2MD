@@ -1,5 +1,8 @@
 Name,                            CCDName, CHARMMName, CGName
 ATP,                               ATP,       ATP
+ATP_user,                          ATP,       ATP      
+ADP,                               ADP,       ADP
+ADP_user,                          ADP,       ADP      
 CARD_user,                        CARD,      CARD,     CARD
 CHL1,                              CLR,      CHL1,     CHL1
 CHL1_user,                        CHL1,      CHL1,     CHL1
@@ -43,8 +46,6 @@ LIP1_user,                        LIP1,      LIP1,     LIP1
 LIP2_user,                        LIP2,      LIP2,     LIP2
 LIP3_user,                        LIP3,      LIP3,     LIP3
 LIPA_user,                        LIPA,      LIPA,     LIPA
-LPG_user,                          LPG,       LPG,      LPG
-LPE_user,                          LPE,       LPE,      LPE
 BOG1,                              BOG,      BOG1
 BOG1_user,                        BOG1,      BOG1
 POP1_user,                        POP1,      POP1,     POP1

@@ -7,7 +7,7 @@
 '''
 General file for functions to write userCCD fields and AF3 inputs
 
-Last Update: K Blow 02/04/26
+Last Update: K Blow 21/04/26
 
 Contains:
 
@@ -64,7 +64,7 @@ extract_ligand(currlig, lig_check, allchains, inCIF, CIF, json, title, lignums, 
 
 '''
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 
 import sys
@@ -980,8 +980,6 @@ def get_bonds(name, bonding_files, charge):
             continue
 
         data = data.replace('\t', '    ')
-
-        print(bonds)
         
         if bndfl[-3:]== 'rtp':
             descript, bonds, charges = read_rtp_bonding(data, name, charge)

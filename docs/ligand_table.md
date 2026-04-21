@@ -4,6 +4,8 @@ A list of the ligands currently natively available for conversion within CCD2MD.
 
 | Name                       | CCDName | CHARMMName | CGName | Note                                                                 |  
 | -------------------------- | ------- | ---------- | ------ | -------------------------------------------------------------------- |
+| ADP                        |   ADP   |     ADP    |        |                                                                      |
+| ATP                        |   ATP   |     ATP    |        |                                                                      |
 | Cardiolipin                |         |    CARD    |  CARD  | Palmitoyl-oleoyl cardiolipin (POCL2), new lipidome mapping available |
 | Cholesterol                |   CLR   |    CHL1    |  CHL1  | New lipidome mapping available                                       |
 | DGPC                       |         |    DGPC    |  DGPC  | New lipidome mapping available                                       |
