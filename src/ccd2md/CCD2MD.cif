@@ -9531,6 +9531,188 @@ C5 C6 SING N
 C6 C7 SING N
 C7 C8 SING N
 #
+data_LPG
+#
+_chem_comp.id LPG
+_chem_comp.name 'None'
+_chem_comp.type lipid
+_chem_comp.formula ?
+_chem_comp.mon_nstd_parent_comp_id ?
+_chem_comp.pdbx_synonyms ?
+_chem_comp.formula_weight ?
+#
+loop_
+_chem_comp_atom.comp_id
+_chem_comp_atom.atom_id
+_chem_comp_atom.type_symbol
+_chem_comp_atom.charge
+_chem_comp_atom.pdbx_leaving_atom_flag
+_chem_comp_atom.pdbx_model_Cartn_x_ideal
+_chem_comp_atom.pdbx_model_Cartn_y_ideal
+_chem_comp_atom.pdbx_model_Cartn_z_ideal
+LPG C13 C 0 N 13.002 -3.407 -2.721
+LPG OC3 O 0 N 13.762 -4.597 -2.561
+LPG C12 C 0 N 11.773 -3.405 -1.784
+LPG OC2 O 0 N 10.982 -2.252 -2.051
+LPG C11 C 0 N 12.155 -3.445 -0.283
+LPG P P 0 N 11.151 -3.490 2.089
+LPG O13 O 0 N 11.641 -4.821 2.514
+LPG O14 O 0 N 11.942 -2.308 2.497
+LPG O12 O 0 N 10.976 -3.484 0.513
+LPG O11 O 0 N 9.662 -3.303 2.593
+LPG C1 C 0 N 8.598 -4.063 2.034
+LPG C2 C 0 N 7.517 -3.123 1.447
+LPG O21 O 0 N 6.384 -3.927 1.076
+LPG C21 C 0 N 5.178 -3.393 1.248
+LPG O22 O 0 N 4.933 -2.308 1.743
+LPG C22 C 0 N 4.126 -4.366 0.714
+LPG C3 C 0 N 8.043 -2.341 0.211
+LPG O31 O 0 N 7.019 -1.544 -0.402
+LPG C23 C 0 N 2.725 -3.742 0.828
+LPG C24 C 0 N 1.615 -4.664 0.299
+LPG C25 C 0 N 0.214 -4.044 0.415
+LPG C26 C 0 N -0.900 -4.965 -0.104
+LPG C27 C 0 N -2.300 -4.345 0.023
+LPG C28 C 0 N -3.417 -5.275 -0.488
+LPG C29 C 0 N -4.785 -4.653 -0.361
+LPG C210 C 0 N -5.760 -5.091 0.455
+LPG C211 C 0 N -7.127 -4.467 0.586
+LPG C212 C 0 N -8.253 -5.411 0.119
+LPG C213 C 0 N -9.651 -4.790 0.271
+LPG C214 C 0 N -10.779 -5.727 -0.187
+LPG C215 C 0 N -12.176 -5.109 -0.029
+LPG C216 C 0 N -13.305 -6.047 -0.482
+LPG C217 C 0 N -14.703 -5.430 -0.322
+LPG C218 C 0 N -15.846 -6.347 -0.767
+#
+loop_
+_chem_comp_bond.atom_id_1
+_chem_comp_bond.atom_id_2
+_chem_comp_bond.value_order
+_chem_comp_bond.pdbx_aromatic_flag
+C13 OC3 SING N
+C13 C12 SING N
+C12 OC2 SING N
+C12 C11 SING N
+C11 O12 SING N
+P O13 SING N
+P O14 SING N
+P O12 SING N
+P O11 SING N
+O11 C1 SING N
+C1 C2 SING N
+C2 O21 SING N
+C2 C3 SING N
+O21 C21 SING N
+C21 O22 SING N
+C21 C22 SING N
+C22 C23 SING N
+C3 O31 SING N
+C23 C24 SING N
+C24 C25 SING N
+C25 C26 SING N
+C26 C27 SING N
+C27 C28 SING N
+C28 C29 SING N
+C29 C210 DOUB N
+C210 C211 SING N
+C211 C212 SING N
+C212 C213 SING N
+C213 C214 SING N
+C214 C215 SING N
+C215 C216 SING N
+C216 C217 SING N
+C217 C218 SING N
+#data_LPE
+#
+_chem_comp.id LPE
+_chem_comp.name 'None'
+_chem_comp.type lipid
+_chem_comp.formula ?
+_chem_comp.mon_nstd_parent_comp_id ?
+_chem_comp.pdbx_synonyms ?
+_chem_comp.formula_weight ?
+#
+loop_
+_chem_comp_atom.comp_id
+_chem_comp_atom.atom_id
+_chem_comp_atom.type_symbol
+_chem_comp_atom.charge
+_chem_comp_atom.pdbx_leaving_atom_flag
+_chem_comp_atom.pdbx_model_Cartn_x_ideal
+_chem_comp_atom.pdbx_model_Cartn_y_ideal
+_chem_comp_atom.pdbx_model_Cartn_z_ideal
+LPE N N 0 N 0.495 -10.236 -0.368
+LPE C12 C 0 N 1.505 -10.606 0.686
+LPE C11 C 0 N 2.906 -10.847 0.095
+LPE P P 0 N 3.730 -9.519 -2.007
+LPE O13 O 0 N 5.119 -9.958 -2.266
+LPE O14 O 0 N 2.650 -10.181 -2.774
+LPE O11 O 0 N 3.628 -7.958 -2.244
+LPE O12 O 0 N 3.434 -9.648 -0.457
+LPE C1 C 0 N 4.245 -7.035 -1.355
+LPE C2 C 0 N 3.191 -6.053 -0.788
+LPE O21 O 0 N 3.885 -5.039 -0.042
+LPE C21 C 0 N 3.374 -3.811 -0.065
+LPE O22 O 0 N 2.407 -3.445 -0.708
+LPE C22 C 0 N 4.199 -2.916 0.860
+LPE C3 C 0 N 2.165 -6.779 0.124
+LPE O31 O 0 N 1.216 -5.871 0.705
+LPE C23 C 0 N 3.592 -1.504 0.910
+LPE C24 C 0 N 4.357 -0.560 1.851
+LPE C25 C 0 N 3.756 0.853 1.904
+LPE C26 C 0 N 4.506 1.792 2.862
+LPE C27 C 0 N 3.907 3.206 2.910
+LPE C28 C 0 N 4.654 4.140 3.881
+LPE C29 C 0 N 4.053 5.525 3.915
+LPE C210 C 0 N 4.611 6.660 3.452
+LPE C211 C 0 N 5.971 6.798 2.811
+LPE C212 C 0 N 5.927 6.619 1.282
+LPE C213 C 0 N 7.309 6.762 0.625
+LPE C214 C 0 N 7.273 6.578 -0.900
+LPE C215 C 0 N 8.656 6.719 -1.555
+LPE C216 C 0 N 8.622 6.535 -3.080
+LPE C217 C 0 N 10.004 6.677 -3.735
+LPE C218 C 0 N 9.996 6.499 -5.256
+#
+loop_
+_chem_comp_bond.atom_id_1
+_chem_comp_bond.atom_id_2
+_chem_comp_bond.value_order
+_chem_comp_bond.pdbx_aromatic_flag
+N C12 SING N
+C12 C11 SING N
+C11 O12 SING N
+P O13 SING N
+P O14 SING N
+P O11 SING N
+P O12 SING N
+O11 C1 SING N
+C1 C2 SING N
+C2 O21 SING N
+C2 C3 SING N
+O21 C21 SING N
+C21 O22 SING N
+C21 C22 SING N
+C22 C23 SING N
+C3 O31 SING N
+C23 C24 SING N
+C24 C25 SING N
+C25 C26 SING N
+C26 C27 SING N
+C27 C28 SING N
+C28 C29 SING N
+C29 C210 DOUB N
+C210 C211 SING N
+C211 C212 SING N
+C212 C213 SING N
+C213 C214 SING N
+C214 C215 SING N
+C215 C216 SING N
+C216 C217 SING N
+C217 C218 SING N
+#
+#
 data_ADP
 #
 _chem_comp.id ADP

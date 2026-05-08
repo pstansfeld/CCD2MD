@@ -46,6 +46,8 @@ LIP1_user,                        LIP1,      LIP1,     LIP1
 LIP2_user,                        LIP2,      LIP2,     LIP2
 LIP3_user,                        LIP3,      LIP3,     LIP3
 LIPA_user,                        LIPA,      LIPA,     LIPA
+LPG_user,                          LPG,       LPG,      LPG
+LPE_user,                          LPE,       LPE,      LPE
 BOG1,                              BOG,      BOG1
 BOG1_user,                        BOG1,      BOG1
 POP1_user,                        POP1,      POP1,     POP1
@@ -55,6 +57,7 @@ POP4_user,                        POP4,      POP4,     POP4
 POP5_user,                        POP5,      POP5,     POP5
 POP6_user,                        POP6,      POP6,     POP6
 POP7_user,                        POP7,      POP7,     POP7
+SAP6_user,                        SAP6,      SAP6,     SAP6
 POPA,                              D21,      POPA,     POPA
 POPA_user,                        POPA,      POPA,     POPA
 POPC,                              POV,      POPC,     POPC
