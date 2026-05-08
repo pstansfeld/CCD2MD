@@ -49926,7 +49926,313 @@
   [ impropers ]
       C21   O21   C22   O22
       C31   O31   C32   O32
-
+[ SAP6 ]
+; Phosphatidylinositol-(4,5)-bisphosphate (PIP2) with protonation on P4
+  [ atoms ]
+      C12   CC3161  0.1400   1
+       H2     HCA1  0.0900   1
+       O2    OC311 -0.6500   1
+      HO2     HCP1  0.4200   1
+      C13   CC3161  0.1400   2
+       H3     HCA1  0.0900   2
+       O3    OC311 -0.6500   2
+      HO3     HCP1  0.4200   2
+      C14   CC3161  0.0100   3
+       H4     HCA1  0.0900   3
+       O4    OC30P -0.6200   3
+       P4       PC  1.5000   3
+     OP42    OC312 -0.6800   3
+     HP42     HCP1  0.3400   3
+     OP43    OC2DP -0.8200   3
+     OP44    OC2DP -0.8200   3
+      C15   CC3161 -0.0900   4
+       H5     HCA1  0.0900   4
+       O5    OC30P -0.4000   4
+       P5       PC  1.1000   4
+     OP52    OC2DP -0.9000   4
+     OP53    OC2DP -0.9000   4
+     OP54    OC2DP -0.9000   4
+      C16   CC3161  0.1400   5
+       H6     HCA1  0.0900   5
+       O6    OC311 -0.6500   5
+      HO6     HCP1  0.4200   5
+      C11   CC3161 -0.0800   6
+       H1     HCA1  0.0900   6
+        P       PL  1.5900   6
+      O13      O2L -0.7800   6
+      O14      O2L -0.7800   6
+      O12    OC30P -0.5700   6
+      O11     OSLP -0.5700   6
+       C1     CTL2 -0.0800   6
+       HA     HAL2  0.0900   6
+       HB     HAL2  0.0900   6
+       C2     CTL1  0.1700   7
+       HS     HAL1  0.0900   7
+      O21      OSL -0.4900   7
+      C21       CL  0.9000   7
+      O22      OBL -0.6300   7
+      C22     CTL2 -0.2200   7
+      H2R     HAL2  0.0900   7
+      H2S     HAL2  0.0900   7
+       C3     CTL2  0.0800   8
+       HX     HAL2  0.0900   8
+       HY     HAL2  0.0900   8
+      O31      OSL -0.4900   8
+      C31       CL  0.9000   8
+      O32      OBL -0.6300   8
+      C32     CTL2 -0.2200   8
+      H2X     HAL2  0.0900   8
+      H2Y     HAL2  0.0900   8
+      C23     CTL2 -0.1800   9
+      H3R     HAL2  0.0900   9
+      H3S     HAL2  0.0900   9
+      C24     CTL2 -0.1800  10
+      H4R     HAL2  0.0900  10
+      H4S     HAL2  0.0900  10
+      C25     CEL1 -0.1500  11
+      H5R     HEL1  0.1500  11
+      C26     CEL1 -0.1500  12
+      H6R     HEL1  0.1500  12
+      C27     CTL2 -0.1800  13
+      H7R     HAL2  0.0900  13
+      H7S     HAL2  0.0900  13
+      C28     CEL1 -0.1500  14
+      H8R     HEL1  0.1500  14
+      C29     CEL1 -0.1500  15
+      H9R     HEL1  0.1500  15
+     C210     CTL2 -0.1800  16
+     H10R     HAL2  0.0900  16
+     H10S     HAL2  0.0900  16
+     C211     CEL1 -0.1500  17
+     H11R     HEL1  0.1500  17
+     C212     CEL1 -0.1500  18
+     H12R     HEL1  0.1500  18
+     C213     CTL2 -0.1800  19
+     H13R     HAL2  0.0900  19
+     H13S     HAL2  0.0900  19
+     C214     CEL1 -0.1500  20
+     H14R     HEL1  0.1500  20
+     C215     CEL1 -0.1500  21
+     H15R     HEL1  0.1500  21
+     C216     CTL2 -0.1800  22
+     H16R     HAL2  0.0900  22
+     H16S     HAL2  0.0900  22
+     C217     CTL2 -0.1800  23
+     H17R     HAL2  0.0900  23
+     H17S     HAL2  0.0900  23
+     C218     CTL2 -0.1800  24
+     H18R     HAL2  0.0900  24
+     H18S     HAL2  0.0900  24
+     C219     CTL2 -0.1800  25
+     H19R     HAL2  0.0900  25
+     H19S     HAL2  0.0900  25
+     C220     CTL3 -0.2700  26
+     H20R     HAL3  0.0900  26
+     H20S     HAL3  0.0900  26
+     H20T     HAL3  0.0900  26
+      C33     CTL2 -0.1800  27
+      H3X     HAL2  0.0900  27
+      H3Y     HAL2  0.0900  27
+      C34     CTL2 -0.1800  28
+      H4X     HAL2  0.0900  28
+      H4Y     HAL2  0.0900  28
+      C35     CTL2 -0.1800  29
+      H5X     HAL2  0.0900  29
+      H5Y     HAL2  0.0900  29
+      C36     CTL2 -0.1800  30
+      H6X     HAL2  0.0900  30
+      H6Y     HAL2  0.0900  30
+      C37     CTL2 -0.1800  31
+      H7X     HAL2  0.0900  31
+      H7Y     HAL2  0.0900  31
+      C38     CTL2 -0.1800  32
+      H8X     HAL2  0.0900  32
+      H8Y     HAL2  0.0900  32
+      C39     CTL2 -0.1800  33
+      H9X     HAL2  0.0900  33
+      H9Y     HAL2  0.0900  33
+     C310     CTL2 -0.1800  34
+     H10X     HAL2  0.0900  34
+     H10Y     HAL2  0.0900  34
+     C311     CTL2 -0.1800  35
+     H11X     HAL2  0.0900  35
+     H11Y     HAL2  0.0900  35
+     C312     CTL2 -0.1800  36
+     H12X     HAL2  0.0900  36
+     H12Y     HAL2  0.0900  36
+     C313     CTL2 -0.1800  37
+     H13X     HAL2  0.0900  37
+     H13Y     HAL2  0.0900  37
+     C314     CTL2 -0.1800  38
+     H14X     HAL2  0.0900  38
+     H14Y     HAL2  0.0900  38
+     C315     CTL2 -0.1800  39
+     H15X     HAL2  0.0900  39
+     H15Y     HAL2  0.0900  39
+     C316     CTL2 -0.1800  40
+     H16X     HAL2  0.0900  40
+     H16Y     HAL2  0.0900  40
+     C317     CTL2 -0.1800  41
+     H17X     HAL2  0.0900  41
+     H17Y     HAL2  0.0900  41
+     C318     CTL3 -0.2700  42
+     H18X     HAL3  0.0900  42
+     H18Y     HAL3  0.0900  42
+     H18Z     HAL3  0.0900  42
+  [ bonds ]
+      C11    H1
+      C11   C16
+      C11   C12
+      C11   O12
+      C12    H2
+      C12    O2
+       O2   HO2
+      C12   C13
+      C13    H3
+      C13    O3
+       O3   HO3
+      C13   C14
+      C14    H4
+      C14    O4
+       O4    P4
+     OP42    P4
+     OP43    P4
+     OP44    P4
+     OP42  HP42
+      C14   C15
+      C15    H5
+      C15   C16
+      C16    H6
+      C16    O6
+       O6   HO6
+      C15    O5
+       O5    P5
+     OP52    P5
+     OP53    P5
+     OP54    P5
+      O12     P
+        P   O11
+        P   O13
+        P   O14
+      O11    C1
+       C1    HA
+       C1    HB
+       C1    C2
+       C2    HS
+       C2    C3
+       C2   O21
+       C3    HX
+       C3    HY
+       C3   O31
+      O21   C21
+      C21   C22
+      C21   O22
+      C22   H2R
+      C22   H2S
+      C22   C23
+      C23   H3R
+      C23   H3S
+      C23   C24
+      C24   H4R
+      C24   H4S
+      C24   C25
+      C25   H5R
+      C25   C26
+      C26   H6R
+      C26   C27
+      C27   H7R
+      C27   H7S
+      C27   C28
+      C28   H8R
+      C28   C29
+      C29   H9R
+      C29  C210
+     C210  H10R
+     C210  H10S
+     C210  C211
+     C211  H11R
+     C211  C212
+     C212  H12R
+     C212  C213
+     C213  H13R
+     C213  H13S
+     C213  C214
+     C214  H14R
+     C214  C215
+     C215  H15R
+     C215  C216
+     C216  H16R
+     C216  H16S
+     C216  C217
+     C217  H17R
+     C217  H17S
+     C217  C218
+     C218  H18R
+     C218  H18S
+     C218  C219
+     C219  H19R
+     C219  H19S
+     C219  C220
+     C220  H20R
+     C220  H20S
+     C220  H20T
+      O31   C31
+      C31   C32
+      C31   O32
+      C32   H2X
+      C32   H2Y
+      C32   C33
+      C33   H3X
+      C33   H3Y
+      C33   C34
+      C34   H4X
+      C34   H4Y
+      C34   C35
+      C35   H5X
+      C35   H5Y
+      C35   C36
+      C36   H6X
+      C36   H6Y
+      C36   C37
+      C37   H7X
+      C37   H7Y
+      C37   C38
+      C38   H8X
+      C38   H8Y
+      C38   C39
+      C39   H9X
+      C39   H9Y
+      C39  C310
+     C310  H10X
+     C310  H10Y
+     C310  C311
+     C311  H11X
+     C311  H11Y
+     C311  C312
+     C312  H12X
+     C312  H12Y
+     C312  C313
+     C313  H13X
+     C313  H13Y
+     C313  C314
+     C314  H14X
+     C314  H14Y
+     C314  C315
+     C315  H15X
+     C315  H15Y
+     C315  C316
+     C316  H16X
+     C316  H16Y
+     C316  C317
+     C317  H17X
+     C317  H17Y
+     C317  C318
+     C318  H18X
+     C318  H18Y
+     C318  H18Z
+  [ impropers ]
+      C21   O21   C22   O22
+      C31   O31   C32   O32
 [ SAPI25 ]
 ; Phosphatidylinositol-(4,5)-bisphosphate (PIP2) with protonation on P5
   [ atoms ]
