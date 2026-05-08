@@ -7,7 +7,7 @@
 '''
 General file for functions to convert between CCD/CHARMM/Martini files
 
-Last Update: K Blow 30/03/26
+Last Update: PJ Stansfeld 08/05/26
 
 Contains:
 
@@ -236,7 +236,7 @@ base_ptms     = ['CYST', 'CYSD', 'CYSP', 'CYSG', 'CYSF', 'GLYM']
 PTMs          = set(base_ptms + [ptm + '_user' for ptm in base_ptms])
 terminal_PTMs = ['CYST', 'GLYM']
 
-degenerate_names = ['ATP'] # CCD code and CHARMM code the same 
+degenerate_names = ['ATP','ADP'] # CCD code and CHARMM code the same 
 
 # Global information
 # ------------------
