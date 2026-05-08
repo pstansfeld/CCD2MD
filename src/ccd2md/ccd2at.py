@@ -14,6 +14,8 @@ import numpy as np
 import pandas as pd
 from copy import deepcopy
 import sys, subprocess, os
+import gromacs
+from gromacs import grompp, editconf, make_ndx, trjconv, confrms, pdb2gmx, mdrun
 
 def main():
 
@@ -247,7 +249,8 @@ def main():
             
             if args.make_ndx:
                 # Making an ndx file - using CG information
-                subprocess.run([args.gmx, 'make_ndx', '-f', Insane_dir+CG_name, '-o', Insane_dir+'CG-system.ndx'])
+                #subprocess.run([args.gmx, 'make_ndx', '-f', Insane_dir+CG_name, '-o', Insane_dir+'CG-system.ndx'])
+                make_ndx(f=Insane_dir+CG_name, o=Insane_dir+'CG-system.ndx', input=('del 0', 'del 1-40', '0|rW|rNA|rNA+|rCL|rCL-|rION','1&!0','!1','del 1','name 2 Lipid','name 1 SOL_ION','q'),backup=False)
                 ndx = 'CG-system.ndx'
                 
             # Generate topology
@@ -320,8 +323,8 @@ def main():
     if args.make_ndx:
         # Making an ndx file - using AA information
         ndx = '.'.join(final.split('.')[:-1])+'_ndx.ndx'
-        subprocess.run([args.gmx, 'make_ndx', '-f', final, '-o', ndx])
-
+        #subprocess.run([args.gmx, 'make_ndx', '-f', final, '-o', ndx])
+        make_ndx(f=final, o=ndx, input=('del 2-40', '1|rSOL|rNA|rNA+|rCL|rCL-|rION','2&!1','!2','del 2','name 3 Lipid','name 2 water_and_ions','q'),backup=False)
         
     # For globular proteins, add to box if specified OR performing MD
     # ----------------------------------------------------------------

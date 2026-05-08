@@ -7,7 +7,7 @@
 '''
 General file for functions to convert between CCD/CHARMM/Martini files
 
-Last Update: K Blow 21/04/26
+Last Update: K Blow 30/03/26
 
 Contains:
 
@@ -103,7 +103,7 @@ get_topology_atomistic(outputfile, membrane, executable, at_command=None, output
 
 '''
 
-__version__ = "1.1.1"
+__version__ = "1.1.0"
 
 import numpy as np
 import pandas as pd
@@ -236,7 +236,7 @@ base_ptms     = ['CYST', 'CYSD', 'CYSP', 'CYSG', 'CYSF', 'GLYM']
 PTMs          = set(base_ptms + [ptm + '_user' for ptm in base_ptms])
 terminal_PTMs = ['CYST', 'GLYM']
 
-degenerate_names = ['ATP', 'ADP'] # CCD code and CHARMM code the same 
+degenerate_names = ['ATP'] # CCD code and CHARMM code the same 
 
 # Global information
 # ------------------
@@ -736,6 +736,7 @@ def read_in(inputfile, in_title):
     elif inputfile[-3:] == 'gro':
         tmp, title, cryst = read_GRO(inputfile)
     else:
+        print('pdb')
         if inputfile[-3:] != 'pdb':
             print('# WARNING: Assuming that input file {} is written in PDB style despite file extension'.format(inputfile))
         tmp, title, cryst = read_PDB(inputfile)

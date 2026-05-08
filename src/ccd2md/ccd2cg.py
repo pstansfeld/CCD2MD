@@ -13,6 +13,8 @@ import pandas as pd
 import numpy as np
 from copy import deepcopy
 import sys, subprocess
+import gromacs
+from gromacs import grompp, editconf, make_ndx, trjconv, confrms, pdb2gmx, mdrun
 
 def main():
 
@@ -198,7 +200,8 @@ def main():
         
     if args.make_ndx:
         # Making an ndx file - using CG information
-        subprocess.run([args.gmx, 'make_ndx', '-f', Insane_dir+CG_name, '-o', Insane_dir+'CG-system.ndx'])
+        #subprocess.run([args.gmx, 'make_ndx', '-f', Insane_dir+CG_name, '-o', Insane_dir+'CG-system.ndx'])
+        make_ndx(f=final, o='CG-system.ndx', input=('del 0', 'del 1-40', '0|rW|rNA|rNA+|rCL|rCL-|rION','1&!0','!1','del 1','name 2 Lipid','name 1 SOL_ION','q'),backup=False)
         ndx = 'CG-system.ndx'
 
     # Optionally, energy minimise and/or equilibrate CG system and/or make production tpr
