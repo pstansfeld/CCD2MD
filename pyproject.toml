@@ -10,7 +10,7 @@ maintainers = [{name="Katarina E. Blow",email="katarina.blow@warwick.ac.uk"},{na
 description = "A suite of packages for the conversion of co-folding outputs into simulatable PDB files."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = ["numpy >= 1.26.4","pandas >= 2.3.1", "vermouth >= 0.13.0"]
+dependencies = ["numpy >= 1.26.4","pandas >= 2.3.1", "vermouth >= 0.13.0", "gromacswrapper >= 0.9.2"]
 classifiers = ["Programming Language :: Python :: 3"]
 license = "GPL-3.0"
 license-files = ["LICEN[CS]E*"]
