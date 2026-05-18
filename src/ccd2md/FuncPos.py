@@ -64,7 +64,7 @@ extract_ligand(currlig, lig_check, allchains, inCIF, CIF, json, title, lignums, 
 
 '''
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 
 import sys

@@ -103,7 +103,7 @@ get_topology_atomistic(outputfile, membrane, executable, at_command=None, output
 
 '''
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 import numpy as np
 import pandas as pd

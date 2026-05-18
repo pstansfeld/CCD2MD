@@ -23,7 +23,7 @@ A schematic for the use of pos2cif is presented below. The arguments -CF and -nc
 
 `-f/--files <files> ...` gives the name of position (required) and bonding (optional) files for the ligands to be converted. Position files may be .pdb, .crd, .gro, or .mol2 with additional bonding information provided by .rtp, .rtf, or .itp files. Position files may contain information for several ligands, but should only include one copy of the ligand of interest.
 
-`-r/--rename (<old> <new>) ...` allows ligands to have a different userCCD name than in the original file. For each ligand to be renamed, `old` is the name in the position file, and `new` is the desired output name
+`-r/--rename (<old> <new>) ...` allows ligands to have a different userCCD name than in the original file. For each ligand to be renamed, `old` is the name in the position file, and `new` is the desired output name. When using the output of this in the prediction, use the new name.
 
 `-c/--covalent ((<pdb> <itp>) | <mol2>) ...` gives either a .pdb and .itp file (note, that this must follow the .pdb then .itp order) or a .mol2 file for every covalently bonded ligand to be added to the system. Note that in contrast to the files for single component ligands, these files should include information for the covalently bonded ligand only.
 
@@ -41,7 +41,7 @@ A schematic for the use of pos2cif is presented below. The arguments -CF and -nc
 
 `-ptm/--post_trans_mod (<chain resID CCD>) ...`  adds post-translational modifications in the style `A 12 LYSM` (i.e., chain identifier,  residue ID position of PTM on chain, CCD code for specified PTM). Protein chains are labelled in alphabetical order starting from A, residue IDs start from 1, and CCD codes may be conventional or userCCD. PTMs can bespecified on the command line in addition to the configuration file.
 
-`-l/--ligand (<ligand> | (<ligand> <N>)) ...` adds ligands to json file in CCD format. Numbers can be inserted to detail how many of the CCD code should be added. If no ligands are explicitly added, one copy of every ligand for which a userCCD code is created (see [below](https://github.com/keb721/CCD2MD/blob/main/docs/pos2cif_docs.md#cif-generation)) is added. Ligands can be specified on the command line in addition to the configuration file.
+`-l/--ligand (<ligand> | (<ligand> <N>)) ...` adds ligands to json file in CCD format. Numbers can be inserted to detail how many of the CCD code should be added. If no ligands are explicitly added, one copy of every ligand for which a userCCD code is created (see [below](https://github.com/keb721/CCD2MD/blob/main/docs/pos2cif_docs.md#cif-generation)) is added. Ligands can be specified on the command line in addition to the configuration file. Please note, that for non-default addition of renamed lipids the new name must be used.
 
 `-u/--userCCDPath <userCCDfile> ...` gives the path to files containing userCCD information, from which relevant information for userCCD codes added via the `-l` flag can be read. All relevant userCCD information for the specified system (from converted ligands, ligands present in files added via this flag, and ligands in CCD2MD.cif) are added to {title}_CCD.cif. Specified files may contain userCCD information for mutltiple ligands, or a single covalently bonded ligand. If a single covalently bound ligand is expected, this must take the form of a userCCD field and a following bondedAtomPairs field - files produced by pos2cif follow this required format. UserCCDfiles can be specified on the command line in addition to the configuration file.
 
@@ -53,7 +53,7 @@ A schematic for the use of pos2cif is presented below. The arguments -CF and -nc
 
 `-t/--title <title>` gives the name of the system to be passed to the output json file. The default is pos2cif_system. All relevant userCCD codes are added to {title}_CCD.cif.
 
-`-A/--afvers <version>` gives the version number to be output in the json file. The default is 4.
+`-A/--afvers <version>` gives the version number to be output in the json file. The default is 3.
 
 `-s/--seeds <model seed> ...` gives the model seeds to pass to AF3 - these need not be comma separated. The default seed is 1.
 

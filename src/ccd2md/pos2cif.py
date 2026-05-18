@@ -9,7 +9,6 @@
 
 import argparse
 from ccd2md import FuncPos
-import ccd2md
 import pandas as pd
 import numpy as np
 import sys, os, subprocess
@@ -35,10 +34,10 @@ def main():
 
     cif_generation = parser.add_argument_group('CCD code creation information')
 
-    cif_generation.add_argument('-n', '--names',    help='CHARMM code for molecule(s) to convert, note this must not overlap with an existing CCD code.', nargs='+', default = [])
-    cif_generation.add_argument('-r', '--rename',   help='Pair(s) of ligand names in format OLD NEW, where OLD is present in the position files and NEW is the desired new names. Note that this is currently only applicable to userCCD generation, not userCCD usage.', nargs='+', default=[])
-    cif_generation.add_argument('-f', '--files',    help='.gro/.pdb/.crd/.mol2 file(s) containing molecule(s) (note, can contain other moleucles). Optionally may also specify .rtp/.rtf/.itp file(s) containing molecule(s) (note, rtp files can contain other moleucles). If .rtp/.rtf files not provided, bonded information will be inferred from proximty.', nargs='+', default = [])
-    cif_generation.add_argument('-c', '--covalent', help='Position and bonding information for ligands which are to be constructed using covalent modifications. Either mol2 file (including bonding information), or a pair of pdb and itp files.', nargs='+', default = [])
+    cif_generation.add_argument('-n', '--names',    help='CHARMM code for molecule(s) to convert, note this must not overlap with an existing CCD code.', nargs='+', default = [], action='extend')
+    cif_generation.add_argument('-r', '--rename',   help='Pair(s) of ligand names in format OLD NEW, where OLD is present in the position files and NEW is the desired new names. Note that this is currently only applicable to CCD generation, and cannot be used to rename CCD codes in the json file only. When adding renamed lipids to the json file, use the NEW name.', nargs='+', default=[], action='extend')
+    cif_generation.add_argument('-f', '--files',    help='.gro/.pdb/.crd/.mol2 file(s) containing molecule(s) (note, can contain other moleucles). Optionally may also specify .rtp/.rtf/.itp file(s) containing molecule(s) (note, rtp files can contain other moleucles). If .rtp/.rtf files not provided, bonded information will be inferred from proximty.', nargs='+', default = [], action='extend')
+    cif_generation.add_argument('-c', '--covalent', help='Position and bonding information for ligands which are to be constructed using covalent modifications. Either mol2 file (including bonding information), or a pair of pdb and itp files.', nargs='+', default = [], action='extend')
 
     
     opts = parser.add_argument_group('optional arguments/cutoffs for CCD creation')
@@ -50,9 +49,9 @@ def main():
     
     af3_system = parser.add_argument_group('system information for AlphaFold3')
     
-    af3_system.add_argument('-p', '--protein',          help='FASTA protein sequence(s) or file(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2". Fasta files may contain multiple sequences but each sequence must start with an information line beginning ">". "-p Test.fasta 3" will insert three copies of all sequences within "Test.fasta". A mixture of sequences and files may be used.', default = [], nargs='+')
-    af3_system.add_argument('-ptm', '--post_trans_mod',  help='Add post translational modifications. Each PTM should be specified in the style "A 12 LYSM" (i.e., chain resID CCD). Protein chains are labelled in alphabetical order starting from A, resIDs start from 1, and CCD codes must be specified.', default = [], nargs='+')
-    af3_system.add_argument('-l', '--ligand',            help='Ligands (and numbers) to add to the system. These can be userCCD codes or CCD codes. Note that if unset, one copy of every converted ligand will be added.', nargs='+', default = [])
+    af3_system.add_argument('-p', '--protein',          help='FASTA protein sequence(s) or file(s) to add to system. For multiple of the same sequence (e.g. AACCS) can be "AACCS AACCS" or "AACCS 2". Fasta files may contain multiple sequences but each sequence must start with an information line beginning ">". "-p Test.fasta 3" will insert three copies of all sequences within "Test.fasta". A mixture of sequences and files may be used.', default = [], nargs='+', action='extend')
+    af3_system.add_argument('-ptm', '--post_trans_mod',  help='Add post translational modifications. Each PTM should be specified in the style "A 12 LYSM" (i.e., chain resID CCD). Protein chains are labelled in alphabetical order starting from A, resIDs start from 1, and CCD codes must be specified.', default = [], nargs='+', action='extend')
+    af3_system.add_argument('-l', '--ligand',            help='Ligands (and numbers) to add to the system. These can be userCCD codes or CCD codes. Note that if unset, one copy of every converted ligand will be added.', nargs='+', default = [], action='extend')
     af3_system.add_argument('-u', '--userCCDPath',       help='Locations of userCCD files to add. Note that CCD2MD.cif is added automatically unless disabled via the "-nC/--no_CCD2MD" flag.', nargs='+', default = [])
     af3_system.add_argument('-nC', '--no_CCD2MD',        help='Prevent use of CCD2MD.cif.', nargs='?', const=True, default=None)    
 
@@ -61,8 +60,8 @@ def main():
 
     af3_setup.add_argument('-j', '--json',     help='Name of JSON file to write output to. Default = "output.json"', default=None)
     af3_setup.add_argument('-t', '--title',    help='AF3 system title. Default = "pos2cif_system". Will also create a files containing userCCD codes, "{title}_CCD.cif", in current directory', default=None)
-    af3_setup.add_argument('-A', '--afvers',   help='AF3 version. Default = 4', default=None)
-    af3_setup.add_argument('-s', '--seeds',    help='Model seeds - need not be comma separated. Default 1', default = [], nargs='+')
+    af3_setup.add_argument('-A', '--afvers',   help='AF3 version. Default = 3', default=None)
+    af3_setup.add_argument('-s', '--seeds',    help='Model seeds - need not be comma separated. Default 1', default = [], nargs='+', action='extend')
     af3_setup.add_argument('-d', '--dialect',  help='Dialect. Default "alphafold3"', default=None)
     
  
@@ -81,7 +80,7 @@ def main():
                     'Hydrogen' : False,
                     'json'     : 'output.json',
                     'title'    : 'pos2cif_system',
-                    'afvers'   : '4', # Required for CCDPath
+                    'afvers'   : '3', # Required for CCDPath
                     'dialect'  : 'alphafold3'}
 
 
@@ -94,7 +93,7 @@ def main():
         args.seeds = ['1']
 
     curr_ligands = []
-        
+
     # Input parameters parsed
 
     # Determine information for userCCD generation
@@ -229,14 +228,11 @@ def main():
     add_PTMs = []
 
     base_chains = np.array(list(string.ascii_uppercase))
-
-    allchains = list(string.ascii_uppercase)
+    allchains   = list(string.ascii_uppercase)
+    
     for entry in base_chains:
-        allchains.extend(list(entry+base_chains))
-
-    allchains = [str(item) for item in allchains]
-    
-    
+        allchains.extend([entry+chain for chain in base_chains])
+            
     if len(args.protein)==0:
         # Write ligand information only
         if len(args.post_trans_mod) != 0:
@@ -376,7 +372,6 @@ def main():
     base += ' Ligands present in multiple locations will be added from the first location. Any ligands not present will be assumed to be conventional CCD codes.'
 
     print(base)                                                                                                                                                                                                                 
-    
     # Read inputs
     # Consider in the order:
     # 1. Ligands defined in this session (start with covalent)
@@ -409,10 +404,8 @@ def main():
                 CIF.write(currlig)
             else:
                 print('# WARNING: {} is defined in {}_output.cif but {}_CCD.cif contains a version from ,'.format(lig, lig))
-
-            
-            if len(lig_chains)!=0:    
-                json.write('{"ligand": {"id": ["'+', '.join(lig_chains)+'"], "ccdCodes": ["{}"]}}'.format(lig))
+            if len(lig_chains)!=0:
+                json.write('{"ligand": {"id": ["'+('", "'.join(lig_chains))+'"], "ccdCodes": ["{}"]}}'.format(lig))
                 
         if len(ligands) != 0:
             json.write(',\n\t\t')                
@@ -462,8 +455,8 @@ def main():
     if not args.no_CCD2MD:
         # Check CCD2MD.cif - no covalent ligands
 
-        currlig = open(os.path.dirname(ccd2md.__file__)+'/CCD2MD.cif', 'r').read()  # Location of CCD2MD
-        # currlig = open('CCD2MD.cif', 'r').read()  # Location of CCD2MD
+        # currlig = open(os.path.dirname(ccd2md.__file__)+'/CCD2MD.cif', 'r').read()  # Location of CCD2MD
+        currlig = open('CCD2MD.cif', 'r').read()  # Location of CCD2MD
 
         json, add_json, ligands, allchains, CIF, inCIF = FuncPos.extract_ligand(currlig, add_json, allchains, inCIF,
                                                                                 CIF, json, args.title, ligands,
@@ -486,9 +479,12 @@ def main():
             allchains  = allchains[numligs:]    
 
             if numligs!=0:
-                json.write('{"ligand": {"id": ["'+', '.join(lig_chains)+'"], "ccdCodes": ["{}"]}}'.format(lig))
+                json.write('{"ligand": {"id": ["'+('", "'.join(lig_chains))+'"], "ccdCodes": ["{}"]}}'.format(lig))
+
             if lig == conventional[-1]:
-                json.write(',\n\t\t')                
+                json.write('\n\t\t')
+            else:
+                json.write(',\n\t\t')
 
     if len(bonded_pairs)!=0:
         json.write('],\n\t"bondedAtomPairs": [')
