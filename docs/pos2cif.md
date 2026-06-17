@@ -7,7 +7,7 @@ The use of a configuration file is recommended -- an example can be found [here]
 A schematic for the use of pos2cif is presented below. The arguments -CF and -ncl can optionally be used to specify the inputs. For more details, please see the full description below. 
 
 <p align="center">
-  <img width="500" src="pos2cif.svg" alt="pos2cif workflow">
+  <img width="500" src="pos2cif.png" alt="pos2cif workflow">
 </p>
 
 > pos2cif [-CF &lt;config_file&gt;] [-ncl] [-n &lt;ligand&gt; ... -f &lt;files&gt; ...] [-r (&lt;old&gt; &lt;new&gt;) ...] [-c ((&lt;pdb&gt; &lt;itp&gt;) | &lt;mol2&gt;) ...] [-e &lt;charge&gt;] [-b &lt;bond&gt;] [-H] [-p (&lt;protein&gt; | (&lt;protein N &gt;)) ...] [-ptm (&lt;chain resID CCD &gt;) ...] [-l (&lt;ligand&gt; | (&lt;ligand N &gt;)) ...] [-u &lt;userCCDfile&gt; ...] [-nC] [-j &lt;json&gt;] [-t &lt;title&gt;] [-A &lt;afvers&gt;] [-s &lt;seed&gt; ...] [-d &lt;dialect&gt;] 
