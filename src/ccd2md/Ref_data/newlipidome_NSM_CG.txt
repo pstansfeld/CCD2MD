@@ -14,11 +14,15 @@
 
  'AM2' : {'CHARMM' : ['NF', 'C1F', 'OF']},
 
- 'C1B' : {'CHARMM' : ['C2F', 'C3F', 'C4F', 'C5F', 'C6F']},
+ 'C1B' : {'CHARMM' : ['C2F', 'C3F', 'C4F']},
+ 	  				 		
+ 'C2B' : {'CHARMM' : ['C5F', 'C6F', 'C7F', 'C8F']},
+ 	  				 		
+ 'C3B' : {'CHARMM' : ['C9F', 'C10F', 'C11F', 'C12F']},
+ 	  				 		
+ 'D4B' : {'CHARMM' : ['C13F', 'C14F', 'C15F', 'C16F']},
 
- 'C2B' : {'CHARMM' : ['C7F', 'C8F', 'C9F', 'C10F']},
-
- 'C3B' : {'CHARMM' : ['C11F', 'C12F', 'C13F', 'C14F']},
-
- 'C4B' : {'CHARMM' : ['C15F', 'C16F', 'C17F', 'C18F']}
+ 'C5B' : {'CHARMM' : ['C17F', 'C18F', 'C19F', 'C20F']},
+ 
+ 'C6B' : {'CHARMM' : ['C21F', 'C22F', 'C23F', 'C24F']}
 }

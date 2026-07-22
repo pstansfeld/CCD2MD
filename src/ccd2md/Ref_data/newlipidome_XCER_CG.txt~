@@ -1,0 +1,28 @@
+{
+ 'COH' : {'CHARMM' : ['O1', 'C1S']},
+ 
+ 'OH1' : {'CHARMM' : ['C2S', 'C3S', 'O3']},
+ 
+ 'AM2' : {'CHARMM' : ['NF', 'C1F', 'OF']},
+ 
+ 'T1A' : {'CHARMM' : ['C4S', 'C5S', 'C6S']},
+ 
+ 'C2A' : {'CHARMM' : ['C7S', 'C8S', 'C9S', 'C10S']},
+ 
+ 'C3A' : {'CHARMM' : ['C11S', 'C12S', 'C13S', 'C14S']},
+ 
+ 'C4A' : {'CHARMM' : ['C15S', 'C16S', 'C17S', 'C18S']},
+
+ 'C1B' : {'CHARMM' : ['C2F', 'C3F', 'C4F']},
+ 	  				 		 
+ 'C2B' : {'CHARMM' : ['C5F', 'C6F', 'C7F', 'C8F']},
+ 	  				 		 
+ 'C3B' : {'CHARMM' : ['C9F', 'C10F', 'C11F', 'C12F']},
+ 	  				 		 
+ 'C4B' : {'CHARMM' : ['C13F', 'C14F', 'C15F', 'C16F']},
+ 
+ 'C5B' : {'CHARMM' : ['C17F', 'C18F', 'C19F', 'C20F']}, 
+ 
+ 'C6B' : {'CHARMM' : ['C21F', 'C22F', 'C23F', 'C24F']}
+}
+ 

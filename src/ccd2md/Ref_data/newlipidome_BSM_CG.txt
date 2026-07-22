@@ -20,5 +20,7 @@
 
  'C3B' : {'CHARMM' : ['C11F', 'C12F', 'C13F', 'C14F']},
 
- 'C4B' : {'CHARMM' : ['C15F', 'C16F', 'C17F', 'C18F']}
+ 'C4B' : {'CHARMM' : ['C15F', 'C16F', 'C17F', 'C18F']},
+ 
+ 'C5B' : {'CHARMM' : ['C19F', 'C20F', 'C21F', 'C22F']}
 }
